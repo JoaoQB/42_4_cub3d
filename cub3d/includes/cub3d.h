@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/01 17:52:31 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/02 19:44:05 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_h
-#define CUB3d_H
+#ifndef CUB3D_H
+#define CUB3D_H
 
 # include "minilibx-linux/mlx.h"
 # include <stdint.h> // Define integer types, limits, macros
@@ -19,57 +19,64 @@
 # include <stdio.h> // Standard input and output, perror function / Debugging
 # include <math.h> // math functions
 # include <unistd.h> // System calls
-#include <string.h> //TODO make my own string functions
+# include <string.h> //TODO make my own string functions
 
 
-#define PI 3.14159265358979323846
-#define CHUNK_SIZE 16
+# define PI 3.14159265358979323846
 
-#define FOV 120.0
+# define FOV 60
+# define BLOCK_SIZE 64
 # define WIDTH 800 //this will define the number of rays we cast
 # define HEIGHT 800
 
-enum Direction {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST,
-    FLOOR,
-    UNKNOWN
-};
-
-struct s_coord
+typedef enum e_direction
 {
-	double x;
-	double y;
+	NORTH = 90,
+	SOUTH = 270,
+	EAST = 180,
+	WEST = 0,
+	FLOOR,
+	UNKNOWN
+}	t_direction;
+
+typedef struct s_coord
+{
+	double	x;
+	double	y;
 	//double z;
 }	t_coord;
 
-struct s_player
+typedef struct s_player
 {
-	t_coord pos;
-	t_coord dir;
-	double speed;
+	t_coord	pos;
+	t_coord	dir;
+	double	speed;
 }	t_player;
 
+typedef struct s_pov
+{
+	double	x;
+	double	y;
+	double	direction_angle;
+}	t_pov;
 
 typedef struct s_image
 {
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			len_line;
-	int			endian;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		len_line;
+	int		endian;
 }	t_image;
 
 
 typedef struct s_texture
 {
-	char *image_name; //NO SO WE EA C F
-	char *image_path;
-	t_image image_data; //if path, extract to this format
-	int colour; //if no path, try fill with colour
-} t_texture;
+	char	*image_name; //NO SO WE EA C F
+	char	*image_path;
+	t_image	image_data; //if path, extract to this format
+	int		colour; //if no path, try fill with colour
+}	t_texture;
 
 typedef struct s_mlx
 {
@@ -78,35 +85,31 @@ typedef struct s_mlx
 	t_image		img;
 }	t_mlx;
 
+typedef struct s_ray
+{
+	double	half_fov;
+	double	player_height;
+	double	half_width;
+	double	half_height;
+	double	distance_to_projection;
+	double	ray_increment_angle;
+	t_pov	pov;
+}	t_ray;
+
 typedef struct s_game
 {
 	t_mlx		mlx;
 	t_player	player;
-	t_ray		ray[num_rays]; 
+	t_ray		ray;
 	t_texture	texture[6]; // NO SO WE EA C F
 	char		**map;
-} t_game;
+}	t_game;
 
 typedef struct s_data
 {
 	char	*path_to_map;
 	char	*path_to_textures;
 	char	*player;
-} t_data;
-
-typedef struct s_ray
-{
-	t_coord		dir;
-	t_coord		plane;
-	t_coord		pos;
-	t_coord		side_dist;
-	t_coord		delta_dist;
-	t_coord		step;
-	double		perp_wall_dist;
-	int			side;
-	int			line_height;
-	int			draw_start;
-	int			draw_end;
-} t_ray;
+}	t_data;
 
 #endif

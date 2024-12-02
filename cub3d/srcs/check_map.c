@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/01 17:36:22 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:25:40 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 enum Direction get_direction(const char *str) {
-	if (ft_strcmp(str, "NO") == 0) 
+	if (ft_strcmp(str, "NO") == 0)
 		return NORTH;
 	if (ft_strcmp(str, "SO") == 0)
 		return SOUTH;
-	if (ft_strcmp(str, "EA") == 0) 
+	if (ft_strcmp(str, "EA") == 0)
 		return EAST;
-	if (ft_strcmp(str, "WE") == 0) 
+	if (ft_strcmp(str, "WE") == 0)
 		return WEST;
 	if (ft_strcmp(str, "F") == 0)
 		return FLOOR;
-	if (ft_strcmp(str, "C") == 0) 
+	if (ft_strcmp(str, "C") == 0)
 		return CEIL;
 	return UNKNOWN; // Invalid direction
 }
@@ -72,7 +72,7 @@ void remove_line(char *file_str)
 {
 	int j;
 	int i;
-	
+
 	i = 0;
 	//from start of line find EOF or \n
 	while (file_str[i] != '\n' && file_str[i] != '\0')
@@ -135,7 +135,7 @@ bool		extract_map(char *file_str)
 	free(map);
 }
 
-bool		check_map(char *map)
+bool	check_map(char *map)
 {
 	int		i;
 	int		j;
@@ -169,7 +169,7 @@ bool		validate_position(int y, int x)
 	//check if element is contained in the map
 	//flood fill intead or with recursive or with queue structure
 	if (!is_valid(y - 1, x, "01NWES") || !is_valid(y + 1, x, "01NWES"))
-		return (false); 
+		return (false);
 	if (!is_valid(y, x - 1, "01NWES") || !is_valid(y, x + 1, "01NWES"))
 		return (false);
 	if (!is_valid(y - 1, x - 1, "01NWES") || !is_valid(y + 1, x + 1, "01NWES"))

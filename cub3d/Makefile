@@ -6,28 +6,25 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/11/25 16:18:53 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/02 18:00:33 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
+SRC_PATH = ./srcs
 SRC = $(SRC_PATH)/main.c \
-
+	$(SRC_PATH)/ft_raycasting.c \
 
 CC = cc
-MINILIBX_FLAGS= -Lminilibx-linux -l:libmlx_Linux.a -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -Ofast
+MINILIBX_FLAGS= -L./includes/minilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Ofast
 CFLAGS = -Wall -Werror -Wextra -O3 #-Ofast #-g3
 SANITIZE = -g -fsanitize=address
 VALGRIND = --leak-chek=full --show-leak-kinds=all --track-origin=yes --track-fds=yes
 
-SRC_PATH = ./srcs
 OBJ_DIR = ./obj
-
-OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_DIR)%.o)
-
+OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_DIR)/%.o)
 MLX_DIR = ./includes/minilibx-linux
-MLX = make -C $(MLX_DIR)
 
 # Colors
 GREEN = \033[0;32m
@@ -36,15 +33,19 @@ NC = \033[0m # No Color
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(MLX)
+$(NAME): $(OBJ) $(MLX_DIR)/libmlx_Linux.a
 	@echo "$(YELLOW)Linking...$(NC)"
 	$(CC) $(CFLAGS) $(OBJ) $(MINILIBX_FLAGS) -o $(NAME)
 	@echo "$(GREEN)Build successful!$(NC)"
 
-$(OBJ_DIR)%.o: $(SRC_PATH)/%.C
+$(OBJ_DIR)/%.o: $(SRC_PATH)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@echo "$(YELLOW)Compiling $<...$(NC)"
 	$(CC) $(CFLAGS) -I$(MLX_DIR) -c $< -o $@
+
+$(MLX_DIR)/libmlx_Linux.a:
+	@echo "$(YELLOW)Building MiniLibX...$(NC)"
+	$(MAKE) -C $(MLX_DIR)
 
 clean:
 	@echo "$(YELLOW)Cleaning object files...$(NC)"
