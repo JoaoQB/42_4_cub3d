@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/02 18:00:33 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/03 15:54:10 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,11 @@ NAME = cub3d
 
 SRC_PATH = ./srcs
 SRC = $(SRC_PATH)/main.c \
-	$(SRC_PATH)/ft_raycasting.c \
+	$(SRC_PATH)/raycasting/raycasting.c \
+	$(SRC_PATH)/raycasting/raycasting_init.c \
+	$(SRC_PATH)/raycasting/raycasting_utils.c \
+	$(SRC_PATH)/raycasting/raycasting_horizontal.c \
+	$(SRC_PATH)/raycasting/raycasting_vertical.c \
 
 CC = cc
 MINILIBX_FLAGS= -L./includes/minilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Ofast
@@ -39,7 +43,7 @@ $(NAME): $(OBJ) $(MLX_DIR)/libmlx_Linux.a
 	@echo "$(GREEN)Build successful!$(NC)"
 
 $(OBJ_DIR)/%.o: $(SRC_PATH)/%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(@D)
 	@echo "$(YELLOW)Compiling $<...$(NC)"
 	$(CC) $(CFLAGS) -I$(MLX_DIR) -c $< -o $@
 

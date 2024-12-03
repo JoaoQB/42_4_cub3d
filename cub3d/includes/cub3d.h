@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/02 19:44:05 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:43:33 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@
 # include <stdio.h> // Standard input and output, perror function / Debugging
 # include <math.h> // math functions
 # include <unistd.h> // System calls
+# include <stdbool.h> // Booleans
 # include <string.h> //TODO make my own string functions
 
 
 # define PI 3.14159265358979323846
 
 # define FOV 60
-# define BLOCK_SIZE 64
+# define UNIT_SIZE 16
+# define MAX_ANGLE 360
 # define WIDTH 800 //this will define the number of rays we cast
 # define HEIGHT 800
 
@@ -51,12 +53,13 @@ typedef struct s_player
 	t_coord	pos;
 	t_coord	dir;
 	double	speed;
+	double	dir_angle;
 }	t_player;
 
 typedef struct s_pov
 {
-	double	x;
-	double	y;
+	double	pos_unit_x;
+	double	pos_unit_y;
 	double	direction_angle;
 }	t_pov;
 
@@ -93,6 +96,10 @@ typedef struct s_ray
 	double	half_height;
 	double	distance_to_projection;
 	double	ray_increment_angle;
+	double	radians[360];
+	double	tangents[360];
+	double	map_width;
+	double	map_height;
 	t_pov	pov;
 }	t_ray;
 
@@ -103,6 +110,7 @@ typedef struct s_game
 	t_ray		ray;
 	t_texture	texture[6]; // NO SO WE EA C F
 	char		**map;
+	double		ray_distances[WIDTH];
 }	t_game;
 
 typedef struct s_data
@@ -111,5 +119,31 @@ typedef struct s_data
 	char	*path_to_textures;
 	char	*player;
 }	t_data;
+
+/******************/
+/******************/
+/*** RAYCASTING ***/
+/******************/
+/******************/
+
+/* raycasting_utils.c */
+bool	is_ray_facing_right(double ray_angle);
+bool	is_ray_facing_upwards(double ray_angle);
+double	get_distance(double x1, double y1, double x2, double y2);
+double	get_radiant(t_ray *ray, int ray_angle);
+double	get_tangent(t_ray *ray, int ray_angle);
+
+/* raycasting_init.c */
+void	init_trigonometry(t_ray *ray);
+t_ray	*init_ray(t_game *game);
+
+/* raycasting_vertical.c */
+double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle);
+
+/* raycasting_horizontal.c */
+double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle);
+
+/* raycasting.c */
+double	raycasting(t_game *game, t_ray *ray);
 
 #endif

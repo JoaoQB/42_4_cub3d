@@ -1,0 +1,6 @@
+debug*
+/.vscode
+cub3d/cub3d
+*.o
+cub3d/obj
+
