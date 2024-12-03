@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:10:07 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/03 15:14:44 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:56:49 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	init_trigonometry(t_ray *ray)
 	i = 0;
 	while (i < MAX_ANGLE)
 	{
-		ray->radians[i] = i * (PI / 180);
-		ray->tangents[i] = tan(ray->radians[i]);
+		ray->trign.radians[i] = i * (PI / 180);
+		ray->trign.tangents[i] = tan(ray->trign.radians[i]);
+		ray->trign.sines[i] = sin(ray->trign.radians[i]);
+		ray->trign.cosines[i] = cos(ray->trign.radians[i]);
 		i++;
 	}
 }

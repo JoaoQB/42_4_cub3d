@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:12:14 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/03 15:44:14 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:19:37 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle)
 {
 	t_coord	horizontal_intersection;
 	t_coord	next_intersection;
+	double	distance;
 	int		grid_x;
 	int		grid_y;
 
@@ -64,9 +65,12 @@ double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle)
 		grid_x = horizontal_intersection.x / UNIT_SIZE;
 		grid_y = horizontal_intersection.y / UNIT_SIZE;
 		if (grid_x < 0 || grid_x >= ray->map_width || grid_y < 0 || grid_y >= ray->map_height)
-			break;
+			break ;
 		if (game->map[grid_x][grid_y] == 1)
-			return (get_distance(ray->pov.pos_unit_x, ray->pov.pos_unit_y, horizontal_intersection.x, horizontal_intersection.y));
+		{
+			distance = fabs(ray->pov.pos_unit_x - horizontal_intersection.x) / get_cosine(ray, (int)ray_angle);
+			return (distance);
+		}
 		horizontal_intersection.x += next_intersection.x;
 		horizontal_intersection.y += next_intersection.y;
 	}

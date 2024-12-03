@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/03 15:43:33 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:13:58 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ typedef struct s_player
 	double	dir_angle;
 }	t_player;
 
+typedef struct s_trig
+{
+	double	radians[MAX_ANGLE];
+	double	tangents[MAX_ANGLE];
+	double	sines[MAX_ANGLE];
+	double	cosines[MAX_ANGLE];
+}	t_trig;
+
 typedef struct s_pov
 {
 	double	pos_unit_x;
@@ -96,11 +104,10 @@ typedef struct s_ray
 	double	half_height;
 	double	distance_to_projection;
 	double	ray_increment_angle;
-	double	radians[360];
-	double	tangents[360];
 	double	map_width;
 	double	map_height;
 	t_pov	pov;
+	t_trig	trign;
 }	t_ray;
 
 typedef struct s_game
@@ -129,9 +136,12 @@ typedef struct s_data
 /* raycasting_utils.c */
 bool	is_ray_facing_right(double ray_angle);
 bool	is_ray_facing_upwards(double ray_angle);
-double	get_distance(double x1, double y1, double x2, double y2);
+
+/* raycasting_math_utils.c */
 double	get_radiant(t_ray *ray, int ray_angle);
 double	get_tangent(t_ray *ray, int ray_angle);
+double	get_sine(t_ray *ray, int ray_angle);
+double	get_cosine(t_ray *ray, int ray_angle);
 
 /* raycasting_init.c */
 void	init_trigonometry(t_ray *ray);

@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:53:21 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/03 15:50:57 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:29:05 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,19 @@ static double	cast_ray(t_game *game, t_ray *ray, double ray_angle)
 {
 	double	horizontal_distance;
 	double	vertical_distance;
+	double	distance;
+	double	beta;
+	double	corrected_distance;
 
 	horizontal_distance = cast_ray_horizontal(game, ray, ray_angle);
 	vertical_distance = cast_ray_vertical(game, ray, ray_angle);
+	beta = ray_angle - ray->pov.direction_angle;
 	if (horizontal_distance < vertical_distance)
-		return (horizontal_distance);
+		distance = horizontal_distance;
 	else
-		return (vertical_distance);
+		distance = vertical_distance;
+	corrected_distance = distance * get_cosine(ray, (int)beta);
+	return (corrected_distance);
 }
 
 double	raycasting(t_game *game, t_ray *ray)
