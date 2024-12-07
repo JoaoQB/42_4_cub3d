@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Untitled-1                                         :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/01 16:28:18 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:59:37 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	init_struct(t_fractol *f)
 {
 	init_mlx(f);
 	//need struct for minimap (same size as the screen, pixel(x,y) = scren_size/mini_map_size)
-	
+
 	//need struct for FOV (lets try 120) num_rays = WIDTH
-	//need struct for angles (do i need tho? FOV/num_rays) 
+	//need struct for angles (do i need tho? FOV/num_rays)
 	//need struct for raycasting (x num_rays) (60 up 70 down 1.70m)
 	f->info.ray_distance = calloc (sizeof(double) * (WIDTH)); //num_rays
 	return ;
@@ -83,7 +83,7 @@ void	draw_minimap(void)
 	}
 }
 
-void draw_by_scale(int x, int y, int scale, int offset_x, int offset_y) 
+void draw_by_scale(int x, int y, int scale, int offset_x, int offset_y)
 {
 	int i;
 	int j;

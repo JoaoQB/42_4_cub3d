@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/03 17:01:33 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/07 18:03:43 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC = $(SRC_PATH)/main.c \
 	$(SRC_PATH)/raycasting/raycasting_math_utils.c \
 	$(SRC_PATH)/raycasting/raycasting_horizontal.c \
 	$(SRC_PATH)/raycasting/raycasting_vertical.c \
+	$(SRC_PATH)/raycasting/draw_utils.c \
 
 CC = cc
 MINILIBX_FLAGS= -L./includes/minilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Ofast

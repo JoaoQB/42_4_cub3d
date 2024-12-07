@@ -6,12 +6,13 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:10:07 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/03 16:56:49 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:01:58 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+// TODO INIT_GAME
 void	init_trigonometry(t_ray *ray)
 {
 	int	i;
@@ -44,6 +45,7 @@ t_ray	*init_ray(t_game *game)
 	new_ray->half_width = WIDTH / 2;
 	new_ray->half_height = HEIGHT / 2;
 	new_ray->distance_to_projection = new_ray->half_width / get_tangent(new_ray, (int)new_ray->half_fov);
+	new_ray->height_calc = UNIT_SIZE / new_ray->distance_to_projection;
 	new_ray->ray_increment_angle = FOV / WIDTH;
 	new_ray->pov.direction_angle = game->player.dir_angle;
 	new_ray->pov.pos_unit_x = (game->player.pos.x) * UNIT_SIZE + (UNIT_SIZE / 2);

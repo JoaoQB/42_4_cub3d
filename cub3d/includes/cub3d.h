@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/03 17:13:58 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:16:21 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define MAX_ANGLE 360
 # define WIDTH 800 //this will define the number of rays we cast
 # define HEIGHT 800
+# define WALL_COLOR 0x808080 // Grey
+# define FLOOR_COLOR 0x404040   // Darker gray for floor
+# define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
 
 typedef enum e_direction
 {
@@ -103,6 +106,7 @@ typedef struct s_ray
 	double	half_width;
 	double	half_height;
 	double	distance_to_projection;
+	double	height_calc;
 	double	ray_increment_angle;
 	double	map_width;
 	double	map_height;
@@ -118,6 +122,7 @@ typedef struct s_game
 	t_texture	texture[6]; // NO SO WE EA C F
 	char		**map;
 	double		ray_distances[WIDTH];
+	double		wall_heights[WIDTH];
 }	t_game;
 
 typedef struct s_data
@@ -155,5 +160,9 @@ double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle);
 
 /* raycasting.c */
 double	raycasting(t_game *game, t_ray *ray);
+
+/* draw_utils.c */
+void	draw_walls(t_game	*game);
+void	my_pixel_put(t_image *img, int x, int y, int colour);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:53:21 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/03 17:29:05 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:58:23 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ double	raycasting(t_game *game, t_ray *ray)
 		ray_angle += ray->ray_increment_angle;
 		i++;
 	}
+	i = 0;
+	while (i < WIDTH)
+	{
+		game->wall_heights[i] = game->ray_distances[i] * game->ray.height_calc;
+		i++;
+	}
+	draw_walls(game);
 	// For compiler
 	return (-1);
 }
