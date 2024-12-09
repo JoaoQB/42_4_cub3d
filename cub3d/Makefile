@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/09 15:52:32 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/09 19:46:42 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ CC = cc
 MINILIBX_FLAGS= -L./includes/minilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Ofast
 CFLAGS = -Wall -Werror -Wextra -O3 #-Ofast #-g3
 SANITIZE = -g -fsanitize=address
-VALGRIND = --leak-chek=full --show-leak-kinds=all --track-origin=yes --track-fds=yes
+VALGRIND = valgrind --leak-check=yes --show-leak-kinds=all --track-origins=yes
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_DIR)/%.o)

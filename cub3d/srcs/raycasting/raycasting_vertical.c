@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:20:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/09 16:18:18 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 23:03:29 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	find_next_vertical_increment(t_ray *ray, double ray_angle, t_coord *
 	next_y = UNIT_SIZE * get_tangent(ray, (int)ray_angle);
 	next_intersection->x = next_x;
 	next_intersection->y = next_y;
+	printf("Next vertical increment: x = %f, y = %f\n", next_x, next_y);
 }
 
 static void	find_first_vertical_intersection(t_ray *ray, double ray_angle, t_coord *vertical_intersection)
@@ -46,6 +47,7 @@ static void	find_first_vertical_intersection(t_ray *ray, double ray_angle, t_coo
 	vertical_intersection->x = intersection_x;
 	intersection_y = ray->pov.pos_uy + (ray->pov.pos_ux - intersection_x) / get_tangent(ray, (int)ray_angle);
 	vertical_intersection->y = intersection_y;
+	printf("First vertical intersection: x = %f, y = %f\n", intersection_x, intersection_y);
 }
 
 double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle)
@@ -64,15 +66,18 @@ double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle)
 	{
 		grid_x = vertical_intersection.x / UNIT_SIZE;
 		grid_y = vertical_intersection.y / UNIT_SIZE;
+		printf("Ray at: x = %f, y = %f, grid_x = %d, grid_y = %d\n", vertical_intersection.x, vertical_intersection.y, grid_x, grid_y);
 		if (grid_x < 0 || grid_x >= ray->m_width || grid_y < 0 || grid_y >= ray->m_height)
 			break ;
-		if (game->map[grid_x][grid_y] == 1)
+		if (game->map[grid_y][grid_x] == '1')
 		{
-			distance = fabs(ray->pov.pos_uy - vertical_intersection.y) / get_sine(ray, (int)ray_angle);
+			distance = fabs(ray->pov.pos_uy - vertical_intersection.y) / fabs(get_sine(ray, (int)ray_angle));
+			printf("Hit wall at: x = %f, y = %f, distance = %f\n", vertical_intersection.x, vertical_intersection.y, distance);
 			return (distance);
 		}
 		vertical_intersection.x += next_intersection.x;
 		vertical_intersection.y += next_intersection.y;
+		printf("Next intersection: x = %f, y = %f\n", vertical_intersection.x, vertical_intersection.y);
 	}
 	return (-1);
 }

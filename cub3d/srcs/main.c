@@ -6,13 +6,13 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:39 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/09 16:46:50 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:37:31 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int render()
+int render()
 {
 	raycasting();
 	mlx_put_image_to_window(ft_game()->mlx->mlx, ft_game()->mlx->win, ft_game()->mlx->img.img, 0, 0);
@@ -36,9 +36,10 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	init_game();
+	raycasting();
 	printf("raycasting\n");
-	mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
-	mlx_loop(ft_game()->mlx->mlx);
+	// mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
+	// mlx_loop(ft_game()->mlx->mlx);
 	free_game();
 	return (EXIT_SUCCESS);
 }

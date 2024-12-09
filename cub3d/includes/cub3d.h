@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/09 16:48:45 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:20:01 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef enum e_direction
 {
 	NORTH = 90,
 	SOUTH = 270,
-	EAST = 180,
-	WEST = 0,
+	EAST = 0,
+	WEST = 180,
 	FLOOR,
 	UNKNOWN
 }	t_direction;
@@ -58,7 +58,6 @@ typedef struct s_player
 	double	dir_angle;
 	// t_coord	dir;
 }	t_player;
-
 
 typedef struct s_image
 {
@@ -122,13 +121,14 @@ typedef struct s_ray
 {
 	double	h_width;
 	double	h_height;
+	double	fov;
 	double	h_fov;
 	double	p_height;
 	double	d_proj;
 	double	ray_ang_inc;
 	double	height_calc;
-	double	m_width;
-	double	m_height;
+	int		m_width;
+	int		m_height;
 	double	ray_dist[WIDTH];
 	double	wall_height[WIDTH];
 	t_trig	trign;
@@ -165,6 +165,8 @@ void	init_game();
 
 /* ft_free.c */
 void	free_game();
+void	free_map(char ***map_ptr);
+void	free_mlx(t_mlx **mlx_ptr);
 
 /******************/
 /******************/

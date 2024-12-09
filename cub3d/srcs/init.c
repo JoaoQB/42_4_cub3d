@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/09 17:04:21 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:15:37 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ static char	**get_test_map()
 {
 	char	**map;
 
-	map = malloc(sizeof(char *) * 5);
-	map[0] = "111111111111111";
-	map[1] = "100111110000011";
-	map[2] = "111000000001111";
-	map[3] = "110000000111111";
-	map[4] = "111111100000011";
+	map = malloc(sizeof(char *) * 6);
+	map[0] = strdup("111111111111111");
+	map[1] = strdup("100111110000011");
+	map[2] = strdup("110000000001111");
+	map[3] = strdup("110000000111111");
+	map[4] = strdup("110000000000011");
+	map[5] = NULL;
 	return (map);
 }
 
@@ -30,10 +31,14 @@ static void	init_player(t_game *game)
 {
 	if (!game)
 		return ;
-	game->player.pos.x = 1;
-	game->player.pos.y = 1;
+	game->player.pos.x = 10;
+	game->player.pos.y = 4;
 	game->player.dir_angle = WEST;
 	game->player.speed = 1;
+	printf("Player initialized:\n");
+	printf("Position: (%f, %f)\n", game->player.pos.x, game->player.pos.y);
+	printf("Direction angle: %f\n", game->player.dir_angle);
+	printf("Speed: %f\n", game->player.speed);
 }
 
 static t_mlx	*init_mlx()
@@ -48,6 +53,11 @@ static t_mlx	*init_mlx()
 	mlx->img.img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bpp, \
 	&mlx->img.len_line, &mlx->img.endian);
+	if (!mlx->mlx || !mlx->img.img || !mlx->img.addr || !mlx->win)
+	{
+		free_mlx(&mlx);
+		return (NULL);
+	}
 	return (mlx);
 }
 
@@ -103,7 +113,7 @@ void	init_game()
 // 	f->mlx = mlx_init();
 // 	f->win = mlx_new_window(f->mlx, WIDTH, HEIGHT, f->name);
 // 	f->img.img = mlx_new_image(f->mlx, WIDTH, HEIGHT);
-// 	f->img.addr = mlx_get_data_addr(f->img.img, &f->img.bpp, \
+// 	f->img.addr = mlx_get_data_addr(f->img.img, &f->img.bpp,
 // 	&f->img.len_line, &f->img.endian);
 // 	return ;
 // }
