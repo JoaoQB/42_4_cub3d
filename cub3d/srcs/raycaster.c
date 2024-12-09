@@ -270,7 +270,7 @@ int main() {
     raycasting(game);
 
     // Display the image
-    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+    _image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 
     // Enter the main loop
     mlx_loop(game->mlx);

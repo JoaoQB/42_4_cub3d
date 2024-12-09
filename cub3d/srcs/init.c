@@ -1,65 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Untitled-1                                         :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/01 16:28:18 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:23:26 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <string.h>
 
-
-int main(int argc, char **argv){
-	file_to_str(argv[1]);
-	extract_images(file_str);
-	extract_map(file_str);
-	check_map(ft_game()->map);
-	init_struct();
-	//raycasting
-	// mlx_key_hook(f->win, handle_key, f);
-	// mlx_mouse_hook(f->win, handle_mouse, f);
-	mlx_hook(f->win, 17, 0, handle_close, f);
-	mlx_loop_hook(f->mlx, f->info.loop_func, f);
-	mlx_loop(f->mlx);
-}
-
-void	xpm_to_binary()
+t_image*	xpm_to_binary(char *image_path)
 {
+	t_image *img;
+
+	img = (t_image *) my_calloc(1, sizeof(t_image));
 	// alocate new image struct and save the image
-	img.img = mlx_xpm_file_to_image(mlx.mlx, "path/to/your/image.jpg", &img.width, &img.height);
-	if (img.img == NULL)
+	img->img = mlx_xpm_file_to_image(ft_game()->mlx->mlx, image_path, &img->width, &img->height);
+	if (img->img == NULL)
 		fprintf(stderr, "Failed to load image\n");
-	ft_game()->textures[0].addr = mlx_get_data_addr(ft_game()->textures[0].img, &ft_game()->textures[0].bpp, &ft_game()->textures[0].len_line, &ft_game()->textures[0].endian);
+	img->addr = mlx_get_data_addr(img, &img->bpp, &img->len_line, &img->endian);
+	return (img);
 }
 
-void	init_struct(t_fractol *f)
+void	init_struct()
 {
-	init_mlx(f);
+
+	init_mlx();
 	//need struct for minimap (same size as the screen, pixel(x,y) = scren_size/mini_map_size)
 	
+	//need struct for raycasting (x num_rays) (60 up 70 down, payer height 1.70m)
+	// f->info.ray_distance = my_calloc (sizeof(double) * (WIDTH)); //num_rays
 	//need struct for FOV (lets try 120) num_rays = WIDTH
 	//need struct for angles (do i need tho? FOV/num_rays) 
-	//need struct for raycasting (x num_rays) (60 up 70 down 1.70m)
-	f->info.ray_distance = calloc (sizeof(double) * (WIDTH)); //num_rays
-	return ;
 }
 
-void	init_mlx(t_fractol *f)
+void	init_mlx()
 {
-	f->mlx = mlx_init();
-	f->win = mlx_new_window(f->mlx, WIDTH, HEIGHT, f->name);
-	f->img.img = mlx_new_image(f->mlx, WIDTH, HEIGHT);
-	f->img.addr = mlx_get_data_addr(f->img.img, &f->img.bpp, \
-	&f->img.len_line, &f->img.endian);
+	t_mlx	*mlx;
+
+	mlx = malloc(sizeof(t_mlx));
+	mlx->mlx = mlx_init();
+	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "Cub3D");
+	mlx->img.img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bpp, \
+	&mlx->img.len_line, &mlx->img.endian);
+	ft_game()->mlx = mlx;
 	return ;
 }
 
-void	my_pixel_put(t_data *img, int x, int y, int colour)
+void	my_pixel_put(t_image *img, int x, int y, int colour)
 {
 	int	offset;
 
@@ -67,16 +60,16 @@ void	my_pixel_put(t_data *img, int x, int y, int colour)
 	*(unsigned int *)(img->addr + offset) = colour;
 }
 
-void	draw_minimap(void)
+void	draw_minimap(int offset_x, int offset_y)
 {
 	int x;
 	int y;
 
 	x = -1;
-	while (++x < ft_game()->map_width)
+	while (++x < WIDTH)
 	{
 		y = -1;
-		while (++y < ft_game()->map_height)
+		while (++y < HEIGHT)
 			draw_by_scale(x, y, MINIMAP_SCALE, offset_x, offset_y);
 			//i can pass an structure of object to be drawn instead like
 			//with map dimentions, rescale, offset(position) and image dimension
@@ -96,9 +89,26 @@ void draw_by_scale(int x, int y, int scale, int offset_x, int offset_y)
 		while (j < (y + 1) * scale + offset_y)
 		{
 			color = ft_game()->map[y][x] == 1 ? 0x00FF00 : 0x000000;
-			my_mlx_pixel_put(&ft_game()->img, i, j, color);
+			my_pixel_put(&ft_game()->mlx->img, i, j, color);
 			j++;
 		}
 		i++;
 	}
+}
+
+void *my_calloc(int num, int size)
+{
+    void *ptr;
+
+    ptr = malloc(num * size);
+    if (!ptr)
+        return NULL;
+    memset(ptr, 0, num * size);
+    return ptr;
+}
+
+void*	ft_bzero(void *ptr, int n)
+{
+	memset(ptr, 0, n); //TODO ft_memset
+	return (ptr);
 }
