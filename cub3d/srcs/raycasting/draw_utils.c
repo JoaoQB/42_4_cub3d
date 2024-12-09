@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/07 18:16:24 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:02:23 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	draw_vertical_line(t_game *game, int x, int wall_top, int wall_botto
 
 	if (!game)
 		return ;
-	img = game->mlx.img;
+	img = game->mlx->img;
 	y = 0;
 	while (y < HEIGHT)
 	{
@@ -45,19 +45,24 @@ static void	draw_vertical_line(t_game *game, int x, int wall_top, int wall_botto
 void	draw_walls(t_game	*game)
 {
 	int	i;
-	int	half_wall_height;
-	int	wall_top;
-	int	wall_bottom;
+	double	half_w_height;
+	double	wall_top;
+	double	wall_bottom;
 
-	if (!game || !game->wall_heights)
+	if (!game)
 		return ;
 	i = 0;
 	while (i < WIDTH)
 	{
-		half_wall_height = game->wall_heights[i] / 2;
-		wall_top = game->ray.half_height - half_wall_height;
-		wall_bottom = game->ray.half_height + half_wall_height;
+		half_w_height = game->ray.wall_height[i] / 2;
+		wall_top = game->ray.h_height - half_w_height;
+		if (wall_top < 0)
+			wall_top = 0;
+		wall_bottom = game->ray.h_height + half_w_height;
+		if (wall_bottom >= HEIGHT)
+			wall_bottom = HEIGHT - 1;
 		draw_vertical_line(game, i, wall_top, wall_bottom);
 		i++;
 	}
+	printf("drew all walls\n");
 }

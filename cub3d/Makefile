@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/07 18:03:43 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/09 15:52:32 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME = cub3d
 
 SRC_PATH = ./srcs
 SRC = $(SRC_PATH)/main.c \
+	$(SRC_PATH)/init.c \
+	$(SRC_PATH)/ft_free.c \
 	$(SRC_PATH)/raycasting/raycasting.c \
 	$(SRC_PATH)/raycasting/raycasting_init.c \
 	$(SRC_PATH)/raycasting/raycasting_utils.c \

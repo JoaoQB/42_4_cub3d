@@ -6,14 +6,13 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:10:07 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/07 18:01:58 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:16:20 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-// TODO INIT_GAME
-void	init_trigonometry(t_ray *ray)
+static void	init_trigonometry(t_ray *ray)
 {
 	int	i;
 
@@ -30,25 +29,22 @@ void	init_trigonometry(t_ray *ray)
 	}
 }
 
-t_ray	*init_ray(t_game *game)
+void	init_ray(t_game *game)
 {
-	t_ray	*new_ray;
+	t_ray	*ray;
 
 	if (!game)
-		return (NULL);
-	new_ray = malloc(sizeof(t_ray));
-	if (!new_ray)
-		return (NULL);
-	init_trigonometry(new_ray);
-	new_ray->half_fov = FOV / 2;
-	new_ray->player_height = UNIT_SIZE / 2;
-	new_ray->half_width = WIDTH / 2;
-	new_ray->half_height = HEIGHT / 2;
-	new_ray->distance_to_projection = new_ray->half_width / get_tangent(new_ray, (int)new_ray->half_fov);
-	new_ray->height_calc = UNIT_SIZE / new_ray->distance_to_projection;
-	new_ray->ray_increment_angle = FOV / WIDTH;
-	new_ray->pov.direction_angle = game->player.dir_angle;
-	new_ray->pov.pos_unit_x = (game->player.pos.x) * UNIT_SIZE + (UNIT_SIZE / 2);
-	new_ray->pov.pos_unit_y = (game->player.pos.y) * UNIT_SIZE + (UNIT_SIZE / 2);
-	return (new_ray);
+		return ;
+	ray = &game->ray;
+	ray->h_width = WIDTH / 2;
+	ray->h_height = HEIGHT / 2;
+	ray->h_fov = FOV / 2;
+	ray->p_height = UNIT_SIZE / 2;
+	ray->d_proj = ray->h_width / get_tangent(ray, (int)ray->h_fov);
+	ray->height_calc = UNIT_SIZE / ray->d_proj;
+	init_trigonometry(ray);
+	ray->ray_ang_inc = FOV / WIDTH;
+	ray->pov.ang_dir = game->player.dir_angle;
+	ray->pov.pos_ux = (game->player.pos.x) * UNIT_SIZE + (UNIT_SIZE / 2);
+	ray->pov.pos_uy = (game->player.pos.y) * UNIT_SIZE + (UNIT_SIZE / 2);
 }

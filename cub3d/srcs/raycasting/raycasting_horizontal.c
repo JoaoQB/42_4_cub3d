@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:12:14 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/03 17:19:37 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:18:17 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ static void	find_first_horizontal_intersection(t_ray *ray, double ray_angle, t_c
 		return ;
 	if (is_ray_facing_upwards(ray_angle))
 	{
-		intersection_y = floor(ray->pov.pos_unit_y / UNIT_SIZE) * (UNIT_SIZE) - 1;
+		intersection_y = floor(ray->pov.pos_uy / UNIT_SIZE) * (UNIT_SIZE) - 1;
 	}
 	else
 	{
-		intersection_y = floor(ray->pov.pos_unit_y / UNIT_SIZE) * (UNIT_SIZE) + UNIT_SIZE;
+		intersection_y = floor(ray->pov.pos_uy / UNIT_SIZE) * (UNIT_SIZE) + UNIT_SIZE;
 	}
 	horizontal_intersection->y = intersection_y;
-	intersection_x = ray->pov.pos_unit_x + (ray->pov.pos_unit_y - intersection_y) / get_tangent(ray, (int)ray_angle);
+	intersection_x = ray->pov.pos_ux + (ray->pov.pos_uy - intersection_y) / get_tangent(ray, (int)ray_angle);
 	horizontal_intersection->x = intersection_x;
 }
 
@@ -64,11 +64,11 @@ double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle)
 	{
 		grid_x = horizontal_intersection.x / UNIT_SIZE;
 		grid_y = horizontal_intersection.y / UNIT_SIZE;
-		if (grid_x < 0 || grid_x >= ray->map_width || grid_y < 0 || grid_y >= ray->map_height)
+		if (grid_x < 0 || grid_x >= ray->m_width || grid_y < 0 || grid_y >= ray->m_height)
 			break ;
 		if (game->map[grid_x][grid_y] == 1)
 		{
-			distance = fabs(ray->pov.pos_unit_x - horizontal_intersection.x) / get_cosine(ray, (int)ray_angle);
+			distance = fabs(ray->pov.pos_ux - horizontal_intersection.x) / get_cosine(ray, (int)ray_angle);
 			return (distance);
 		}
 		horizontal_intersection.x += next_intersection.x;
