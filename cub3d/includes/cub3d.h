@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/09 22:20:01 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 19:30:01 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,16 +182,17 @@ bool	is_ray_facing_right(double ray_angle);
 bool	is_ray_facing_upwards(double ray_angle);
 
 /* raycasting_math_utils.c */
+int		normalize_angle(int angle);
 double	get_radiant(t_ray *ray, int ray_angle);
 double	get_tangent(t_ray *ray, int ray_angle);
 double	get_sine(t_ray *ray, int ray_angle);
 double	get_cosine(t_ray *ray, int ray_angle);
 
 /* raycasting_vertical.c */
-double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle);
+double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle, int ray_id);
 
 /* raycasting_horizontal.c */
-double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle);
+double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle, int ray_id);
 
 /* raycasting.c */
 void	raycasting();

@@ -6,23 +6,35 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/09 22:15:37 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:36:02 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/*
+** [0]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
+** [1]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
+** [2]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
+** [3]    [0][1][2][3][4][5][6]   [8][9][10][11][12][13][14][15]
+** [4]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
+** [5]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
+**
+*/
+
+
 static char	**get_test_map()
 {
 	char	**map;
 
-	map = malloc(sizeof(char *) * 6);
+	map = malloc(sizeof(char *) * 7);
 	map[0] = strdup("111111111111111");
 	map[1] = strdup("100111110000011");
 	map[2] = strdup("110000000001111");
-	map[3] = strdup("110000000111111");
+	map[3] = strdup("1100000P0000111");
 	map[4] = strdup("110000000000011");
-	map[5] = NULL;
+	map[5] = strdup("111111111111111");
+	map[6] = NULL;
 	return (map);
 }
 
@@ -31,14 +43,14 @@ static void	init_player(t_game *game)
 {
 	if (!game)
 		return ;
-	game->player.pos.x = 10;
-	game->player.pos.y = 4;
-	game->player.dir_angle = WEST;
+	game->player.pos.x = 7;
+	game->player.pos.y = 3;
+	game->player.dir_angle = SOUTH;
 	game->player.speed = 1;
-	printf("Player initialized:\n");
-	printf("Position: (%f, %f)\n", game->player.pos.x, game->player.pos.y);
-	printf("Direction angle: %f\n", game->player.dir_angle);
-	printf("Speed: %f\n", game->player.speed);
+	printf("!! Player initialized:\n");
+	printf("!! Position: (%f, %f)\n", game->player.pos.x, game->player.pos.y);
+	printf("!! Direction angle: %f\n", game->player.dir_angle);
+	printf("!! Speed: %f\n", game->player.speed);
 }
 
 static t_mlx	*init_mlx()

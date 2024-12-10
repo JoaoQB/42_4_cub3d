@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/09 23:14:07 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:32:41 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	draw_walls(t_game	*game)
 	i = 0;
 	while (i < WIDTH)
 	{
-		half_w_height = (game->ray.wall_height[i] * 100) / 2;
+		half_w_height = (game->ray.wall_height[i]) / 2;
 		wall_top = game->ray.h_height - half_w_height;
 		if (wall_top < 0)
 			wall_top = 0;
@@ -64,5 +64,4 @@ void	draw_walls(t_game	*game)
 		draw_vertical_line(game, i, wall_top, wall_bottom);
 		i++;
 	}
-	printf("drew all walls\n");
 }

@@ -6,16 +6,17 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:20:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/09 23:03:29 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:20:00 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void	find_next_vertical_increment(t_ray *ray, double ray_angle, t_coord *next_intersection)
+static void	find_next_vertical_increment(t_ray *ray, double ray_angle, t_coord *next_intersection, int ray_id)
 {
 	double	next_x;
 	double	next_y;
+	double	tangent;
 
 	if (!ray || !next_intersection)
 		return ;
@@ -23,20 +24,32 @@ static void	find_next_vertical_increment(t_ray *ray, double ray_angle, t_coord *
 		next_x = UNIT_SIZE;
 	else
 		next_x = -UNIT_SIZE;
-	next_y = UNIT_SIZE * get_tangent(ray, (int)ray_angle);
+	tangent = get_tangent(ray, (int)ray_angle);
+	if (ray_angle == 0 || ray_angle == 180)
+		next_y = 0;
+	else if (ray_angle == 90 || ray_angle == 270)
+		next_y = UNIT_SIZE;
+	else
+	{
+		if (is_ray_facing_upwards(ray_angle))
+			next_y = -UNIT_SIZE * tangent;
+		else
+			next_y = UNIT_SIZE * tangent;
+	}
 	next_intersection->x = next_x;
 	next_intersection->y = next_y;
-	printf("Next vertical increment: x = %f, y = %f\n", next_x, next_y);
+	printf("ray_id_%d, Next vertical increment: ray_angle = %f, next_x = %f, next_y = %f\n", ray_id, ray_angle, next_x, next_y);
 }
 
-static void	find_first_vertical_intersection(t_ray *ray, double ray_angle, t_coord *vertical_intersection)
+static void	find_first_vertical_intersection(t_ray *ray, double ray_angle, t_coord *vertical_intersection, int ray_id)
 {
 	double	intersection_x;
 	double	intersection_y;
+	double	tangent;
 
 	if (!ray || !vertical_intersection)
 		return ;
-	if (is_ray_facing_upwards(ray_angle))
+	if (is_ray_facing_right(ray_angle))
 	{
 		intersection_x = floor(ray->pov.pos_ux / UNIT_SIZE) * (UNIT_SIZE) + UNIT_SIZE;
 	}
@@ -44,13 +57,19 @@ static void	find_first_vertical_intersection(t_ray *ray, double ray_angle, t_coo
 	{
 		intersection_x = floor(ray->pov.pos_ux / UNIT_SIZE) * (UNIT_SIZE) - 1;
 	}
+	tangent = get_tangent(ray, (int)ray_angle);
+	if (ray_angle == 0 || ray_angle == 180)
+		intersection_y = ray->pov.pos_uy;
+	else if (ray_angle == 90 || ray_angle == 270)
+		intersection_y = ray->pov.pos_uy + (ray->pov.pos_ux - intersection_x);
+	else
+		intersection_y = ray->pov.pos_uy + (ray->pov.pos_ux - intersection_x) * tangent;
 	vertical_intersection->x = intersection_x;
-	intersection_y = ray->pov.pos_uy + (ray->pov.pos_ux - intersection_x) / get_tangent(ray, (int)ray_angle);
 	vertical_intersection->y = intersection_y;
-	printf("First vertical intersection: x = %f, y = %f\n", intersection_x, intersection_y);
+	printf("ray_id_%d, First vertical intersection: ray_angle = %f, intersection_x = %f, intersection_y = %f\n", ray_id, ray_angle, intersection_x, intersection_y);
 }
 
-double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle)
+double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle, int ray_id)
 {
 	t_coord	vertical_intersection;
 	t_coord	next_intersection;
@@ -60,24 +79,27 @@ double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle)
 
 	if (!game || !ray)
 		return (-1);
-	find_first_vertical_intersection(ray, ray_angle, &vertical_intersection);
-	find_next_vertical_increment(ray, ray_angle, &next_intersection);
+	find_first_vertical_intersection(ray, ray_angle, &vertical_intersection, ray_id);
+	find_next_vertical_increment(ray, ray_angle, &next_intersection, ray_id);
 	while (1)
 	{
 		grid_x = vertical_intersection.x / UNIT_SIZE;
 		grid_y = vertical_intersection.y / UNIT_SIZE;
-		printf("Ray at: x = %f, y = %f, grid_x = %d, grid_y = %d\n", vertical_intersection.x, vertical_intersection.y, grid_x, grid_y);
+		printf("ray_id_%d, vertical, Ray at: x = %f, y = %f, grid_x = %d, grid_y = %d\n", ray_id, vertical_intersection.x, vertical_intersection.y, grid_x, grid_y);
 		if (grid_x < 0 || grid_x >= ray->m_width || grid_y < 0 || grid_y >= ray->m_height)
-			break ;
+		{
+			printf("ray_id_%d, vertical, Out of bounds: grid_x = %d, grid_y = %d, intersection_x = %f, intersection_y = %f\n",
+					ray_id, grid_x, grid_y, vertical_intersection.x, vertical_intersection.y);
+			return (-1);
+		}
 		if (game->map[grid_y][grid_x] == '1')
 		{
 			distance = fabs(ray->pov.pos_uy - vertical_intersection.y) / fabs(get_sine(ray, (int)ray_angle));
-			printf("Hit wall at: x = %f, y = %f, distance = %f\n", vertical_intersection.x, vertical_intersection.y, distance);
+			printf("ray_id_%d, vertical, Hit wall: grid_x = %d, grid_y = %d, intersection_x = %f, intersection_y = %f, distance = %f\n",
+					ray_id, grid_x, grid_y, vertical_intersection.x, vertical_intersection.y, distance);
 			return (distance);
 		}
 		vertical_intersection.x += next_intersection.x;
 		vertical_intersection.y += next_intersection.y;
-		printf("Next intersection: x = %f, y = %f\n", vertical_intersection.x, vertical_intersection.y);
 	}
-	return (-1);
 }
