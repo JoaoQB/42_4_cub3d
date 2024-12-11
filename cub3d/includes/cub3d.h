@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/10 19:30:01 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/11 16:13:24 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 
 # define PI 3.14159265358979323846
+# define ANGLE_TOLERANCE 0.001
 
 # define WIDTH 800 //this will define the number of rays we cast
 # define HEIGHT 800
@@ -178,6 +179,9 @@ void	free_mlx(t_mlx **mlx_ptr);
 void	init_ray(t_game *game);
 
 /* raycasting_utils.c */
+bool	is_ray_cardinal(double ray_angle);
+bool	is_ray_horizontal(double ray_angle);
+bool	is_ray_vertical(double ray_angle);
 bool	is_ray_facing_right(double ray_angle);
 bool	is_ray_facing_upwards(double ray_angle);
 

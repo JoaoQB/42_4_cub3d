@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:57:25 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/10 19:07:24 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/10 22:59:41 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	get_cosine(t_ray *ray, int ray_angle)
 		return (-1);
 	ray_angle = normalize_angle(ray_angle);
 	cosine = ray->trign.cosines[ray_angle];
-	printf("ray_angle: %d, cosine %f\n", ray_angle, cosine);
+	// printf("ray_angle: %d, cosine %f\n", ray_angle, cosine);
 	return (cosine);
 }
 
@@ -50,8 +50,11 @@ double	get_tangent(t_ray *ray, int ray_angle)
 	if (!ray)
 		return (-1);
 	ray_angle = normalize_angle(ray_angle);
+	if (ray_angle == 90 || ray_angle == 270
+		|| ray_angle == 180 || ray_angle == 0)
+		ray_angle += 1;
 	tangent = ray->trign.tangents[ray_angle];
-	printf("ray_angle: %d, tangent result: %f\n", ray_angle, tangent);
+	// printf("ray_angle: %d, tangent result: %f\n", ray_angle, tangent);
 	return (tangent);
 }
 
