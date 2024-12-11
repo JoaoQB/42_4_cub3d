@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/11 16:13:24 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:20:04 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 # define WIDTH 800 //this will define the number of rays we cast
 # define HEIGHT 800
-# define UNIT_SIZE 16
+# define UNIT_SIZE 64
 # define FOV 60
 # define MAX_ANGLE 360
 # define WALL_COLOR 0xFFFFFF  // White

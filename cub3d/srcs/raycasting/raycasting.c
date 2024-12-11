@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:53:21 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/11 18:53:35 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:29:00 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ void	raycasting()
 	while (i < WIDTH)
 	{
 		ray->ray_dist[i] = cast_ray(game, ray, ray_angle, i);
-		if (ray->ray_dist[i] == 0 || ray->ray_dist[i] > 1000)
+		if (ray->ray_dist[i] <= 5 || ray->ray_dist[i] > 1000)
 			ray->ray_dist[i] = ray->ray_dist[i - 1];
 		ray->wall_height[i] = ray->height_calc / ray->ray_dist[i];
-		if (ray->wall_height[i] == 0)
-			ray->wall_height[i] = ray->wall_height[i - 1];
 		printf("\n\nray_id_%d, ray_angle %f, distance: %f, height: %f\n", i, ray_angle, ray->ray_dist[i], ray->wall_height[i]);
 		ray_angle += ray->ray_ang_inc;
 		ray_angle = normalise_ray_angle(ray_angle);
