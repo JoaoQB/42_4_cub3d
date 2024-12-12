@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/11 19:20:04 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:42:24 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 # define WIDTH 800 //this will define the number of rays we cast
 # define HEIGHT 800
-# define UNIT_SIZE 64
+# define UNIT_SIZE 16
 # define FOV 60
 # define MAX_ANGLE 360
 # define WALL_COLOR 0xFFFFFF  // White
@@ -185,12 +185,16 @@ bool	is_ray_vertical(double ray_angle);
 bool	is_ray_facing_right(double ray_angle);
 bool	is_ray_facing_upwards(double ray_angle);
 
-/* raycasting_math_utils.c */
+/* raycasting_trign_utils.c */
 int		normalize_angle(int angle);
-double	get_radiant(t_ray *ray, int ray_angle);
-double	get_tangent(t_ray *ray, int ray_angle);
-double	get_sine(t_ray *ray, int ray_angle);
-double	get_cosine(t_ray *ray, int ray_angle);
+double	get_radiant(int ray_angle);
+double	get_tangent(int ray_angle);
+double	get_sine(int ray_angle);
+double	get_cosine(int ray_angle);
+
+/* raycasting_math_utils.c */
+double	get_vert_dist(double pos_ux, double inter_x, double ray_angle);
+double	get_horiz_dist(double pos_ux, double inter_x, double ray_angle);
 
 /* raycasting_vertical.c */
 double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle, int ray_id);

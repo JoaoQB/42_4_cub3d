@@ -6,11 +6,14 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:39 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/11 19:19:48 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:44:44 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/* ./cub3d | grep -e "\!\! " -e "ray_id_0," -e "ray_id_1," -e "ray_id_2," -e "ray_id_3," -e "ray_id_398," -e "ray_id_399," -e "ray_id_400," -e "ray_id_401," -e "ray_id_402," -e "ray_id_600," -e "ray_id_799," -e "ray_id_200" -e "ray_id_397," -e "ray_id_403,"
+*/
 
 int render()
 {
@@ -37,8 +40,8 @@ int	main(int argc, char **argv)
 	}
 	init_game();
 	raycasting();
-	mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
-	mlx_loop(ft_game()->mlx->mlx);
+	// mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
+	// mlx_loop(ft_game()->mlx->mlx);
 	free_game();
 	return (EXIT_SUCCESS);
 }

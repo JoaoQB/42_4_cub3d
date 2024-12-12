@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:20:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/11 18:29:19 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:56:07 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	find_next_vertical_increment(t_ray *ray, double ray_angle, t_coord *
 		printf("ray_id_%d, is facing left\n", ray_id);
 		next_x = -UNIT_SIZE;
 	}
-	tangent = get_tangent(ray, (int)ray_angle);
+	tangent = get_tangent((int)ray_angle);
 	if (is_ray_horizontal(ray_angle))
 		next_y = 0;
 	else
@@ -67,9 +67,12 @@ static void	find_first_vertical_intersection(t_ray *ray, double ray_angle, t_coo
 	{
 		intersection_x = floor(ray->pov.pos_ux / UNIT_SIZE) * (UNIT_SIZE) - 1;
 	}
-	tangent = get_tangent(ray, (int)ray_angle);
+	tangent = get_tangent((int)ray_angle);
 	if (is_ray_horizontal(ray_angle))
+	{
+		printf("ray_id_%d, is horizontal\n", ray_id);
 		intersection_y = ray->pov.pos_uy;
+	}
 	else
 		intersection_y = ray->pov.pos_uy + (ray->pov.pos_ux - intersection_x) * tangent;
 	vertical_intersection->x = intersection_x;
@@ -102,7 +105,7 @@ double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle, int ray_id)
 		}
 		if (game->map[grid_y][grid_x] == '1')
 		{
-			distance = fabs(ray->pov.pos_uy - vertical_intersection.y) / fabs(get_sine(ray, (int)ray_angle));
+			distance = get_vert_dist(ray->pov.pos_ux, vertical_intersection.x, ray_angle);
 			printf("ray_id_%d, vertical, Hit wall: grid_x = %d, grid_y = %d, intersection_x = %f, intersection_y = %f, distance = %f\n",
 					ray_id, grid_x, grid_y, vertical_intersection.x, vertical_intersection.y, distance);
 			return (distance);

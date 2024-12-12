@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:12:14 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/11 18:32:50 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:55:59 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,29 @@ static void	find_next_horizontal_increment(t_ray *ray, double ray_angle, t_coord
 		return ;
 	if (is_ray_facing_upwards(ray_angle))
 	{
+		printf("ray_id_%d, is facing up\n", ray_id);
 		next_y = -UNIT_SIZE;
 	}
 	else
 	{
+		printf("ray_id_%d, is facing down\n", ray_id);
 		next_y = UNIT_SIZE;
 	}
-	tangent = get_tangent(ray, (int)ray_angle);
+	tangent = get_tangent((int)ray_angle);
 	if (is_ray_vertical(ray_angle))
 		next_x = 0;
 	else
 	{
-		// if (is_ray_facing_right(ray_angle))
-		// {
-		// 	printf("ray_id_%d, is facing right\n", ray_id);
-		// 	next_x = next_y / tangent;
-		// }
-		// else
-		// {
-		// 	printf("ray_id_%d, is facing left\n", ray_id);
-		// 	next_x = next_y / tangent;
-		// }
-		next_x = next_y / tangent;
+		if (is_ray_facing_right(ray_angle))
+		{
+			printf("ray_id_%d, is facing right\n", ray_id);
+			next_x = UNIT_SIZE / tangent;
+		}
+		else
+		{
+			printf("ray_id_%d, is facing left\n", ray_id);
+			next_x = -UNIT_SIZE / tangent;
+		}
 	}
 	next_intersection->y = next_y;
 	next_intersection->x = -next_x;
@@ -60,15 +61,13 @@ static void	find_first_horizontal_intersection(t_ray *ray, double ray_angle, t_c
 		return ;
 	if (is_ray_facing_upwards(ray_angle))
 	{
-		printf("ray_id_%d, is facing up\n", ray_id);
 		intersection_y = floor(ray->pov.pos_uy / UNIT_SIZE) * (UNIT_SIZE) - 1;
 	}
 	else
 	{
-		printf("ray_id_%d, is facing down\n", ray_id);
 		intersection_y = floor(ray->pov.pos_uy / UNIT_SIZE) * (UNIT_SIZE) + UNIT_SIZE;
 	}
-	tangent = get_tangent(ray, (int)ray_angle);
+	tangent = get_tangent((int)ray_angle);
 	if (is_ray_vertical(ray_angle))
 	{
 		printf("ray_id_%d, is vertical\n", ray_id);
@@ -106,9 +105,9 @@ double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle, int ray_i
 		}
 		if (game->map[grid_y][grid_x] == '1')
 		{
-			distance = fabs(ray->pov.pos_ux - horizontal_intersection.x) / fabs(get_cosine(ray, (int)ray_angle));
-			printf("ray_id_%d, horizontal, Hit wall: grid_x = %d, grid_y = %d, intersection_x = %f, intersection_y = %f, distance = %f\n",
-					ray_id, grid_x, grid_y, horizontal_intersection.x, horizontal_intersection.y, distance);
+			distance = get_horiz_dist(ray->pov.pos_ux, horizontal_intersection.x, ray_angle);
+			printf("ray_id_%d, horizontal, Hit wall: grid_x = %d, grid_y = %d, pos_ux:%f - inter_x: %f, cosine ray_angle: %f, distance = %f\n",
+					ray_id, grid_x, grid_y, ray->pov.pos_ux, horizontal_intersection.x, fabs(get_cosine((int)ray_angle)), distance);
 			return (distance);
 		}
 		horizontal_intersection.x += next_intersection.x;

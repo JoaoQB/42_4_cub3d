@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:53:21 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/11 19:29:00 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:30:23 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static double	cast_ray(t_game *game, t_ray *ray, double ray_angle, int ray_id)
 	{
 		printf("ray_id_%d, ray_angle: %f, is cardinal\n", ray_id, ray_angle);
 		distance = cast_ray_cardinal(game, ray, ray_angle, ray_id);
-		corrected_distance = distance * get_cosine(ray, (int)beta);
+		corrected_distance = distance * get_cosine((int)beta);
 		return (corrected_distance);
 	}
 	printf("ray_id_%d, ray_angle: %f, checking horizontal and vertical\n", ray_id, ray_angle);
@@ -56,9 +56,9 @@ static double	cast_ray(t_game *game, t_ray *ray, double ray_angle, int ray_id)
 		distance = horizontal_distance;
 	else
 		distance = fmin(horizontal_distance, vertical_distance);
-	corrected_distance = distance * get_cosine(ray, (int)beta);
-	printf("ray_id_%d, ray_angle: %f, pov.ang_dir: %f, horizontal_distance: %f, vertical_distance: %f, corrected_distance: %f, beta %f\n",
-		ray_id, ray_angle, ray->pov.ang_dir, horizontal_distance, vertical_distance, corrected_distance, beta);
+	corrected_distance = distance * get_cosine((int)beta);
+	printf("ray_id_%d, ray_angle: %f, pov.ang_dir: %f, horizontal_distance: %f, vertical_distance: %f, corrected_distance: %f, beta %f, beta cosine%f\n",
+		ray_id, ray_angle, ray->pov.ang_dir, horizontal_distance, vertical_distance, corrected_distance, beta, get_cosine((int)beta));
 	return (corrected_distance);
 }
 
@@ -80,8 +80,8 @@ void	raycasting()
 	while (i < WIDTH)
 	{
 		ray->ray_dist[i] = cast_ray(game, ray, ray_angle, i);
-		if (ray->ray_dist[i] <= 5 || ray->ray_dist[i] > 1000)
-			ray->ray_dist[i] = ray->ray_dist[i - 1];
+		// if (ray->ray_dist[i] <= 5 || ray->ray_dist[i] > 1000)
+		// 	ray->ray_dist[i] = ray->ray_dist[i - 1];
 		ray->wall_height[i] = ray->height_calc / ray->ray_dist[i];
 		printf("\n\nray_id_%d, ray_angle %f, distance: %f, height: %f\n", i, ray_angle, ray->ray_dist[i], ray->wall_height[i]);
 		ray_angle += ray->ray_ang_inc;
