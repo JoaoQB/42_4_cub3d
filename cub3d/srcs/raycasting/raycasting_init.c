@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:10:07 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/12 17:44:24 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:22:35 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	init_ray(t_game *game)
 	ray->p_height = UNIT_SIZE / 2;
 	ray->d_proj = ray->h_width / get_tangent((int)ray->h_fov);
 	ray->ray_ang_inc = ray->fov / WIDTH;
-	ray->height_calc = (UNIT_SIZE * ray->d_proj) / 2;
+	ray->height_calc = (UNIT_SIZE * ray->d_proj);
 	ray->m_width = get_map_width(game->map);
 	ray->m_height = get_map_height(game->map);
 	ray->pov.ang_dir = game->player.dir_angle;

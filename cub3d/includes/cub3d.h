@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/12 17:42:24 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:09:09 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,8 @@ double	get_sine(int ray_angle);
 double	get_cosine(int ray_angle);
 
 /* raycasting_math_utils.c */
-double	get_vert_dist(double pos_ux, double inter_x, double ray_angle);
-double	get_horiz_dist(double pos_ux, double inter_x, double ray_angle);
+double	get_dist_square(t_pov player, t_coord intersection);
+double	get_dist(t_pov player, t_coord delta, double ray_angle);
 
 /* raycasting_vertical.c */
 double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle, int ray_id);
