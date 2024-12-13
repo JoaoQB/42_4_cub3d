@@ -6,64 +6,18 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/08 15:17:18 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:38:51 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-enum Direction get_direction_struct(const char *str) {
-	if (ft_strcmp(str, "NO") == 0) 
-		return NORTH;
-	if (ft_strcmp(str, "SO") == 0)
-		return SOUTH;
-	if (ft_strcmp(str, "EA") == 0) 
-		return EAST;
-	if (ft_strcmp(str, "WE") == 0) 
-		return WEST;
-	if (ft_strcmp(str, "F") == 0)
-		return FLOOR;
-	if (ft_strcmp(str, "C") == 0) 
-		return CEIL;
-	return UNKNOWN; // Invalid direction
-}
-
-void get_player_direction(const char *str)
-{
-	//i can set angle to NOT
-	ft_game()->player->angle = UNKNOWN;	
-	while (*str && ft_game()->player->angle != UNKNOWN)
-	{
-		if (ft_strcmp(str, "N") == 0)
-			ft_game()->player->angle = NORTH;
-		else if (ft_strcmp(str, "S") == 0)
-			ft_game()->player->angle = SOUTH;
-		else if (ft_strcmp(str, "E") == 0)
-			ft_game()->player->angle = EAST;
-		else if (ft_strcmp(str, "W") == 0)
-			ft_game()->player->angle = WEST;
-		else
-			ft_game()->player->angle = UNKNOWN;
-		str++;
-	}
-	//check if another player position was found
-	while (*str && ft_game()->player->angle != UNKNOWN)
-	{
-		if (strchr("NSEW", *str++))
-		{
-			ft_game()->player->angle = UNKNOWN;
-			return;	
-		}
-	}
-}
-
-char *	file_to_str(char *file_name)
+char	*file_to_str(char *file_name)
 {
 	char read_str[100];
 	char *file_str;
 	int bytes;
 	int fd;
-	//i got strjoin to join map with new read
 
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
@@ -72,192 +26,190 @@ char *	file_to_str(char *file_name)
 	file_str = NULL;
 	while(bytes > 0)
 	{
-		bytes = read(fd, read_str, 100);
+		memset(read_str, 0, 100);
+		bytes = read(fd, read_str, 99);
 		if (bytes == -1)
 			return (free(file_str), NULL);
 		if (bytes == 0)
 			break;
-		file_str = ft_strnjoin(file_str, read_str, bytes);
+		file_str = ft_strnjoin(file_str, read_str, -1);
 	}
-	clear_empty_lines(file_str);
+	close(fd);
 	return (file_str);
 }
 
-void clear_empty_lines(char *file_str)
-{
-	int i;
-
-	i = -1;
-	while (*file_str != '\0')
-	{
-		if (*file_str++ == '\n')
-		{
-			while (ft_issapaces(file_str[++i]))
-				;
-			if (file_str[i] != '\n' || file_str[i] != '\0')
-				remove_line(file_str ); //TODO remove line function
-		}
-	}
+enum dir get_direction_struct(const char *str) {
+	while (*str && ft_issapaces(*str))
+		str++;
+	if (ft_startswith(str, "NO") == 0)
+		return NORTH;
+	if (ft_startswith(str, "SO") == 0)
+		return SOUTH;
+	if (ft_startswith(str, "EA") == 0)
+		return EAST;
+	if (ft_startswith(str, "WE") == 0) 
+		return WEST;
+	if (ft_startswith(str, "F") == 0)
+		return FLOOR;
+	if (ft_startswith(str, "C") == 0) 
+		return CEIL;
+	return UNKNOWN; // Invalid dir
 }
 
-void remove_line(char *file_str)
+bool get_player_direction(const char c)
 {
-	int j;
-	int i;
-	
-	i = 0;
-	//from start of line find EOF or \n
-	while (file_str[i] != '\n' && file_str[i] != '\0')
-		i++;
-	j = -1;
-	//from this new pos, shift all file <i> slots
-	while (file_str[i + (++j)] != '\0')
-		file_str[j] = file_str[i + j];
-	file_str[j] = '\0';
+	//i can set angle to NOT
+	if (!ft_strchr("NWES", c))
+		return (true);
+	if (ft_game()->player->angle != UNKNOWN)
+		return (false);
+	else if (c == 'N')
+		ft_game()->player->angle = NORTH;
+	else if (c == 'S')
+		ft_game()->player->angle = SOUTH;
+	else if (c == 'E')
+		ft_game()->player->angle = EAST;
+	else if (c == 'W')
+		ft_game()->player->angle = WEST;
+	else
+		ft_game()->player->angle = UNKNOWN;
+	return (true);
 }
 
-void extract_images(char *file_str)
+void extract_textures(char **lines)
 {
-	enum Direction dir;
 	int i;
-	t_texture *panel;
-
+	e_direction dir;
+	char **words;
+ 
 	i = -1;
-	panel = NULL;
-	while (file_str[i++] != '\0')
+	while (lines[++i] != NULL)
 	{
-		//run run full file. if there is an valid direction save line info
-		//this might be bad,
-		get_player_direction(&file_str[i]);
-		dir = ft_game()->player->angle;
+		dir = get_direction_struct(lines[i]);
+		if (ft_game()->texture[dir] != NULL)
+			return(free(lines), ft_print_error("Duplicated texture line"));
 		if (dir != UNKNOWN)
-		{
-			panel = (t_texture *) my_calloc(1, sizeof(t_texture *));
-			panel->image_name = get_name(&file_str[i], i);
-			panel->image_path = get_path(&file_str[i], i);
-			panel->image_data = (t_image *) my_calloc(1, sizeof(t_image));
-			panel->image_data = xpm_to_binary(panel->image_path);
-			panel->colour = get_colour(&file_str[i], i);
-			ft_game()->texture[dir] = *panel;
-			panel = NULL;
-			remove_line(&file_str[i]);
+		{//dir is a valid dir
+			if (ft_wordcount(lines[i], ' ') != 2)
+				return(free(lines), ft_print_error("Invalid texture line"));
+			words = ft_split(lines[i], ' ');
+			ft_game()->texture[dir] = extract_info_process(words);
+			free(words);
+			free(lines[i]);
+			lines[i] = ft_strdup("");
 		}
 	}
 }
 
-char *get_name(const char *str, int i)
-{
-	int j;
-	char *name;
-
-	j = 0;
-	while (str[i + j] != ' ')
-		j++;
-	name = (char *) my_calloc(j, sizeof(char));
-	ft_strlcpy(name, &str[i], j);
-	return (name);
-}
-
-char *get_path(const char *str, int i)
-{
-	int j;
-	char *path;
-
-	j = 0;
-	while (str[i + j] != ' ')
-		j++;
-	path = (char *) my_calloc(j, sizeof(char));
-	ft_strlcpy(path, &str[i], j);
-	return (path);
-}
-
-int get_colour(const char *str, int i)
-{
-	int j;
-	int colour;
-
-	j = 0;
-	while (str[i + j] != ' ')
-		j++;
-	colour = ft_atoi(&str[i]);
-	return (colour);
-}
-
-void		extract_map(char *file_str)
+void		extract_map(char **lines)
 {
 	int i;
 	char **map;
 
-	//slipe file by lines
-	map = ft_split(file_str, '\n');
-	ft_game()->map_height = -1;
+	ft_game()->map_height = 0;
 	ft_game()->map_width = 0;
-	//calc square size height and width
-	while (map[++(ft_game()->map_height)])
-		if (ft_game()->map_width < ft_strlen(map[ft_game()->map_height]))
-			ft_game()->map_width = ft_strlen(map[ft_game()->map_height]);
-	//reconstruct the char** to have full square allocated
-	ft_game()->map = (char **) my_calloc(ft_game()->map_height, sizeof(char *));
 	i = -1;
-	while (++i < ft_game()->map_height)
+	while (lines[++i] != NULL)
 	{
-		ft_game()->map[i] = (char *) my_calloc(ft_game()->map_width + 1, sizeof(char));
-		ft_strlcpy(map[i], map[i], ft_game()->map_width);
+		if (ft_strlen(lines[i]) > ft_game()->map_width)
+			ft_game()->map_width = ft_strlen(lines[i]);
+		if (ft_strlen(lines[i]) > 0)
+			ft_game()->map_height++;
 	}
-	free(map);
+	printf("allocating map with %d\n", ft_game()->map_height + 1);
+	map = (char **) my_calloc(ft_game()->map_height + 1, sizeof(char *));
+	i = -1;
+	while ((*lines) != NULL)
+	{
+		if (ft_strlen(*lines) > 0)
+		{
+			map[++i] = (char *) my_calloc(ft_game()->map_width + 1, sizeof(char));
+			ft_strlcpy(map[i], *lines, ft_strlen(*lines) + 1);
+		}
+		lines++;
+	}
+	printf("map allocated: %d\n", i);
+	map[++i] = NULL;
+	ft_game()->map = map;
+	print_map(map);
+
 }
 
-bool		check_map(char **map)
-{
-	int		i;
-	int		j;
+// void		extract_map(char *file_str)
+// {
+// 	int i;
+// 	char **map;
+
+// 	//slipe file by lines
+// 	map = ft_split(file_str, '\n');
+// 	ft_game()->map_height = -1;
+// 	ft_game()->map_width = 0;
+// 	//calc square size height and width
+// 	while (map[++(ft_game()->map_height)])
+// 		if (ft_game()->map_width < ft_strlen(map[ft_game()->map_height]))
+// 			ft_game()->map_width = ft_strlen(map[ft_game()->map_height]);
+// 	//reconstruct the char** to have full square allocated
+// 	ft_game()->map = (char **) my_calloc(ft_game()->map_height, sizeof(char *));
+// 	i = -1;
+// 	while (++i < ft_game()->map_height)
+// 	{
+// 		ft_game()->map[i] = (char *) my_calloc(ft_game()->map_width + 1, sizeof(char));
+// 		ft_strlcpy(map[i], map[i], ft_game()->map_width);
+// 	}
+// 	free(map);
+// }
+
+void	check_map(char **map)
+{//needs to be twerked
+	int		x;
+	int		y;
 
 	//verificar se no mapa existe algum caracter que nao seja 0, 1, 2, N, S, W, E, ' ', P, *valido
-	i = -1;
-	while (++i < ft_game()->map_height)
+	if (ft_game()->map_height == 0 || ft_game()->map == NULL)
+		return (ft_print_error("No map found"));
+	y = -1;
+	while (++y < ft_game()->map_height)
 	{
-		j = -1;
+		x = 0;
 		//run the complete array, with ele_by_ele checks
-		while (++j < ft_game()->map_width)
+		while (x < ft_game()->map_width && map[y][x] != '\n' && map[y][x] != '\0')
 		{
-			//for player position / then check for encapsulation
-			if (ft_strchr("0NWES", map[i][j]))
-				if (!validate_position(i, j))
-					return (false);
+			//for player pos / then check for encapsulation
+			if (!ft_strchr("1 0NWES", map[y][x]))
+				ft_print_error("Invalid character in map");
+			if (!validate_position(y, x))
+				ft_print_error("Of map encapsulation");
 			//for walls and spaces
-			if (!ft_strchr(" 1", map[i][j]))
-				return (false);
+			if (!get_player_direction(map[y][x]))
+				ft_print_error("Repeated player pos");
+			x++;
 		}
 	}
-	return (true);
 }
 
 bool		validate_position(int y, int x)
 {
-			// char *map;
-
-			// map = ft_game()->map;
-
-	//check if element is contained in the map
-	//flood fill intead or with recursive or with queue structure
+	if (ft_strchr(" 1", ft_game()->map[y][x]))
+		return (true);
 	if (!is_valid(y - 1, x, "01NWES") || !is_valid(y + 1, x, "01NWES"))
 		return (false); 
 	if (!is_valid(y, x - 1, "01NWES") || !is_valid(y, x + 1, "01NWES"))
 		return (false);
-	if (!is_valid(y - 1, x - 1, "01NWES") || !is_valid(y + 1, x + 1, "01NWES"))
-		return (false);
-	if (!is_valid(y - 1, x + 1, "01NWES") || !is_valid(y + 1, x - 1, "01NWES"))
-		return (false);
+	//this also checks for diagonal walls
+	// if (!is_valid(y - 1, x - 1, "01NWES") || !is_valid(y + 1, x + 1, "01NWES"))
+	// 	return (false);
+	// if (!is_valid(y - 1, x + 1, "01NWES") || !is_valid(y + 1, x - 1, "01NWES"))
+	// 	return (false);
 	return (true);
 }
 
-bool is_valid(int x, int y, char *valid_str)
+bool is_valid(int y, int x, char *valid_str)
 {
-	char **map;
-
-	map = ft_game()->map;
-
-	if (ft_strchr(valid_str, map[y][x]))
+	if (x < 0 || x >= ft_game()->map_width)
+		return (true);
+	if (y < 0 || y >= ft_game()->map_height)
+		return (true);
+	if (ft_strchr(valid_str, ft_game()->map[y][x]))
 		return(true);
 	return (false);
 }

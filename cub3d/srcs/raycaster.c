@@ -12,9 +12,9 @@ void raycasting(t_map *map, t_player *player, t_ray *ray)
 	//raycasting algorithm
 	//i will need to check if the ray hit a wall
 	//and if it did i will need to check the distance
-	//and the direction of the wall
-	//i will need to check the direction of the player
-	//and the direction of the wall
+	//and the dir of the wall
+	//i will need to check the dir of the player
+	//and the dir of the wall
 	//and the distance of the player to the wall
 
 }
@@ -28,7 +28,7 @@ typedef struct {
 
 typedef struct {
     Vector2D pos;
-    double dir; // Direction in degrees
+    double dir; // dir in degrees
 } Player;
 
 typedef struct {
@@ -125,11 +125,11 @@ RayHit cast_ray(Game *game, double ray_angle) {
     // Convert ray angle to radians
     double ray_angle_rad = ray_angle * PI / 180.0;
 
-    // Calculate ray direction
+    // Calculate ray dir
     double ray_dir_x = cos(ray_angle_rad);
     double ray_dir_y = sin(ray_angle_rad);
 
-    // Player position
+    // Player pos
     double pos_x = game->player.pos.x;
     double pos_y = game->player.pos.y;
 
@@ -141,11 +141,11 @@ RayHit cast_ray(Game *game, double ray_angle) {
     int map_x = (int)pos_x;
     int map_y = (int)pos_y;
 
-    // Length of ray from current position to next x or y-side
+    // Length of ray from current pos to next x or y-side
     double side_dist_x;
     double side_dist_y;
 
-    // What direction to step in x or y-direction (either +1 or -1)
+    // What dir to step in x or y-dir (either +1 or -1)
     int step_x;
     int step_y;
 
@@ -170,7 +170,7 @@ RayHit cast_ray(Game *game, double ray_angle) {
 
     // Perform DDA
     while (hit_wall == 0) {
-        // Jump to next map square, either in x-direction, or in y-direction
+        // Jump to next map square, either in x-dir, or in y-dir
         if (side_dist_x < side_dist_y) {
             side_dist_x += delta_dist_x;
             map_x += step_x;
@@ -192,7 +192,7 @@ RayHit cast_ray(Game *game, double ray_angle) {
         if (chunk->map[map_y % CHUNK_SIZE][map_x % CHUNK_SIZE] > 0) hit_wall = 1;
     }
 
-    // Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
+    // Calculate distance projected on camera dir (Euclidean distance will give fisheye effect!)
     if (side == 0) hit.distance = (map_x - pos_x + (1 - step_x) / 2) / ray_dir_x;
     else hit.distance = (map_y - pos_y + (1 - step_y) / 2) / ray_dir_y;
 
@@ -257,7 +257,7 @@ int main() {
     game->img.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
     game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.len_line, &game->img.endian);
 
-    // Initialize player position and direction
+    // Initialize player pos and dir
     game->player.pos.x = WIDTH / 2;
     game->player.pos.y = HEIGHT / 2;
     game->player.dir = 0.0; // Facing right (0 degrees)

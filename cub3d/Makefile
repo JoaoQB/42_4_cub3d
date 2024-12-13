@@ -6,7 +6,7 @@
 #    By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/08 17:21:05 by fandre-b         ###   ########.fr        #
+#    Updated: 2024/12/11 15:34:26 by fandre-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ RED = \033[0;31m
 NC = \033[0m # No Color
 
 RM := -@rm -rf
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Werror -Wextra -O3 #-Ofast #-g3
 SANITIZE = -g -fsanitize=address
 VALGRIND = --leak-chek=full --show-leak-kinds=all --track-origin=yes --track-fds=yes
@@ -44,9 +44,13 @@ MLX		:= ./includes/minilibx-linux
 SRCS := init.c \
 	main.c\
 	check_map.c \
-	./utils.c \
-	# ./contols.c \
-	./raycaster.c \
+	utils.c \
+	utils_str.c\
+	utils_alloc.c\
+	mlx_init.c\
+	mlx_control.c \
+	hash_table.c \
+	# ./raycaster.c \
 	
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c=.o))
