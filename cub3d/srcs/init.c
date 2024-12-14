@@ -6,36 +6,29 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/14 18:48:14 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:30:12 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// static char	**get_test_map()
-// {
-// 	char	**map;
-
-// 	map = malloc(sizeof(char *) * 8);
-// 	map[0] = strdup("111111111111111");
-// 	map[1] = strdup("100000000000001");
-// 	map[2] = strdup("110110000001011");
-// 	map[3] = strdup("1110000P0000011");
-// 	map[4] = strdup("110000000000011");
-// 	map[5] = strdup("110000101000011");
-// 	map[6] = strdup("111111111111111");
-// 	map[7] = NULL;
-// 	return (map);
-// }
-
 // TODO init player from .cub file
-static void	init_player(void)
+void	init_player(void)
 {
+	char	**map;
+	
 	if (!ft_game())
 		return ;
-	ft_game()->player.angle = UNKNOWN;
-	printf("dir is: %d\n", ft_game()->player.angle);
-	printf("com dir is: %d\n", ft_game()->player.angle == UNKNOWN);
+	map = malloc(sizeof(char *) * 8);
+	map[0] = strdup("111111111111111");
+	map[1] = strdup("100000000000001");
+	map[2] = strdup("110110000001011");
+	map[3] = strdup("1110000P0000011");
+	map[4] = strdup("110000000000011");
+	map[5] = strdup("110000101000011");
+	map[6] = strdup("111111111111111");
+	map[7] = NULL;\
+	ft_game()->map = map;
 	ft_game()->player.pos.x = 7;
 	ft_game()->player.pos.y = 3;
 	ft_game()->player.dir_angle = SOUTH;
@@ -74,7 +67,6 @@ void	init_mlx(void)
 	return ;
 }
 
-// TODO init map from .cub file
 void	init_game(char* file_path)
 {
 	char **lines;
@@ -82,13 +74,18 @@ void	init_game(char* file_path)
 
 	// ft_game()->player = (t_player *) my_calloc(1, sizeof(t_player));
 	// ft_game()->player.angle = UNKNOWN;
-	file_str = file_to_str(file_path);
-	lines = ft_split(file_str, '\n');
-	extract_textures(lines);
-	init_player();
-	extract_map(lines);
-	free(lines);
-	check_map(ft_game()->map);
+	if (ft_game()->update == 1)
+		init_player();
+	else if (ft_game()->update == 0)
+	{
+		file_str = file_to_str(file_path);
+		lines = ft_split(file_str, '\n');
+		extract_map(lines);
+		check_map(ft_game()->map);
+		extract_textures(lines);
+		free(lines);
+		ft_game()->player.dir_angle = ft_game()->player.angle;
+	}
 	init_hash_table();
 	init_mlx();
 	init_ray();

@@ -6,35 +6,12 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/14 18:04:53 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:07:08 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// movements
-//convert 
-// while (pressed)
-// {
-	//convert player dir to vector
-	//convert coordenate to vector dir
-	//calc vector * speed
-	//calc pos + move_vector // if not in wall chunk update pos
-
-	//move player in that dir
-	//check if player is in a wall
-	//if player is in a wall, move player back
-// }
-
-//mouse movement
-//mo
-//cilindric coordinates
-//mouse movement 
-
-// WASD -> MOVE
-// arrows -> camera
-// mouse -> camera
-// esq -> exit
 // redcross -> exit
 
 // space -> jump
@@ -44,7 +21,6 @@
 // m -> show menu
 
 
-///// ALL THIS WAS FRACTOL COPIED!!!!! //////////
 
 int	handle_close(void *param)
 {
@@ -125,18 +101,18 @@ int mouse_moved(int x, int y, void *param)
 int player_moves(void)
 {
 	if (ft_game()->update == 0)
-		return 1;
+		return 0;
 	if (ft_game()->ctl.mv_angle == 0 || ft_game()->ctl.move.x == 0 ||
 	ft_game()->ctl.move.x == 0)
-		return 1;
-	ft_game()->ctl.dir += ft_game()->ctl.mv_angle * PLAYER_ROTATION;
-	ft_game()->ctl.pos.x += ft_game()->ctl.move.x * PLAYER_SPEED;
-	ft_game()->ctl.pos.y += ft_game()->ctl.move.y * PLAYER_SPEED;
+		return 0;
+	ft_game()->player.dir_angle += ft_game()->ctl.mv_angle * PLAYER_ROTATION;
+	ft_game()->player.pos.x += ft_game()->ctl.move.x * PLAYER_SPEED;
+	ft_game()->player.pos.y += ft_game()->ctl.move.y * PLAYER_SPEED;
 	ft_game()->ctl.mv_angle = 0;
 	ft_game()->ctl.move.x = 0;
 	ft_game()->ctl.move.y = 0;
 	// recalc_raycast();
-	raycasting();
+	// raycasting();
 	ft_game()->update = 0;
-	return 1;
+	return 0;
 }

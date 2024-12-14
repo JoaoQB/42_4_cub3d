@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/14 18:20:20 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:21:47 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,7 +300,11 @@ t_texture *extract_info_process(char **words);
 
 /* error handle*/
 void	ft_print_error(char *str);
+
+/* testing*/
 void print_map(char **double_array);
+void	init_player(void);
+
 
 /* controls mlx*/
 int	handle_close(void *param);

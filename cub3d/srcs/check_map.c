@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/14 18:47:27 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:15:35 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,11 @@ e_direction get_direction_struct(const char *str)
 		return FLOOR;
 	if (ft_startswith(str, "C") == 0) 
 		return CEIL;
-	return UNKNOWN; // Invalid dir
+	return UNKNOWN;
 }
 
 bool get_player_direction(const char c)
 {
-	// printf("dir is: %d\n", ft_game()->player.angle == UNKNOWN);
-	// printf("checking %c\n", c);
-	//i can set angle to NOT
 	if (!ft_strchr("NWES", c))
 		return (true);
 	if (ft_game()->player.angle != UNKNOWN)
@@ -109,8 +106,9 @@ void		extract_map(char **lines)
 	int i;
 	char **map;
 
-	ft_game()->map_height = 0;
-	ft_game()->map_width = 0;
+	ft_game()->player.angle = UNKNOWN;
+	// ft_game()->map_height = 0;
+	// ft_game()->map_width = 0;
 	i = -1;
 	while (lines[++i] != NULL)
 	{
@@ -119,7 +117,6 @@ void		extract_map(char **lines)
 		if (ft_strlen(lines[i]) > 0)
 			ft_game()->map_height++;
 	}
-	printf("allocating map with %d\n", ft_game()->map_height + 1);
 	map = (char **) my_calloc(ft_game()->map_height + 1, sizeof(char *));
 	i = -1;
 	while ((*lines) != NULL)
@@ -131,61 +128,34 @@ void		extract_map(char **lines)
 		}
 		lines++;
 	}
-	printf("map allocated: %d\n", i);
 	map[++i] = NULL;
 	ft_game()->map = map;
-	print_map(map);
-
 }
 
-// void		extract_map(char *file_str)
-// {
-// 	int i;
-// 	char **map;
-
-// 	//slipe file by lines
-// 	map = ft_split(file_str, '\n');
-// 	ft_game()->map_height = -1;
-// 	ft_game()->map_width = 0;
-// 	//calc square size height and width
-// 	while (map[++(ft_game()->map_height)])
-// 		if (ft_game()->map_width < ft_strlen(map[ft_game()->map_height]))
-// 			ft_game()->map_width = ft_strlen(map[ft_game()->map_height]);
-// 	//reconstruct the char** to have full square allocated
-// 	ft_game()->map = (char **) my_calloc(ft_game()->map_height, sizeof(char *));
-// 	i = -1;
-// 	while (++i < ft_game()->map_height)
-// 	{
-// 		ft_game()->map[i] = (char *) my_calloc(ft_game()->map_width + 1, sizeof(char));
-// 		ft_strlcpy(map[i], map[i], ft_game()->map_width);
-// 	}
-// 	free(map);
-// }
-
 void	check_map(char **map)
-{//needs to be twerked
+{
 	int		x;
 	int		y;
 
-	//verificar se no mapa existe algum caracter que nao seja 0, 1, 2, N, S, W, E, ' ', P, *valido
 	if (ft_game()->map_height == 0 || ft_game()->map == NULL)
 		return (ft_print_error("No map found"));
 	y = -1;
 	while (++y < ft_game()->map_height)
 	{
 		x = 0;
-		//run the complete array, with ele_by_ele checks
 		while (x < ft_game()->map_width && map[y][x] != '\n' && map[y][x] != '\0')
 		{
-			//for player pos / then check for encapsulation
 			if (!ft_strchr("1 0NWES", map[y][x]))
 				ft_print_error("Invalid character in map");
 			if (!validate_position(y, x))
 				ft_print_error("Of map encapsulation");
-			//for walls and spaces
-			// printf("validating %d %d\n", y, x);
 			if (!get_player_direction(map[y][x]))
 				ft_print_error("Repeated player pos");
+			else if (ft_game()->player.angle != UNKNOWN)
+			{
+				ft_game()->player.pos.x = x;
+				ft_game()->player.pos.y = y;
+			}
 			x++;
 		}
 	}
@@ -217,17 +187,3 @@ bool is_valid(int y, int x, char *valid_str)
 		return(true);
 	return (false);
 }
-
-
-// WASD -> MOVE
-// arrows -> camera
-// mouse -> camera
-// esq -> exit
-// redcross -> exit
-
-// space -> jump
-// ctrl -> crouch
-// shift -> run (change spd)
-// tab -> show map
-// m -> show menu
-
