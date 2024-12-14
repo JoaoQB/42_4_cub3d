@@ -161,6 +161,7 @@ typedef struct s_game
 	int			map_height;
 	int update;
 } t_game;
+
 // typedef struct s_data
 // {
 // 	char	*path_to_map;
