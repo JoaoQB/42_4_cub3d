@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/14 18:35:12 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:48:14 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ static void	init_player(void)
 {
 	if (!ft_game())
 		return ;
+	ft_game()->player.angle = UNKNOWN;
+	printf("dir is: %d\n", ft_game()->player.angle);
+	printf("com dir is: %d\n", ft_game()->player.angle == UNKNOWN);
 	ft_game()->player.pos.x = 7;
 	ft_game()->player.pos.y = 3;
 	ft_game()->player.dir_angle = SOUTH;
@@ -82,12 +85,12 @@ void	init_game(char* file_path)
 	file_str = file_to_str(file_path);
 	lines = ft_split(file_str, '\n');
 	extract_textures(lines);
+	init_player();
 	extract_map(lines);
 	free(lines);
 	check_map(ft_game()->map);
 	init_hash_table();
 	init_mlx();
-	init_player();
 	init_ray();
 }
 

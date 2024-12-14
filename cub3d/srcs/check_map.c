@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/14 18:19:25 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:47:27 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ e_direction get_direction_struct(const char *str)
 
 bool get_player_direction(const char c)
 {
+	// printf("dir is: %d\n", ft_game()->player.angle == UNKNOWN);
+	// printf("checking %c\n", c);
 	//i can set angle to NOT
 	if (!ft_strchr("NWES", c))
 		return (true);
@@ -181,6 +183,7 @@ void	check_map(char **map)
 			if (!validate_position(y, x))
 				ft_print_error("Of map encapsulation");
 			//for walls and spaces
+			// printf("validating %d %d\n", y, x);
 			if (!get_player_direction(map[y][x]))
 				ft_print_error("Repeated player pos");
 			x++;
