@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:10:07 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/12 18:22:35 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:03:30 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,13 +171,13 @@ static void	init_trigonometry(t_ray *ray)
 }
 
 // Divided height_calc by two
-void	init_ray(t_game *game)
+void	init_ray(void)
 {
 	t_ray	*ray;
 
-	if (!game)
+	if (!ft_game())
 		return ;
-	ray = &game->ray;
+	ray = &ft_game()->ray;
 	init_trigonometry(ray);
 	// test_trigonometry(ray);
 	print_trign();
@@ -189,10 +189,10 @@ void	init_ray(t_game *game)
 	ray->d_proj = ray->h_width / get_tangent((int)ray->h_fov);
 	ray->ray_ang_inc = ray->fov / WIDTH;
 	ray->height_calc = (UNIT_SIZE * ray->d_proj);
-	ray->m_width = get_map_width(game->map);
-	ray->m_height = get_map_height(game->map);
-	ray->pov.ang_dir = game->player.dir_angle;
-	ray->pov.pos_ux = (game->player.pos.x) * UNIT_SIZE + (UNIT_SIZE / 2);
-	ray->pov.pos_uy = (game->player.pos.y) * UNIT_SIZE + (UNIT_SIZE / 2);
+	ray->m_width = get_map_width(ft_game()->map);
+	ray->m_height = get_map_height(ft_game()->map);
+	ray->pov.ang_dir = ft_game()->player.dir_angle;
+	ray->pov.pos_ux = (ft_game()->player.pos.x) * UNIT_SIZE + (UNIT_SIZE / 2);
+	ray->pov.pos_uy = (ft_game()->player.pos.y) * UNIT_SIZE + (UNIT_SIZE / 2);
 	print_ray(ray);
 }

@@ -3,64 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/12 19:20:18 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:35:12 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
-/*
-** [0]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
-** [1]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
-** [2]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
-** [3]    [0][1][2][3][4][5][6]   [8][9][10][11][12][13][14][15]
-** [4]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
-** [5]    [0][1][2][3][4][5][6][7][8][9][10][11][12][13][14][15]
-**
-*/
+// static char	**get_test_map()
+// {
+// 	char	**map;
 
-
-static char	**get_test_map()
-{
-	char	**map;
-
-	map = malloc(sizeof(char *) * 8);
-	map[0] = strdup("111111111111111");
-	map[1] = strdup("100000000000001");
-	map[2] = strdup("110110000001011");
-	map[3] = strdup("1110000P0000011");
-	map[4] = strdup("110000000000011");
-	map[5] = strdup("110000101000011");
-	map[6] = strdup("111111111111111");
-	map[7] = NULL;
-	return (map);
-}
+// 	map = malloc(sizeof(char *) * 8);
+// 	map[0] = strdup("111111111111111");
+// 	map[1] = strdup("100000000000001");
+// 	map[2] = strdup("110110000001011");
+// 	map[3] = strdup("1110000P0000011");
+// 	map[4] = strdup("110000000000011");
+// 	map[5] = strdup("110000101000011");
+// 	map[6] = strdup("111111111111111");
+// 	map[7] = NULL;
+// 	return (map);
+// }
 
 // TODO init player from .cub file
-static void	init_player(t_game *game)
+static void	init_player(void)
 {
-	if (!game)
+	if (!ft_game())
 		return ;
-	game->player.pos.x = 7;
-	game->player.pos.y = 3;
-	game->player.dir_angle = SOUTH;
-	game->player.speed = 1;
+	ft_game()->player.pos.x = 7;
+	ft_game()->player.pos.y = 3;
+	ft_game()->player.dir_angle = SOUTH;
+	ft_game()->player.speed = 1;
 	printf("!! Player initialized:\n");
-	printf("!! Position: (%f, %f)\n", game->player.pos.x, game->player.pos.y);
-	printf("!! Direction angle: %f\n", game->player.dir_angle);
-	printf("!! Speed: %f\n", game->player.speed);
+	printf("!! Position: (%f, %f)\n", ft_game()->player.pos.x, ft_game()->player.pos.y);
+	printf("!! Direction angle: %f\n", ft_game()->player.dir_angle);
+	printf("!! Speed: %f\n", ft_game()->player.speed);
 }
 
-static t_mlx	*init_mlx()
+static void init_hash_table(void)
+{
+	ft_game()->ctl.hash_table = ft_hash_table();
+	ft_hash_table()->size = HASH_TABLE_SIZE;
+	ft_hash_table()->buckets = (t_bucket **) my_calloc(ft_hash_table()->size , sizeof(t_bucket *));
+	// ft_bzero(ft_hash_table()->buckets, ft_hash_table()->size * sizeof(t_bucket *));
+	// memset(ft_hash_table()->buckets, 0, ft_hash_table()->size * sizeof(t_bucket *));
+}
+
+void	init_mlx(void)
 {
 	t_mlx	*mlx;
 
-	mlx = (t_mlx *)malloc(sizeof(t_mlx));
-	if (!mlx)
-		return (NULL);
+	mlx = my_calloc(1, sizeof(t_mlx));
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "Cub3D");
 	mlx->img.img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
@@ -69,108 +65,73 @@ static t_mlx	*init_mlx()
 	if (!mlx->mlx || !mlx->img.img || !mlx->img.addr || !mlx->win)
 	{
 		free_mlx(&mlx);
-		return (NULL);
+		mlx = NULL;
 	}
-	return (mlx);
+	ft_game()->mlx = mlx;
+	return ;
 }
 
 // TODO init map from .cub file
-void	init_game()
+void	init_game(char* file_path)
 {
-	t_game	*game_s;
+	char **lines;
+	char *file_str;
 
-	game_s = ft_game();
-	game_s->mlx = init_mlx();
-	game_s->map = get_test_map();
-	init_player(game_s);
-	init_ray(game_s);
+	// ft_game()->player = (t_player *) my_calloc(1, sizeof(t_player));
+	// ft_game()->player.angle = UNKNOWN;
+	file_str = file_to_str(file_path);
+	lines = ft_split(file_str, '\n');
+	extract_textures(lines);
+	extract_map(lines);
+	free(lines);
+	check_map(ft_game()->map);
+	init_hash_table();
+	init_mlx();
+	init_player();
+	init_ray();
 }
 
-// int main(int argc, char **argv){
-// 	file_to_str(argv[1]);
-// 	extract_images(file_str);
-// 	extract_map(file_str);
-// 	check_map(ft_game()->map);
-// 	init_struct();
-// 	//raycasting
-// 	// mlx_key_hook(f->win, handle_key, f);
-// 	// mlx_mouse_hook(f->win, handle_mouse, f);
-// 	mlx_hook(f->win, 17, 0, handle_close, f);
-// 	mlx_loop_hook(f->mlx, f->info.loop_func, f);
-// 	mlx_loop(f->mlx);
-// }
+t_texture *extract_info_process(char **words)
+{
+	t_texture *texture;
 
-// void	xpm_to_binary()
-// {
-// 	// alocate new image struct and save the image
-// 	img.img = mlx_xpm_file_to_image(mlx.mlx, "path/to/your/image.jpg", &img.width, &img.height);
-// 	if (img.img == NULL)
-// 		fprintf(stderr, "Failed to load image\n");
-// 	ft_game()->textures[0].addr = mlx_get_data_addr(ft_game()->textures[0].img, &ft_game()->textures[0].bpp, &ft_game()->textures[0].len_line, &ft_game()->textures[0].endian);
-// }
+	texture = (t_texture *) my_calloc(1, sizeof(t_texture));
+	texture->image_name = ft_strdup(words[0]);
+	texture->image_path = ft_strdup(words[1]);
+	texture->image_data = xpm_to_binary(texture->image_path);
+	if (texture->image_data == NULL) // check for path existence and permissions 
+	{
+		texture->colour = get_colour(words[1]);
+		if (texture->colour == -1)
+			ft_print_error("Failed to load image or colour\n");
+	}
+	return (texture);
+}
 
-// void	init_struct(t_fractol *f)
-// {
-// 	init_mlx(f);
-// 	//need struct for minimap (same size as the screen, pixel(x,y) = scren_size/mini_map_size)
+int get_colour(const char *str)
+{//TODO this one aint working
+	// clour is passed as R,G,B
+	//so i want con convert this into the int 
+	int colour;
 
-// 	//need struct for FOV (lets try 120) num_rays = WIDTH
-// 	//need struct for angles (do i need tho? FOV/num_rays)
-// 	//need struct for raycasting (x num_rays) (60 up 70 down 1.70m)
-// 	f->info.ray_distance = calloc (sizeof(double) * (WIDTH)); //num_rays
-// 	return ;
-// }
+	colour = 0; // 0xRRGGBB
+	while (*str && ft_issapaces(*str))
+		str++;
 
-// void	init_mlx(t_fractol *f)
-// {
-// 	f->mlx = mlx_init();
-// 	f->win = mlx_new_window(f->mlx, WIDTH, HEIGHT, f->name);
-// 	f->img.img = mlx_new_image(f->mlx, WIDTH, HEIGHT);
-// 	f->img.addr = mlx_get_data_addr(f->img.img, &f->img.bpp,
-// 	&f->img.len_line, &f->img.endian);
-// 	return ;
-// }
+	return (colour);
+}
 
-// void	my_pixel_put(t_data *img, int x, int y, int colour)
-// {
-// 	int	offset;
+t_image*	xpm_to_binary(char *image_path)
+{
+	t_image *img;
 
-// 	offset = (y * img->len_line) + (x * (img->bpp / 8));
-// 	*(unsigned int *)(img->addr + offset) = colour;
-// }
-
-// void	draw_minimap(void)
-// {
-// 	int x;
-// 	int y;
-
-// 	x = -1;
-// 	while (++x < ft_game()->map_width)
-// 	{
-// 		y = -1;
-// 		while (++y < ft_game()->map_height)
-// 			draw_by_scale(x, y, MINIMAP_SCALE, offset_x, offset_y);
-// 			//i can pass an structure of object to be drawn instead like
-// 			//with map dimentions, rescale, offset(position) and image dimension
-// 	}
-// }
-
-// void draw_by_scale(int x, int y, int scale, int offset_x, int offset_y)
-// {
-// 	int i;
-// 	int j;
-// 	int color;
-
-// 	i = x * scale + offset_x;
-// 	while (i < (x + 1) * scale + offset_x)
-// 	{
-// 		j = y * scale + offset_y;
-// 		while (j < (y + 1) * scale + offset_y)
-// 		{
-// 			color = ft_game()->map[y][x] == 1 ? 0x00FF00 : 0x000000;
-// 			my_mlx_pixel_put(&ft_game()->img, i, j, color);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
+	img = (t_image *) my_calloc(1, sizeof(t_image));
+	img->img = mlx_xpm_file_to_image(&ft_game()->mlx->mlx, image_path, &img->width, &img->height);
+	if (img->img == NULL)
+		return (NULL);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len_line, &img->endian);
+	//TODO delete
+	if (img->img != NULL)
+		mlx_put_image_to_window (ft_game()->mlx, ft_game()->mlx->win, img->img, 0, 0);
+	return (img);
+}

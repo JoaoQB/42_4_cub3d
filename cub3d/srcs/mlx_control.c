@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/01 17:39:40 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:04:53 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int player_moves(void)
 	ft_game()->ctl.move.x = 0;
 	ft_game()->ctl.move.y = 0;
 	// recalc_raycast();
+	raycasting();
 	ft_game()->update = 0;
 	return 1;
 }

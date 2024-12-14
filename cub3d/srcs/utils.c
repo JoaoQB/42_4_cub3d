@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 12:20:34 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/11 15:31:03 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:01:27 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_print_error(char *str)
 	ft_putstr_fd("\n\nError:", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
+	free_game();
 	exit(1);
 }
 

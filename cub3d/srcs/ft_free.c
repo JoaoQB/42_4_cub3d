@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:49:36 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/09 22:22:59 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:49:21 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,14 @@ void	free_mlx(t_mlx **mlx_ptr)
 	{
 		mlx = *mlx_ptr;
 		if (mlx->img.img)
-		{
 			mlx_destroy_image(mlx->mlx, mlx->img.img);
-			mlx->img.img = NULL;
-		}
+		mlx->img.img = NULL;
 		if (mlx->win)
-		{
 			mlx_destroy_window(mlx->mlx, mlx->win);
-			mlx->win = NULL;
-		}
+		mlx->win = NULL;
 		if (mlx->mlx)
-		{
 			free(mlx->mlx);
-			mlx->mlx = NULL;
-		}
+		mlx->mlx = NULL;
 		free(mlx);
 		*mlx_ptr = NULL;
 	}

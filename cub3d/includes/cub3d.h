@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/12 19:09:09 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:20:20 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <unistd.h> // System calls
 # include <stdbool.h> // Booleans
 # include <string.h> //TODO make my own string functions
+#include <fcntl.h>
+#include <unistd.h> // For close function
 
 
 # define PI 3.14159265358979323846
@@ -34,19 +36,21 @@
 # define WALL_COLOR 0xFFFFFF  // White
 # define FLOOR_COLOR 0x404040   // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
+# define PLAYER_SPEED 5
+# define PLAYER_ROTATION 5
+# define MINIMAP_SCALE 0.2
+# define HASH_TABLE_SIZE 20
 
-typedef enum e_direction
+typedef enum Direction
 {
 	EAST = 0,
 	NORTH = 90,
 	WEST = 180,
 	SOUTH = 270,
-	FLOOR,
-	CEIL,
-	UNKNOWN = 0
-}	t_direction;
-//} e_direction;
-
+	FLOOR = 2,
+	CEIL = 3,
+	UNKNOWN = 1
+} e_direction;
 
 typedef enum KEY{
     KEY_W = 0,
@@ -92,9 +96,9 @@ typedef struct s_player
 	t_coord	pos;
 	double	speed;
 	double	dir_angle;
+	e_direction angle;
 //
 	// t_coord	dir;
-	//e_direction angle;
 }	t_player;
 
 typedef struct s_image
@@ -113,8 +117,7 @@ typedef struct s_texture
 {
 	char	*image_name; //NO SO WE EA C F
 	char	*image_path;
-	t_image	image_data; //if path, extract to this format
-	//t_image *image_data; //if path, extract to this format
+	t_image *image_data; //if path, extract to this format
 	int		colour; //if no path, try fill with colour
 }	t_texture;
 
@@ -210,7 +213,7 @@ typedef struct s_game
 t_game	*ft_game();
 
 /* init.c */
-void	init_game();
+void	init_game(char* file_path);
 
 /* ft_free.c */
 void	free_game();
@@ -224,7 +227,7 @@ void	free_mlx(t_mlx **mlx_ptr);
 /******************/
 
 /* raycasting_init.c */
-void	init_ray(t_game *game);
+void	init_ray(void);
 
 /* raycasting_utils.c */
 bool	is_ray_cardinal(double ray_angle);
@@ -256,5 +259,59 @@ void	raycasting();
 /* draw_utils.c */
 void	draw_walls(t_game	*game);
 void	my_pixel_put(t_image *img, int x, int y, int colour);
+
+/* malloc tools */
+void *my_calloc(int num, int size);
+char *ft_strdup(char *str);
+char	*ft_strnjoin(char *old_str, char *str_add, int size);
+char **ft_split(char *str, char c);
+
+
+/* map generation*/
+char	*file_to_str(char *file_name);
+e_direction get_direction_struct(const char *str);
+void extract_textures(char **lines);
+
+/* map generation tools */
+bool is_valid(int y, int x, char *valid_str);
+bool		validate_position(int y, int x);
+
+
+/* str tools*/
+bool ft_issapaces(char c);
+int ft_strlen(const char *str);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+char* ft_strchr(char *s, int c);
+int ft_startswith(const char *s1, const char *s2);
+int	ft_wordcount(const char *str, char c);
+void ft_putstr_fd(char *str, int fd);
+
+/* hash table*/
+t_hash_table *ft_hash_table(void);
+int hash_find(int key);
+void hash_update(int key, bool value);
+
+/* image read*/
+t_image*	xpm_to_binary(char *image_path);
+void		extract_map(char **lines);
+void	check_map(char **map);
+int get_colour(const char *str);
+t_texture *extract_info_process(char **words);
+
+/* error handle*/
+void	ft_print_error(char *str);
+void print_map(char **double_array);
+
+/* controls mlx*/
+int	handle_close(void *param);
+int	handle_mouse(int button, int x, int y, void *param);
+int	key_press(int key, void *param);
+int	key_release(int key, void *param);
+int mouse_moved(int x, int y, void *param);
+int player_moves(void);
+
+/* minimap */
+void	draw_minimap(int offset_x, int offset_y);
+void draw_by_scale(int x, int y, int scale, int offset_x, int offset_y);
 
 #endif
