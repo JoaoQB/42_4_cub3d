@@ -37,13 +37,48 @@
 
 typedef enum e_direction
 {
-	NORTH = 90,
-	SOUTH = 270,
 	EAST = 0,
+	NORTH = 90,
 	WEST = 180,
+	SOUTH = 270,
 	FLOOR,
-	UNKNOWN
+	CEIL,
+	UNKNOWN = 0
 }	t_direction;
+//} e_direction;
+
+
+typedef enum KEY{
+    KEY_W = 0,
+    KEY_A = 97,
+    KEY_S = 115,
+    KEY_D = 100,
+	KEY_UP = 65362,
+	KEY_DOWN = 65364,
+	KEY_LEFT = 65361,
+	KEY_RIGHT = 65363,
+	KEY_Q = 113,
+	KEY_E = 101,
+    KEY_ESC = 65307,
+	// KEY_CTRL = 65507,
+	// KEY_SHIFT = 65505,
+	// KEY_TAB = 65289,
+	// KEY_M = 109,
+    // KEY_SPACE = 32,
+} e_key;
+
+typedef struct s_bucket
+{
+	int entry;
+	void *content;
+	struct s_bucket *next;
+} t_bucket;
+
+typedef struct s_hash_table
+{
+	t_bucket	**buckets;
+	int size;
+} t_hash_table;
 
 typedef struct s_coord
 {
@@ -57,7 +92,9 @@ typedef struct s_player
 	t_coord	pos;
 	double	speed;
 	double	dir_angle;
+//
 	// t_coord	dir;
+	//e_direction angle;
 }	t_player;
 
 typedef struct s_image
@@ -67,6 +104,9 @@ typedef struct s_image
 	int		bpp;
 	int		len_line;
 	int		endian;
+//
+	int			width;
+	int			height;
 }	t_image;
 
 typedef struct s_texture
@@ -74,6 +114,7 @@ typedef struct s_texture
 	char	*image_name; //NO SO WE EA C F
 	char	*image_path;
 	t_image	image_data; //if path, extract to this format
+	//t_image *image_data; //if path, extract to this format
 	int		colour; //if no path, try fill with colour
 }	t_texture;
 
@@ -136,21 +177,28 @@ typedef struct s_ray
 	t_pov	pov;
 }	t_ray;
 
+typedef struct s_control
+{
+	t_hash_table *hash_table;
+	t_coord move;
+	int mv_angle;
+	t_coord pos;
+	int dir;
+} t_control;
+
 typedef struct s_game
 {
 	t_mlx		*mlx;
 	t_player	player;
+	//t_player	*player;
+	t_control	ctl;
 	t_ray		ray;
-	t_texture	texture[6]; // NO SO WE EA C F
+	t_texture	*texture[6]; // NO SO WE EA C F
 	char		**map;
+	int			map_width;
+	int			map_height;
+	int update;
 }	t_game;
-
-typedef struct s_data
-{
-	char	*path_to_map;
-	char	*path_to_textures;
-	char	*player;
-}	t_data;
 
 /******************/
 /******************/
