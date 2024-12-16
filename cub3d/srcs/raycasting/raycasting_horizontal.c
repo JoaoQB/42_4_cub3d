@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:12:14 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/12 19:17:34 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:05:40 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle, int ray_i
 		}
 		if (game->map[grid_y][grid_x] == '1')
 		{
-			// distance = get_dist_square(ray->pov.pos_ux, horizontal_intersection.x, ray->pov.pos_uy, horizontal_intersection.y);
-			distance = get_dist(ray->pov, delta, ray_angle);
+			distance = get_dist_square(ray->pov, delta);
+			// distance = get_dist(ray->pov, delta, ray_angle);
 			printf("ray_id_%d, horizontal, Hit wall: grid_x = %d, grid_y = %d, pos_ux:%f - inter_x: %f, cosine ray_angle: %f, distance = %f\n",
 					ray_id, grid_x, grid_y, ray->pov.pos_ux, delta.x, fabs(get_cosine((int)ray_angle)), distance);
 			return (distance);

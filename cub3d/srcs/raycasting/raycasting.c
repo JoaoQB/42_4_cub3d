@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:53:21 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/12 17:30:23 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:11:58 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static double	normalise_ray_angle(double ray_angle)
 	return ray_angle;
 }
 
-static double	cast_ray_cardinal(t_game *game, t_ray *ray, double ray_angle, int ray_id)
-{
-	if (is_ray_horizontal(ray_angle))
-		return (cast_ray_vertical(game, ray, ray_angle, ray_id));
-	else
-		return (cast_ray_horizontal(game, ray, ray_angle, ray_id));
-}
+// static double	cast_ray_cardinal(t_game *game, t_ray *ray, double ray_angle, int ray_id)
+// {
+// 	if (is_ray_horizontal(ray_angle))
+// 		return (cast_ray_vertical(game, ray, ray_angle, ray_id));
+// 	else
+// 		return (cast_ray_horizontal(game, ray, ray_angle, ray_id));
+// }
 
 static double	cast_ray(t_game *game, t_ray *ray, double ray_angle, int ray_id)
 {
@@ -40,13 +40,13 @@ static double	cast_ray(t_game *game, t_ray *ray, double ray_angle, int ray_id)
 
 	printf("ray_id_%d, ray_angle: %f, pov.ang_dir: %f\n", ray_id, ray_angle, ray->pov.ang_dir);
 	beta = ray_angle - ray->pov.ang_dir;
-	if (is_ray_cardinal(ray_angle))
-	{
-		printf("ray_id_%d, ray_angle: %f, is cardinal\n", ray_id, ray_angle);
-		distance = cast_ray_cardinal(game, ray, ray_angle, ray_id);
-		corrected_distance = distance * get_cosine((int)beta);
-		return (corrected_distance);
-	}
+	// if (is_ray_cardinal(ray_angle))
+	// {
+	// 	printf("ray_id_%d, ray_angle: %f, is cardinal\n", ray_id, ray_angle);
+	// 	distance = cast_ray_cardinal(game, ray, ray_angle, ray_id);
+	// 	corrected_distance = distance * get_cosine((int)beta);
+	// 	return (corrected_distance);
+	// }
 	printf("ray_id_%d, ray_angle: %f, checking horizontal and vertical\n", ray_id, ray_angle);
 	horizontal_distance = cast_ray_horizontal(game, ray, ray_angle, ray_id);
 	vertical_distance = cast_ray_vertical(game, ray, ray_angle, ray_id);
