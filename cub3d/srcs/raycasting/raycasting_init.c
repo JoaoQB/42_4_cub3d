@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:10:07 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/12 18:22:35 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:47:00 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,22 +137,22 @@ static void	print_trign()
 	}
 }
 
-static void	correct_trign(t_ray *ray)
-{
+// static void	correct_trign(t_ray *ray)
+// {
 
-	if (!ray)
-		return ;
-	ray->trign.tangents[0] = ray->trign.tangents[1];
-	ray->trign.sines[0] = ray->trign.sines[1];
-	ray->trign.tangents[90] = ray->trign.tangents[91];
-	ray->trign.cosines[90] = ray->trign.sines[91];
-	ray->trign.tangents[180] = ray->trign.tangents[181];
-	ray->trign.sines[180] = ray->trign.sines[181];
-	ray->trign.tangents[270] = ray->trign.tangents[271];
-	ray->trign.cosines[270] = ray->trign.sines[271];
-}
+// 	if (!ray)
+// 		return ;
+// 	ray->trign.tangents[0] = ray->trign.tangents[1];
+// 	ray->trign.sines[0] = ray->trign.sines[1];
+// 	ray->trign.tangents[90] = ray->trign.tangents[91];
+// 	ray->trign.cosines[90] = ray->trign.sines[91];
+// 	ray->trign.tangents[180] = ray->trign.tangents[181];
+// 	ray->trign.sines[180] = ray->trign.sines[181];
+// 	ray->trign.tangents[270] = ray->trign.tangents[271];
+// 	ray->trign.cosines[270] = ray->trign.sines[271];
+// }
 
-static void	init_trigonometry(t_ray *ray)
+void	init_trigonometry(t_ray *ray)
 {
 	int	i;
 
@@ -167,7 +167,7 @@ static void	init_trigonometry(t_ray *ray)
 		ray->trign.cosines[i] = cos(ray->trign.radians[i]);
 		i++;
 	}
-	correct_trign(ray);
+	// correct_trign(ray);
 }
 
 // Divided height_calc by two

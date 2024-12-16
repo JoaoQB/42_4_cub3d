@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/12 19:09:09 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:06:04 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define WIDTH 800 //this will define the number of rays we cast
 # define HEIGHT 800
 # define UNIT_SIZE 16
-# define FOV 60
+# define FOV 70
 # define MAX_ANGLE 360
 # define WALL_COLOR 0xFFFFFF  // White
 # define FLOOR_COLOR 0x404040   // Darker gray for floor
@@ -59,6 +59,13 @@ typedef struct s_player
 	double	dir_angle;
 	// t_coord	dir;
 }	t_player;
+
+typedef struct s_cam
+{
+	t_coord	pos;
+	t_coord	dir;
+	t_coord	plane;
+} t_cam;
 
 typedef struct s_image
 {
@@ -120,6 +127,8 @@ typedef struct s_trig
 */
 typedef struct s_ray
 {
+	double	width;
+	double	height;
 	double	h_width;
 	double	h_height;
 	double	fov;
@@ -132,8 +141,22 @@ typedef struct s_ray
 	int		m_height;
 	double	ray_dist[WIDTH];
 	double	wall_height[WIDTH];
+	int		hit;
+	int		side;
+	double	camX;
+	double	rayDirX;
+	double	rayDirY;
+	double	rayFirstX;
+	double	rayFirstY;
+	double	rayNextX;
+	double	rayNextY;
+	int		gridX;
+	int		gridY;
+	int		stepX;
+	int		stepY;
 	t_trig	trign;
 	t_pov	pov;
+	t_cam	cam;
 }	t_ray;
 
 typedef struct s_game
@@ -177,6 +200,7 @@ void	free_mlx(t_mlx **mlx_ptr);
 
 /* raycasting_init.c */
 void	init_ray(t_game *game);
+void	init_trigonometry(t_ray *ray);
 
 /* raycasting_utils.c */
 bool	is_ray_cardinal(double ray_angle);
@@ -208,5 +232,17 @@ void	raycasting();
 /* draw_utils.c */
 void	draw_walls(t_game	*game);
 void	my_pixel_put(t_image *img, int x, int y, int colour);
+
+/******************/
+/******************/
+/*** RAYCASTING2 **/
+/******************/
+/******************/
+
+/* raycasting2_init.c */
+void	init_ray2(t_game *game);
+
+/* raycasting2.c */
+void	raycasting2();
 
 #endif

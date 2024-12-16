@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:39 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/16 12:14:50 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:53:59 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	init_game();
-	raycasting();
+	raycasting2();
 	// mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
 	// mlx_loop(ft_game()->mlx->mlx);
 	free_game();

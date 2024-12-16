@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/16 12:13:59 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:54:09 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	init_player(t_game *game)
 		return ;
 	game->player.pos.x = 7;
 	game->player.pos.y = 3;
-	game->player.dir_angle = NORTH;
+	game->player.dir_angle = SOUTH;
 	game->player.speed = 1;
 	printf("!! Player initialized:\n");
 	printf("!! Position: (%f, %f)\n", game->player.pos.x, game->player.pos.y);
@@ -83,7 +83,8 @@ void	init_game()
 	game_s->mlx = init_mlx();
 	game_s->map = get_test_map();
 	init_player(game_s);
-	init_ray(game_s);
+	// init_ray(game_s);
+	init_ray2(game_s);
 }
 
 // int main(int argc, char **argv){
