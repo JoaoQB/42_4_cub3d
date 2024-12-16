@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/16 15:06:04 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:57:30 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@
 # define UNIT_SIZE 16
 # define FOV 70
 # define MAX_ANGLE 360
-# define WALL_COLOR 0xFFFFFF  // White
+# define WALL_NORTH 0xFF0000  // Red for north-facing walls
+# define WALL_SOUTH 0x00FF00  // Green for south-facing walls
+# define WALL_EAST  0x0000FF  // Blue for east-facing walls
+# define WALL_WEST  0xFFFF00  // Yellow for west-facing walls
+
 # define FLOOR_COLOR 0x404040   // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
 
@@ -62,6 +66,12 @@ typedef struct s_player
 
 typedef struct s_cam
 {
+	double	fov;
+	double	hFov;
+	double	width;
+	double	height;
+	double	hWidth;
+	double	hHeight;
 	t_coord	pos;
 	t_coord	dir;
 	t_coord	plane;
@@ -141,22 +151,25 @@ typedef struct s_ray
 	int		m_height;
 	double	ray_dist[WIDTH];
 	double	wall_height[WIDTH];
+	//
+	int		id;
 	int		hit;
 	int		side;
 	double	camX;
 	double	rayDirX;
 	double	rayDirY;
-	double	rayFirstX;
-	double	rayFirstY;
-	double	rayNextX;
-	double	rayNextY;
 	int		gridX;
 	int		gridY;
+	double	rayNextX;
+	double	rayNextY;
+	double	rayInterX;
+	double	rayInterY;
 	int		stepX;
 	int		stepY;
 	t_trig	trign;
 	t_pov	pov;
 	t_cam	cam;
+	int		wall_dir[WIDTH];
 }	t_ray;
 
 typedef struct s_game
@@ -244,5 +257,9 @@ void	init_ray2(t_game *game);
 
 /* raycasting2.c */
 void	raycasting2();
+
+/* raycasting2_utils.c */
+double	get_wall_distance(t_ray *ray);
+int		get_wall_direction(t_ray *ray);
 
 #endif

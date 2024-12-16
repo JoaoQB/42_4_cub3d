@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/16 13:17:43 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/16 19:57:41 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC = $(SRC_PATH)/main.c \
 	$(SRC_PATH)/raycasting/draw_utils.c \
 	$(SRC_PATH)/raycasting2/raycasting2.c \
 	$(SRC_PATH)/raycasting2/raycasting2_init.c \
+	$(SRC_PATH)/raycasting2/raycasting2_utils.c \
 
 CC = cc
 MINILIBX_FLAGS= -L./includes/minilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Ofast

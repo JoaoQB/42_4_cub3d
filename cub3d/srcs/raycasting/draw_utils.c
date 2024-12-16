@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/10 11:32:41 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:53:51 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	draw_vertical_line(t_game *game, int x, int wall_top, int wall_botto
 	while (y < HEIGHT)
 	{
 		if (y >= wall_top && y <= wall_bottom)
-			my_pixel_put(&img, x, y, WALL_COLOR);
+			my_pixel_put(&img, x, y, game->ray.wall_dir[x]);
 		else if (y < wall_top)
 			my_pixel_put(&img, x, y, CEILING_COLOR);
 		else
@@ -44,24 +44,24 @@ static void	draw_vertical_line(t_game *game, int x, int wall_top, int wall_botto
 
 void	draw_walls(t_game	*game)
 {
-	int	i;
-	double	half_w_height;
-	double	wall_top;
-	double	wall_bottom;
+	int		i;
+	double	halfWallHeight;
+	double	wallTop;
+	double	wallBottom;
 
 	if (!game)
 		return ;
 	i = 0;
 	while (i < WIDTH)
 	{
-		half_w_height = (game->ray.wall_height[i]) / 2;
-		wall_top = game->ray.h_height - half_w_height;
-		if (wall_top < 0)
-			wall_top = 0;
-		wall_bottom = game->ray.h_height + half_w_height;
-		if (wall_bottom >= HEIGHT)
-			wall_bottom = HEIGHT - 1;
-		draw_vertical_line(game, i, wall_top, wall_bottom);
+		halfWallHeight = (game->ray.wall_height[i]) / 2;
+		wallTop = game->ray.cam.hHeight - halfWallHeight;
+		if (wallTop < 0)
+			wallTop = 0;
+		wallBottom = game->ray.cam.hHeight + halfWallHeight;
+		if (wallBottom >= HEIGHT)
+			wallBottom = HEIGHT - 1;
+		draw_vertical_line(game, i, wallTop, wallBottom);
 		i++;
 	}
 }
