@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_old.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/18 15:37:08 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:29:58 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-#define CUB3D_H
+#ifndef CUB3D_OLD_H
+#define CUB3D_OLD_H
 
-# include "minilibx-linux/mlx.h"
 # include <stdint.h> // Define integer types, limits, macros
 # include <stdlib.h> // Memory allocation
 # include <stdio.h> // Standard input and output, perror function / Debugging
@@ -24,12 +23,14 @@
 
 
 # define PI 3.14159265358979323846
+# define ANGLE_TOLERANCE 0.001
 
 # define WIDTH 800 //this will define the number of rays we cast
 # define HEIGHT 800
+# define UNIT_SIZE 16
+# define SCALE 4
 # define FOV 60
 # define MAX_ANGLE 360
-# define SCALE 2
 # define WALL_NORTH 0xFF0000  // Red for north-facing walls
 # define WALL_SOUTH 0x00FF00  // Green for south-facing walls
 # define WALL_EAST  0x0000FF  // Blue for east-facing walls
@@ -52,6 +53,7 @@ typedef struct s_coord
 {
 	double	x;
 	double	y;
+	//double z;
 }	t_coord;
 
 typedef struct s_player
@@ -59,6 +61,7 @@ typedef struct s_player
 	t_coord	pos;
 	double	speed;
 	double	dir_angle;
+	// t_coord	dir;
 }	t_player;
 
 typedef struct s_cam
@@ -100,6 +103,19 @@ typedef struct s_mlx
 	t_image		img;
 }	t_mlx;
 
+/*
+** pos_ux  = position unit x
+** pos_uy  = position unit y
+** ang_dir = angle direction
+*/
+
+typedef struct s_pov
+{
+	double	pos_ux;
+	double	pos_uy;
+	double	ang_dir;
+}	t_pov;
+
 typedef struct s_trig
 {
 	double	radians[MAX_ANGLE];
@@ -108,8 +124,36 @@ typedef struct s_trig
 	double	cosines[MAX_ANGLE];
 }	t_trig;
 
+/*
+** h_fov       = half field of view
+** p_height    = player height
+** h_width     = half height
+** h_height    = half height
+** d_proj      = distance to projection
+** height_calc = height calculator
+** ray_ang_inc   = ray increment angle
+** m_width     = map width
+** m_height    = map height
+** ray_dist    = ray distances
+** wall_height = wall heights
+*/
 typedef struct s_ray
 {
+	double	width;
+	double	height;
+	double	h_width;
+	double	h_height;
+	double	fov;
+	double	h_fov;
+	double	p_height;
+	double	d_proj;
+	double	ray_ang_inc;
+	double	height_calc;
+	int		m_width;
+	int		m_height;
+	double	ray_dist[WIDTH];
+	double	wall_height[WIDTH];
+	//
 	int		id;
 	int		hit;
 	int		side;
@@ -124,11 +168,10 @@ typedef struct s_ray
 	double	rayInterY;
 	int		stepX;
 	int		stepY;
-	double	ray_dist[WIDTH];
-	double	wall_height[WIDTH];
-	int		wall_dir[WIDTH];
 	t_trig	trign;
+	t_pov	pov;
 	t_cam	cam;
+	int		wall_dir[WIDTH];
 }	t_ray;
 
 typedef struct s_game
@@ -167,26 +210,55 @@ void	free_mlx(t_mlx **mlx_ptr);
 /* utils.c */
 int		ft_strlen(const char *str);
 
+// /******************/
+// /******************/
+// /**raycasting_old**/
+// /******************/
+// /******************/
+
+// /* raycasting_init.c */
+// void	init_ray(t_game *game);
+// void	init_trigonometry(t_ray *ray);
+
+// /* raycasting_utils.c */
+// bool	is_ray_cardinal(double ray_angle);
+// bool	is_ray_horizontal(double ray_angle);
+// bool	is_ray_vertical(double ray_angle);
+// bool	is_ray_facing_right(double ray_angle);
+// bool	is_ray_facing_upwards(double ray_angle);
+
+// /* raycasting_trign_utils.c */
+// int		normalize_angle(int angle);
+// double	get_radiant(int ray_angle);
+// double	get_tangent(int ray_angle);
+// double	get_sine(int ray_angle);
+// double	get_cosine(int ray_angle);
+
+// /* raycasting_math_utils.c */
+// double	get_dist_square(t_pov player, t_coord intersection);
+// double	get_dist(t_pov player, t_coord delta, double ray_angle);
+
+// /* raycasting_vertical.c */
+// double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle, int ray_id);
+
+// /* raycasting_horizontal.c */
+// double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle, int ray_id);
+
+// /* raycasting_old.c */
+// void	raycasting_old();
+
+// /* draw_utils.c */
+// void	draw_walls(t_game	*game);
+// void	my_pixel_put(t_image *img, int x, int y, int colour);
+
 /******************/
 /******************/
-/*** RAYCASTING ***/
+/*** raycasting ***/
 /******************/
 /******************/
 
 /* raycasting_init.c */
-void	init_ray(t_game *game);
-int		get_map_width(char **map);
-int		get_map_height(char **map);
-void	print_ray(t_ray *ray);
-void	init_trigonometry(t_ray *ray);
-
-/* raycasting_trign_utils.c */
-int		normalize_angle(int angle);
-double	get_radiant(int ray_angle);
-double	get_tangent(int ray_angle);
-double	get_sine(int ray_angle);
-double	get_cosine(int ray_angle);
-
+void	init_ray2(t_game *game);
 
 /* raycasting.c */
 void	raycasting();
@@ -194,10 +266,5 @@ void	raycasting();
 /* raycasting_utils.c */
 double	get_wall_distance(t_ray *ray);
 int		get_wall_direction(t_ray *ray);
-
-/* draw_utils.c */
-void	draw_walls(t_game	*game);
-void	draw_vertical_line(t_game *game, int x, int wallTop, int wallBottom);
-void	my_pixel_put(t_image *img, int x, int y, int colour);
 
 #endif

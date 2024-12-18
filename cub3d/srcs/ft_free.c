@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:49:36 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/18 12:00:47 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:38:56 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_mlx(t_mlx **mlx_ptr)
 {
-	t_mlx *mlx;
+	t_mlx	*mlx;
 
 	if (mlx_ptr && *mlx_ptr)
 	{
@@ -41,8 +41,8 @@ void	free_mlx(t_mlx **mlx_ptr)
 
 void	free_map(char ***map_ptr)
 {
-	char **map;
-	int i;
+	char	**map;
+	int		i;
 
 	if (!map_ptr || !*map_ptr)
 		return ;
@@ -58,7 +58,7 @@ void	free_map(char ***map_ptr)
 	*map_ptr = NULL;
 }
 
-void	free_game()
+void	free_game(void)
 {
 	t_game	*game_s;
 
