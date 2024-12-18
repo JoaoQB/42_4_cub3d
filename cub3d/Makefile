@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/16 19:57:41 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/18 12:11:58 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_PATH = ./srcs
 SRC = $(SRC_PATH)/main.c \
 	$(SRC_PATH)/init.c \
 	$(SRC_PATH)/ft_free.c \
+	$(SRC_PATH)/utils.c \
 	$(SRC_PATH)/raycasting/raycasting.c \
 	$(SRC_PATH)/raycasting/raycasting_init.c \
 	$(SRC_PATH)/raycasting/raycasting_utils.c \

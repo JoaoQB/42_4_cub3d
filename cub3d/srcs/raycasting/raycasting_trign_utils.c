@@ -30,7 +30,7 @@ double	get_cosine(int ray_angle)
 		return (-1);
 	ray_angle = normalize_angle(ray_angle);
 	cosine = ray->trign.cosines[ray_angle];
-	// printf("ray_angle: %d, cosine %f\n", ray_angle, cosine);
+	printf("!! ray_angle: %d, cosine %f\n", ray_angle, cosine);
 	return (cosine);
 }
 
@@ -44,6 +44,7 @@ double	get_sine(int ray_angle)
 		return (-1);
 	ray_angle = normalize_angle(ray_angle);
 	sine = ray->trign.sines[ray_angle];
+	printf("!! ray_angle: %d, sine %f\n", ray_angle, sine);
 	return (sine);
 }
 
@@ -57,7 +58,7 @@ double	get_tangent(int ray_angle)
 		return (-1);
 	ray_angle = normalize_angle(ray_angle);
 	tangent = ray->trign.tangents[ray_angle];
-	// printf("ray_angle: %d, tangent result: %f\n", ray_angle, tangent);
+	printf("!! ray_angle: %d, tangent result: %f\n", ray_angle, tangent);
 	return (tangent);
 }
 
@@ -71,5 +72,6 @@ double	get_radiant(int ray_angle)
 		return (-1);
 	ray_angle = normalize_angle(ray_angle);
 	radiant = ray->trign.radians[ray_angle];
+	printf("!! ray_angle: %d, radiant result: %f\n", ray_angle, radiant);
 	return (radiant);
 }

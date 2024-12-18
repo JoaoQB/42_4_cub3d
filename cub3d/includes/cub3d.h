@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/16 19:57:30 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:16:39 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 # define WIDTH 800 //this will define the number of rays we cast
 # define HEIGHT 800
 # define UNIT_SIZE 16
-# define FOV 70
+# define SCALE 4
+# define FOV 60
 # define MAX_ANGLE 360
 # define WALL_NORTH 0xFF0000  // Red for north-facing walls
 # define WALL_SOUTH 0x00FF00  // Green for south-facing walls
@@ -72,6 +73,8 @@ typedef struct s_cam
 	double	height;
 	double	hWidth;
 	double	hHeight;
+	int		mapWidth;
+	int		mapHeight;
 	t_coord	pos;
 	t_coord	dir;
 	t_coord	plane;
@@ -204,6 +207,9 @@ void	init_game();
 void	free_game();
 void	free_map(char ***map_ptr);
 void	free_mlx(t_mlx **mlx_ptr);
+
+/* utils.c */
+int		ft_strlen(const char *str);
 
 /******************/
 /******************/

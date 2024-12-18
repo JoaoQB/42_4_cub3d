@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/16 20:44:30 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:35:42 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static char	**get_test_map()
 
 	map = malloc(sizeof(char *) * 8);
 	map[0] = strdup("111111111111111");
-	map[1] = strdup("100000000000011");
+	map[1] = strdup("100000111000011");
 	map[2] = strdup("100000000000011");
-	map[3] = strdup("100000000001011");
+	map[3] = strdup("100000000P00011");
 	map[4] = strdup("100000000000011");
 	map[5] = strdup("100000000000011");
 	map[6] = strdup("111111111111111");
@@ -44,9 +44,9 @@ static void	init_player(t_game *game)
 {
 	if (!game)
 		return ;
-	game->player.pos.x = 3;
-	game->player.pos.y = 10;
-	game->player.dir_angle = NORTH;
+	game->player.pos.x = 9;
+	game->player.pos.y = 3;
+	game->player.dir_angle = WEST;
 	game->player.speed = 1;
 	printf("!! Player initialized:\n");
 	printf("!! Position: (%f, %f)\n", game->player.pos.x, game->player.pos.y);
