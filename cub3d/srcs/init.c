@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/14 19:30:12 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/19 10:27:23 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ void	init_mlx(void)
 	return ;
 }
 
+// TODO init map from .cub file
+//void	init_game()
+//{
+	//t_game	*game_s;
+
+//	game_s = ft_game();
+	//game_s->mlx = init_mlx();
+	//game_s->map = get_test_map();
+	//init_player(game_s);
+	//init_ray(game_s);
+//}
+
 void	init_game(char* file_path)
 {
 	char **lines;
@@ -88,7 +100,7 @@ void	init_game(char* file_path)
 	}
 	init_hash_table();
 	init_mlx();
-	init_ray();
+	init_ray(ft_game());
 }
 
 t_texture *extract_info_process(char **words)
@@ -136,14 +148,4 @@ t_image*	xpm_to_binary(char *image_path)
 	return (img);
 }
 
-// TODO init map from .cub file
-//void	init_game()
-//{
-	//t_game	*game_s;
 
-//	game_s = ft_game();
-	//game_s->mlx = init_mlx();
-	//game_s->map = get_test_map();
-	//init_player(game_s);
-	//init_ray(game_s);
-//}
