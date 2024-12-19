@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/10 11:32:41 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:38:42 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	my_pixel_put(t_image *img, int x, int y, int colour)
 }
 
 // TODO define WALL_TEXTURE for WALL_COLOR and change floor and ceiling colors
-static void	draw_vertical_line(t_game *game, int x, int wall_top, int wall_bottom)
+void	draw_vertical_line(t_game *game, int x, int wallTop, int wallBottom)
 {
 	int		y;
 	t_image	img;
@@ -32,9 +32,9 @@ static void	draw_vertical_line(t_game *game, int x, int wall_top, int wall_botto
 	y = 0;
 	while (y < HEIGHT)
 	{
-		if (y >= wall_top && y <= wall_bottom)
-			my_pixel_put(&img, x, y, WALL_COLOR);
-		else if (y < wall_top)
+		if (y >= wallTop && y <= wallBottom)
+			my_pixel_put(&img, x, y, game->ray.wall_dir[x]);
+		else if (y < wallTop)
 			my_pixel_put(&img, x, y, CEILING_COLOR);
 		else
 			my_pixel_put(&img, x, y, FLOOR_COLOR);
@@ -44,8 +44,8 @@ static void	draw_vertical_line(t_game *game, int x, int wall_top, int wall_botto
 
 void	draw_walls(t_game	*game)
 {
-	int	i;
-	double	half_w_height;
+	int		i;
+	double	half_wall_height;
 	double	wall_top;
 	double	wall_bottom;
 
@@ -54,11 +54,11 @@ void	draw_walls(t_game	*game)
 	i = 0;
 	while (i < WIDTH)
 	{
-		half_w_height = (game->ray.wall_height[i]) / 2;
-		wall_top = game->ray.h_height - half_w_height;
+		half_wall_height = (game->ray.wall_height[i]) / 2;
+		wall_top = game->ray.cam.hHeight - half_wall_height;
 		if (wall_top < 0)
 			wall_top = 0;
-		wall_bottom = game->ray.h_height + half_w_height;
+		wall_bottom = game->ray.cam.hHeight + half_wall_height;
 		if (wall_bottom >= HEIGHT)
 			wall_bottom = HEIGHT - 1;
 		draw_vertical_line(game, i, wall_top, wall_bottom);

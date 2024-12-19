@@ -52,7 +52,7 @@ void	free_map(char ***map_ptr)
 	*map_ptr = NULL;
 }
 
-void	free_game()
+void	free_game(void)
 {
 	t_game	*game_s;
 

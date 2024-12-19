@@ -45,6 +45,8 @@ int main(int argc, char **argv)
 		printf("Please run ./cub3d <.cub_file_path> \n");
 		return (EXIT_FAILURE);
 	}
+
+
 	init_game(argv[1]); //TODO merge this
 	raycasting();
 	// free_game();
@@ -66,6 +68,7 @@ int main(int argc, char **argv)
 	mlx_hook(ft_game()->mlx->win, 17, 0, handle_close, NULL);
 	// Set the loop to call the player_moves function
 	mlx_loop(ft_game()->mlx->mlx);
+	//mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
 	// mlx_loop_hook(ft_game()->mlx, player_moves, NULL);
 	// Start the loop to listen for events
 	return (0);

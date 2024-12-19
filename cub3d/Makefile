@@ -45,14 +45,19 @@ SRCS := main.c\
 	mlx_init.c\
 	mlx_control.c \
 	hash_table.c \
-	raycasting/raycasting.c \
-	raycasting/raycasting_init.c \
-	raycasting/raycasting_utils.c \
-	raycasting/raycasting_trign_utils.c \
-	raycasting/raycasting_math_utils.c \
-	raycasting/raycasting_horizontal.c \
-	raycasting/raycasting_vertical.c \
-	raycasting/draw_utils.c \
+	$(SRC_PATH)/raycasting/raycasting.c \
+	$(SRC_PATH)/raycasting/raycasting_init.c \
+	$(SRC_PATH)/raycasting/raycasting_utils.c \
+	$(SRC_PATH)/raycasting/raycasting_trign_utils.c \
+	$(SRC_PATH)/raycasting/draw_utils.c \
+	# raycasting/raycasting.c \
+	# raycasting/raycasting_init.c \
+	# raycasting/raycasting_utils.c \
+	# raycasting/raycasting_trign_utils.c \
+	# raycasting/raycasting_math_utils.c \
+	# raycasting/raycasting_horizontal.c \
+	# raycasting/raycasting_vertical.c \
+	# raycasting/draw_utils.c \
 	# ./raycaster.c \
 	
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))

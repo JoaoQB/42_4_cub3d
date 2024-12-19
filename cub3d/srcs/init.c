@@ -135,3 +135,15 @@ t_image*	xpm_to_binary(char *image_path)
 		mlx_put_image_to_window (ft_game()->mlx, ft_game()->mlx->win, img->img, 0, 0);
 	return (img);
 }
+
+// TODO init map from .cub file
+//void	init_game()
+//{
+	//t_game	*game_s;
+
+//	game_s = ft_game();
+	//game_s->mlx = init_mlx();
+	//game_s->map = get_test_map();
+	//init_player(game_s);
+	//init_ray(game_s);
+//}

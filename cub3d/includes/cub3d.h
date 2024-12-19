@@ -33,7 +33,12 @@
 # define UNIT_SIZE 16
 # define FOV 60
 # define MAX_ANGLE 360
-# define WALL_COLOR 0xFFFFFF  // White
+# define SCALE 2
+# define WALL_NORTH 0xFF0000  // Red for north-facing walls
+# define WALL_SOUTH 0x00FF00  // Green for south-facing walls
+# define WALL_EAST  0x0000FF  // Blue for east-facing walls
+# define WALL_WEST  0xFFFF00  // Yellow for west-facing walls
+
 # define FLOOR_COLOR 0x404040   // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
 # define PLAYER_SPEED 5
@@ -101,6 +106,21 @@ typedef struct s_player
 	// t_coord	dir;
 }	t_player;
 
+typedef struct s_cam
+{
+	double	fov;
+	double	hFov;
+	double	width;
+	double	height;
+	double	hWidth;
+	double	hHeight;
+	int		mapWidth;
+	int		mapHeight;
+	t_coord	pos;
+	t_coord	dir;
+	t_coord	plane;
+} t_cam;
+
 typedef struct s_image
 {
 	void	*img;
@@ -149,35 +169,27 @@ typedef struct s_trig
 	double	cosines[MAX_ANGLE];
 }	t_trig;
 
-/*
-** h_fov       = half field of view
-** p_height    = player height
-** h_width     = half height
-** h_height    = half height
-** d_proj      = distance to projection
-** height_calc = height calculator
-** ray_ang_inc   = ray increment angle
-** m_width     = map width
-** m_height    = map height
-** ray_dist    = ray distances
-** wall_height = wall heights
-*/
 typedef struct s_ray
 {
-	double	h_width;
-	double	h_height;
-	double	fov;
-	double	h_fov;
-	double	p_height;
-	double	d_proj;
-	double	ray_ang_inc;
-	double	height_calc;
-	int		m_width;
-	int		m_height;
+	int		id;
+	int		hit;
+	int		side;
+	double	camX;
+	double	rayDirX;
+	double	rayDirY;
+	int		gridX;
+	int		gridY;
+	double	rayNextX;
+	double	rayNextY;
+	double	rayInterX;
+	double	rayInterY;
+	int		stepX;
+	int		stepY;
 	double	ray_dist[WIDTH];
 	double	wall_height[WIDTH];
+	int		wall_dir[WIDTH];
 	t_trig	trign;
-	t_pov	pov;
+	t_cam	cam;
 }	t_ray;
 
 typedef struct s_control
@@ -203,6 +215,13 @@ typedef struct s_game
 	int update;
 }	t_game;
 
+typedef struct s_data
+{//
+	char	*path_to_map;
+	char	*path_to_textures;
+	char	*player;
+}	t_data;
+
 /******************/
 /******************/
 /****** GAME ******/
@@ -214,7 +233,7 @@ t_game	*ft_game();
 
 /* init.c */
 void	init_game(char* file_path);
-
+//void	init_game();
 /* ft_free.c */
 void	free_game();
 void	free_map(char ***map_ptr);
@@ -227,14 +246,11 @@ void	free_mlx(t_mlx **mlx_ptr);
 /******************/
 
 /* raycasting_init.c */
-void	init_ray(void);
-
-/* raycasting_utils.c */
-bool	is_ray_cardinal(double ray_angle);
-bool	is_ray_horizontal(double ray_angle);
-bool	is_ray_vertical(double ray_angle);
-bool	is_ray_facing_right(double ray_angle);
-bool	is_ray_facing_upwards(double ray_angle);
+void	init_ray(t_game *game);
+int		get_map_width(char **map);
+int		get_map_height(char **map);
+void	print_ray(t_ray *ray);
+void	init_trigonometry(t_ray *ray);
 
 /* raycasting_trign_utils.c */
 int		normalize_angle(int angle);
@@ -243,21 +259,17 @@ double	get_tangent(int ray_angle);
 double	get_sine(int ray_angle);
 double	get_cosine(int ray_angle);
 
-/* raycasting_math_utils.c */
-double	get_dist_square(t_pov player, t_coord intersection);
-double	get_dist(t_pov player, t_coord delta, double ray_angle);
-
-/* raycasting_vertical.c */
-double	cast_ray_vertical(t_game *game, t_ray *ray, double ray_angle, int ray_id);
-
-/* raycasting_horizontal.c */
-double	cast_ray_horizontal(t_game *game, t_ray *ray, double ray_angle, int ray_id);
 
 /* raycasting.c */
 void	raycasting();
 
+/* raycasting_utils.c */
+double	get_wall_distance(t_ray *ray);
+int		get_wall_direction(t_ray *ray);
+
 /* draw_utils.c */
 void	draw_walls(t_game	*game);
+void	draw_vertical_line(t_game *game, int x, int wallTop, int wallBottom);
 void	my_pixel_put(t_image *img, int x, int y, int colour);
 
 /* malloc tools */
