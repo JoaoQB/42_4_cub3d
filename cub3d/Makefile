@@ -6,7 +6,7 @@
 #    By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/20 15:30:49 by fandre-b         ###   ########.fr        #
+#    Updated: 2024/12/20 16:34:37 by fandre-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ SANITIZE = -g -fsanitize=address
 VALGRIND = --leak-chek=full --show-leak-kinds=all --track-origin=yes --track-fds=yes
 
 # MLX Compile flags
-MLX_LIB	= $(addprefix $(MLX),mlx.a)
-MLX_LNK	= -L$(MLX_LIB) -lmlx -lXext -lX11 -lm -lz
+MLX_LIB	= $(MLX)/libmlx_Linux.a
+MLX_LNK	= -L$(MLX) -lmlx -lXext -lX11 -lm -lz
 
 SRCS := main.c \
 		init.c \
@@ -43,12 +43,13 @@ SRCS := main.c \
 		parsing/check_map.c \
 		raycasting/draw_utils.c \
 		raycasting/raycasting.c \
-		raycasting/raycasting_horizontal.c \
 		raycasting/raycasting_init.c \
-		raycasting/raycasting_math_utils.c \
 		raycasting/raycasting_trign_utils.c \
 		raycasting/raycasting_utils.c \
-		raycasting/raycasting_vertical.c 
+		utils/utils.c \
+		utils/utils_str.c \
+		utils/utils_alloc.c \
+		utils/hash_table.c \
 	
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
 # OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c \=.o))
@@ -63,9 +64,9 @@ $(MLX_LIB):
 $(OBJ_DIR)/%.o: %.c
 	mkdir -p $(dir $@)
 	@echo "$(RED)Compiling object file $<...$(NC)"
-	$(CC) $(CFLAGS) -I$(MLX) -I$(INCLUDES_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -I$(MLX) -c $< -o $@
 
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) $(MLX_LIB)
 	@echo "$(YELLOW)Building program...$(NC)"
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_LNK)
 	@echo "$(GREEN)Build successful!$(NC)"
