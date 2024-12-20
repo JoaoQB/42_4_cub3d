@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/14 19:07:08 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:33:44 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,32 +87,50 @@ int	key_release(int key, void *param)
 
 int mouse_moved(int x, int y, void *param)
 {
-	static int last_x = 0;
+	static int last_x;
 	int diff_x;
 
 	(void) param;
 	printf("Mouse moved %d %d\n", x, y);
 	diff_x = x - last_x;
-	ft_game()->ctl.dir += diff_x;
+	printf("diff_x: %d\n", diff_x);
+	ft_game()->ctl.mv_angle += diff_x;
+	last_x = x;
 	ft_game()->update = 1;
 	return (0);
 }
 
 int player_moves(void)
 {
+	// t_ray *ray;
+
+	// ray = &ft_game()->ray;
 	if (ft_game()->update == 0)
 		return 0;
-	if (ft_game()->ctl.mv_angle == 0 || ft_game()->ctl.move.x == 0 ||
-	ft_game()->ctl.move.x == 0)
-		return 0;
-	ft_game()->player.dir_angle += ft_game()->ctl.mv_angle * PLAYER_ROTATION;
-	ft_game()->player.pos.x += ft_game()->ctl.move.x * PLAYER_SPEED;
-	ft_game()->player.pos.y += ft_game()->ctl.move.y * PLAYER_SPEED;
+	// if (ft_game()->ctl.mv_angle == 0 && ft_game()->ctl.move.x == 0 && ft_game()->ctl.move.x == 0)
+	// 	return 0;
+	ft_game()->player.dir_angle += ft_game()->ctl.mv_angle;
+	ft_game()->player.pos.x += ft_game()->ctl.move.x;
+	ft_game()->player.pos.y += ft_game()->ctl.move.y;
+	printf("movement x:%f, y:%f, tetha:%d\n", ft_game()->ctl.move.x, ft_game()->ctl.move.y, ft_game()->ctl.mv_angle);
 	ft_game()->ctl.mv_angle = 0;
 	ft_game()->ctl.move.x = 0;
 	ft_game()->ctl.move.y = 0;
+	// ray->cam.pos.x = ft_game()->player.pos.x;
+	// ray->cam.pos.y = ft_game()->player.pos.y;
+	// ray->cam.dir.x = cos(ft_game()->player.dir_angle);
+	// ray->cam.dir.y = sin(ft_game()->player.dir_angle);
 	// recalc_raycast();
 	// raycasting();
+	raycasting();
+	mlx_put_image_to_window(ft_game()->mlx->mlx, ft_game()->mlx->win, ft_game()->mlx->img.img, 0, 0);
 	ft_game()->update = 0;
 	return 0;
 }
+
+	// ray->rayDirX = ray->cam.dir.x + ray->cam.plane.x * ray->camX;
+	// ray->rayDirY = ray->cam.dir.y + ray->cam.plane.y * ray->camX;
+	// // printf("ray_id_%d: Final Direction Vector (rayDirX: %f, rayDirY: %f)\n",
+	// 	// ray_id, ray->rayDirX, ray->rayDirY);
+	// ray->gridX = (int)ray->cam.pos.x;
+	// ray->gridY = (int)ray->cam.pos.y;

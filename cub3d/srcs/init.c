@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/19 10:27:23 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/19 10:52:23 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ void	init_game(char* file_path)
 	{
 		file_str = file_to_str(file_path);
 		lines = ft_split(file_str, '\n');
-		extract_map(lines);
-		check_map(ft_game()->map);
 		extract_textures(lines);
+		extract_map(lines);
+		print_map (ft_game()->map);
 		free(lines);
 		ft_game()->player.dir_angle = ft_game()->player.angle;
 	}

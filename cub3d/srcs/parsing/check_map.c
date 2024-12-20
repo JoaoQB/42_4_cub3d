@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/14 19:15:35 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:01:27 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ e_direction get_direction_struct(const char *str)
 	return UNKNOWN;
 }
 
-bool get_player_direction(const char c)
+bool get_player_direction(int y, int x)
 {
+	char c;
+
+	c = ft_game()->map[y][x];
 	if (!ft_strchr("NWES", c))
 		return (true);
 	if (ft_game()->player.angle != UNKNOWN)
@@ -72,7 +75,12 @@ bool get_player_direction(const char c)
 	else if (c == 'W')
 		ft_game()->player.angle = WEST;
 	else
+	{
+		ft_print_error("Invalid player direction");
 		ft_game()->player.angle = UNKNOWN;
+	}
+	ft_game()->player.pos.x = x;
+	ft_game()->player.pos.y = y;
 	return (true);
 }
 
@@ -85,10 +93,10 @@ void extract_textures(char **lines)
 	i = -1;
 	while (lines[++i] != NULL)
 	{
-		dir = get_direction_struct(lines[i]);
+		dir = get_direction_struct(lines[i]) / 90;
 		if (ft_game()->texture[dir] != NULL)
 			return(free(lines), ft_print_error("Duplicated texture line"));
-		if (dir != UNKNOWN)
+		if (dir * 90 != UNKNOWN)
 		{//dir is a valid dir
 			if (ft_wordcount(lines[i], ' ') != 2)
 				return(free(lines), ft_print_error("Invalid texture line"));
@@ -148,14 +156,12 @@ void	check_map(char **map)
 			if (!ft_strchr("1 0NWES", map[y][x]))
 				ft_print_error("Invalid character in map");
 			if (!validate_position(y, x))
-				ft_print_error("Of map encapsulation");
-			if (!get_player_direction(map[y][x]))
-				ft_print_error("Repeated player pos");
-			else if (ft_game()->player.angle != UNKNOWN)
 			{
-				ft_game()->player.pos.x = x;
-				ft_game()->player.pos.y = y;
+				printf	("y: %d, x: %d, char: %c\n", y, x, map[y][x]);
+				ft_print_error("Of map encapsulation");
 			}
+			if (!get_player_direction(y, x))
+				ft_print_error("Repeated player pos");
 			x++;
 		}
 	}

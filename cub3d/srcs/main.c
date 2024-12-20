@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:39 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/19 10:26:10 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:11:16 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 
 int render()
 {
-	raycasting();
-	mlx_put_image_to_window(ft_game()->mlx->mlx, ft_game()->mlx->win, ft_game()->mlx->img.img, 0, 0);
+	player_moves();
 	return (0);
 }
 
@@ -68,8 +67,8 @@ int main(int argc, char **argv)
     // Triggered cross exit is pressed
 	mlx_hook(ft_game()->mlx->win, 17, 0, handle_close, NULL);
 	// Set the loop to call the player_moves function
+	mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
 	mlx_loop(ft_game()->mlx->mlx);
-	//mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
 	// mlx_loop_hook(ft_game()->mlx, player_moves, NULL);
 	// Start the loop to listen for events
 	return (0);

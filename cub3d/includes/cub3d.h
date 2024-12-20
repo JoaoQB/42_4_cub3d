@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/14 19:21:47 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:33:26 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define FLOOR_COLOR 0x404040   // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
 # define PLAYER_SPEED 5
-# define PLAYER_ROTATION 5
+# define PLAYER_ROTATION 0.2
 # define MINIMAP_SCALE 0.2
 # define HASH_TABLE_SIZE 20
 
@@ -52,9 +52,9 @@ typedef enum Direction
 	NORTH = 90,
 	WEST = 180,
 	SOUTH = 270,
-	FLOOR = 2,
-	CEIL = 3,
-	UNKNOWN = 1
+	FLOOR = 360,
+	CEIL = 450,
+	UNKNOWN = 540
 } e_direction;
 
 typedef enum KEY{
