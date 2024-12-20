@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/20 15:33:26 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:46:17 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct s_cam
 } t_cam;
 
 typedef struct s_image
-{
+{//
 	void	*img;
 	char	*addr;
 	int		bpp;

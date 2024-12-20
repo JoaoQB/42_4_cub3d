@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/19 12:33:44 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:48:59 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ int mouse_moved(int x, int y, void *param)
 
 int player_moves(void)
 {
-	// t_ray *ray;
+	t_ray *ray;
 
-	// ray = &ft_game()->ray;
+	ray = &ft_game()->ray;
 	if (ft_game()->update == 0)
 		return 0;
 	// if (ft_game()->ctl.mv_angle == 0 && ft_game()->ctl.move.x == 0 && ft_game()->ctl.move.x == 0)
@@ -116,10 +116,10 @@ int player_moves(void)
 	ft_game()->ctl.mv_angle = 0;
 	ft_game()->ctl.move.x = 0;
 	ft_game()->ctl.move.y = 0;
-	// ray->cam.pos.x = ft_game()->player.pos.x;
-	// ray->cam.pos.y = ft_game()->player.pos.y;
-	// ray->cam.dir.x = cos(ft_game()->player.dir_angle);
-	// ray->cam.dir.y = sin(ft_game()->player.dir_angle);
+	ray->cam.pos.x = ft_game()->player.pos.x;
+	ray->cam.pos.y = ft_game()->player.pos.y;
+	ray->cam.dir.x = cos(ft_game()->player.dir_angle);
+	ray->cam.dir.y = sin(ft_game()->player.dir_angle);
 	// recalc_raycast();
 	// raycasting();
 	raycasting();

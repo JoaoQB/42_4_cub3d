@@ -6,7 +6,7 @@
 #    By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/20 16:34:37 by fandre-b         ###   ########.fr        #
+#    Updated: 2024/12/20 16:46:06 by fandre-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,21 +66,10 @@ $(OBJ_DIR)/%.o: %.c
 	@echo "$(RED)Compiling object file $<...$(NC)"
 	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -I$(MLX) -c $< -o $@
 
-$(NAME):	$(OBJS) $(MLX_LIB)
+$(NAME):	$(OBJS) $(MLX_LIB) $(INCLUDES_DIR)/cub3d.h
 	@echo "$(YELLOW)Building program...$(NC)"
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_LNK)
 	@echo "$(GREEN)Build successful!$(NC)"
-
-# $(OBJ_DIR)/%.o: $(SRC_PATH)/%.c \
-# 	@mkdir -p $(OBJ_DIR)
-# 	@echo "$(YELLOW)Compiling $<...$(NC)"
-# 	$(CC) $(CFLAGS) -I$(MLX_DIR) -c $< -o $@
-
-
-# $(NAME): $(OBJ) $(MLX)
-# 	@echo "$(YELLOW)Linking...$(NC)"
-# 	$(CC) $(CFLAGS) $(OBJ) $(MINILIBX_FLAGS) -o $(NAME)
-# 	@echo "$(GREEN)Build successful!$(NC)"
 
 valgrind: CFLAGS += -g
 valgrind: re
@@ -94,8 +83,6 @@ clean:
 	@echo "$(YELLOW)Cleaning object files...$(NC)"
 	-make -s -C $(MLX) clean
 	$(RM) $(OBJ_DIR)
-# make -C $(FT) clean
-#	rm -rf $(OBJ_DIR)
 
 fclean:	clean
 	@echo "$(YELLOW)Cleaning executable...$(NC)"
