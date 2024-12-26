@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void	init_trigonometry(t_ray *ray)
 {
@@ -65,15 +65,11 @@ void	print_ray(t_ray *ray)
 {
 	if (!ray)
 		return;
-	printf("!! Camera FOV: %f\n", ray->cam.fov);
-	printf("!! Camera Half FOV: %f\n", ray->cam.hFov);
 	printf("!! Camera Width: %f\n", ray->cam.width);
 	printf("!! Camera Height: %f\n", ray->cam.height);
 	printf("!! Camera Position: x = %f, y = %f\n", ray->cam.pos.x, ray->cam.pos.y);
 	printf("!! Camera Direction: dir_x = %f, dir_y = %f\n", ray->cam.dir.x, ray->cam.dir.y);
 	printf("!! Camera Plane: plane_x = %f, plane_y = %f\n", ray->cam.plane.x, ray->cam.plane.y);
-	printf("!! Camera Half Width: %f\n", ray->cam.hWidth);
-	printf("!! Camera Half Height: %f\n", ray->cam.hHeight);
 	printf("!! Map Width: %d\n", ray->cam.mapWidth);
 	printf("!! Map Height: %d\n", ray->cam.mapHeight);
 }
@@ -90,8 +86,8 @@ void	init_ray(t_game *game)
 	ray->cam.hFov = ray->cam.fov / 2;
 	ray->cam.width = WIDTH;
 	ray->cam.height = HEIGHT;
-	ray->cam.pos.x = game->player.pos.x;
-	ray->cam.pos.y = game->player.pos.y;
+	ray->cam.pos.x = game->player.pos.x * UNIT_SIZE + UNIT_SIZE / 2;
+	ray->cam.pos.y = game->player.pos.y * UNIT_SIZE + UNIT_SIZE / 2;
 	ray->cam.dir.x = get_cosine(game->player.dir_angle);
 	ray->cam.dir.y = -get_sine(game->player.dir_angle);
 	ray->cam.plane.x = -ray->cam.dir.y * get_tangent(ray->cam.hFov);

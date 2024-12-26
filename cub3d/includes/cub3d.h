@@ -58,7 +58,7 @@ typedef enum Direction
 } e_direction;
 
 typedef enum KEY{
-    KEY_W = 0,
+    KEY_W = 119,
     KEY_A = 97,
     KEY_S = 115,
     KEY_D = 100,
@@ -169,22 +169,40 @@ typedef struct s_trig
 	double	cosines[MAX_ANGLE];
 }	t_trig;
 
+// typedef struct s_ray
+// {
+// 	int		id;
+// 	int		hit;
+// 	int		side;
+// 	double	camX;
+// 	double	rayDirX;
+// 	double	rayDirY;
+// 	int		gridX;
+// 	int		gridY;
+// 	double	rayNextX;
+// 	double	rayNextY;
+// 	double	rayInterX;
+// 	double	rayInterY;
+// 	int		stepX;
+// 	int		stepY;
+// 	double	ray_dist[WIDTH];
+// 	double	wall_height[WIDTH];
+// 	int		wall_dir[WIDTH];
+// 	t_trig	trign;
+// 	t_cam	cam;
+// }	t_ray;
+
 typedef struct s_ray
 {
 	int		id;
 	int		hit;
 	int		side;
 	double	camX;
-	double	rayDirX;
-	double	rayDirY;
-	int		gridX;
-	int		gridY;
-	double	rayNextX;
-	double	rayNextY;
-	double	rayInterX;
-	double	rayInterY;
-	int		stepX;
-	int		stepY;
+	t_coord	grid;
+	t_coord	step;
+	t_coord	rayDir;
+	t_coord	rayNext;
+	t_coord	rayInter;
 	double	ray_dist[WIDTH];
 	double	wall_height[WIDTH];
 	int		wall_dir[WIDTH];

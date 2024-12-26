@@ -112,8 +112,8 @@ int player_moves(void)
 	ft_game()->player.dir_angle += ft_game()->ctl.mv_angle;
 	ray->cam.dir.x = get_cosine(ft_game()->player.dir_angle); // intead of using dir_angle, use vector from start
 	ray->cam.dir.y = -get_sine(ft_game()->player.dir_angle);
-	ray->cam.pos.x += ft_game()->ctl.move.x * get_cosine(ft_game()->player.dir_angle);
-	ray->cam.pos.y += ft_game()->ctl.move.y * -get_sine(ft_game()->player.dir_angle);
+	ray->cam.pos.x += ft_game()->ctl.move.x * ray->cam.dir.x + ft_game()->ctl.move.x * ray->cam.dir.y;
+	ray->cam.pos.y += ft_game()->ctl.move.y * ray->cam.dir.y + ft_game()->ctl.move.y * ray->cam.dir.x;
 	printf("movement x:%f, y:%f, tetha:%d\n", ft_game()->ctl.move.x, ft_game()->ctl.move.y, ft_game()->ctl.mv_angle);
 	ft_game()->ctl.mv_angle = 0;
 	ft_game()->ctl.move.x = 0;
