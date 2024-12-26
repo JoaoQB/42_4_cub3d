@@ -81,7 +81,7 @@ void	init_ray(t_game *game)
 	if (!game)
 		return ;
 	ray = &game->ray;
-	init_trigonometry(ray);
+	// init_trigonometry(ray);
 	ray->cam.fov = FOV;
 	ray->cam.hFov = ray->cam.fov / 2;
 	ray->cam.width = WIDTH;

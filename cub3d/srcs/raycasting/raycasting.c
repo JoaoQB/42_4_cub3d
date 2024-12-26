@@ -49,23 +49,25 @@ static void aim_ray(t_ray *ray)
 	if (ray->rayDir.x < 0)
 	{
 		ray->step.x = -1;
-		ray->rayInter.x = (ray->cam.pos.x - ray->grid.x * UNIT_SIZE) * ray->rayNext.x;
+		ray->rayInter.x = (ray->cam.pos.x - ray->grid.x * UNIT_SIZE);
 	}
 	else
 	{
 		ray->step.x = 1;
-		ray->rayInter.x = ((ray->grid.x + 1) * UNIT_SIZE - ray->cam.pos.x) * ray->rayNext.x;
+		ray->rayInter.x = ((ray->grid.x + 1) * UNIT_SIZE - ray->cam.pos.x);
 	}
+	ray->rayInter.x *= ray->rayNext.x;
 	if (ray->rayDir.y < 0)
 	{
 		ray->step.y = -1;
-		ray->rayInter.y = (ray->cam.pos.y - ray->grid.y * UNIT_SIZE) * ray->rayNext.y;
+		ray->rayInter.y = (ray->cam.pos.y - ray->grid.y * UNIT_SIZE);
 	}
 	else
 	{
 		ray->step.y = 1;
-		ray->rayInter.y = ((ray->grid.y + 1) * UNIT_SIZE - ray->cam.pos.y) * ray->rayNext.y;
+		ray->rayInter.y = ((ray->grid.y + 1) * UNIT_SIZE - ray->cam.pos.y);
 	}
+	ray->rayInter.y *= ray->rayNext.y;
 }
 
 static void cast_ray(t_game*game, t_ray *ray)
@@ -116,7 +118,7 @@ void	raycasting()
 	while (i < WIDTH)
 	{
 		// init_trigonometry(ray);
-		// init_ray(game);
+		init_ray(game);
 		start_ray(ray, i);
 		aim_ray(ray);
 		cast_ray(game, ray);
