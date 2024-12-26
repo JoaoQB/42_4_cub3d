@@ -41,9 +41,9 @@ int	key_press(int key, void *param)
 {
 	(void) param;
 	printf("Key %d pressed\n", key);
-	if (hash_find(key) == 1)
-		return (0);
-	hash_update(key, 1);
+	// if (hash_find(key) == 1)
+	// 	return (0);
+	// hash_update(key, 1);
 	if (key == KEY_ESC)
 		handle_close(NULL);
 	if (key == KEY_W)
@@ -66,22 +66,22 @@ int	key_release(int key, void *param)
 {
 	(void) param;
 	printf("Key %d released\n", key);
-	if (hash_find(key) == 0)
-		return (1);
-	hash_update(key, 1);
-	if (key == KEY_W)
-		ft_game()->ctl.move.x -= 1;
-	if (key == KEY_S)
-		ft_game()->ctl.move.x -= -1;
-	if (key == KEY_A)
-		ft_game()->ctl.move.y -= -1;
-	if (key == KEY_D)
-		ft_game()->ctl.move.y -= 1;
-	if (key == KEY_LEFT || key == KEY_Q)
-		ft_game()->ctl.mv_angle -= -1;
-	if (key == KEY_RIGHT || key == KEY_E)
-		ft_game()->ctl.mv_angle -= 1;
-	ft_game()->update = 1;
+	// if (hash_find(key) == 0)
+	// 	return (1);
+	// hash_update(key, 1);
+	// if (key == KEY_W)
+	// 	ft_game()->ctl.move.x -= 1;
+	// if (key == KEY_S)
+	// 	ft_game()->ctl.move.x -= -1;
+	// if (key == KEY_A)
+	// 	ft_game()->ctl.move.y -= -1;
+	// if (key == KEY_D)
+	// 	ft_game()->ctl.move.y -= 1;
+	// if (key == KEY_LEFT || key == KEY_Q)
+	// 	ft_game()->ctl.mv_angle -= -1;
+	// if (key == KEY_RIGHT || key == KEY_E)
+	// 	ft_game()->ctl.mv_angle -= 1;
+	// ft_game()->update = 1;
 	return (0);
 }
 
@@ -110,18 +110,14 @@ int player_moves(void)
 	// if (ft_game()->ctl.mv_angle == 0 && ft_game()->ctl.move.x == 0 && ft_game()->ctl.move.x == 0)
 	// 	return 0;
 	ft_game()->player.dir_angle += ft_game()->ctl.mv_angle;
-	ft_game()->player.pos.x += ft_game()->ctl.move.x;
-	ft_game()->player.pos.y += ft_game()->ctl.move.y;
+	ray->cam.dir.x = get_cosine(ft_game()->player.dir_angle); // intead of using dir_angle, use vector from start
+	ray->cam.dir.y = -get_sine(ft_game()->player.dir_angle);
+	ray->cam.pos.x += ft_game()->ctl.move.x * get_cosine(ft_game()->player.dir_angle);
+	ray->cam.pos.y += ft_game()->ctl.move.y * -get_sine(ft_game()->player.dir_angle);
 	printf("movement x:%f, y:%f, tetha:%d\n", ft_game()->ctl.move.x, ft_game()->ctl.move.y, ft_game()->ctl.mv_angle);
 	ft_game()->ctl.mv_angle = 0;
 	ft_game()->ctl.move.x = 0;
 	ft_game()->ctl.move.y = 0;
-	ray->cam.pos.x = ft_game()->player.pos.x;
-	ray->cam.pos.y = ft_game()->player.pos.y;
-	ray->cam.dir.x = cos(ft_game()->player.dir_angle);
-	ray->cam.dir.y = sin(ft_game()->player.dir_angle);
-	// recalc_raycast();
-	// raycasting();
 	raycasting();
 	mlx_put_image_to_window(ft_game()->mlx->mlx, ft_game()->mlx->win, ft_game()->mlx->img.img, 0, 0);
 	ft_game()->update = 0;
