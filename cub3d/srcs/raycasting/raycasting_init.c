@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:34:22 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/18 15:02:55 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:17:17 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	init_ray(t_game *game)
 	ray->cam.pos.y = game->player.pos.y;
 	ray->cam.dir.x = get_cosine(game->player.dir_angle);
 	ray->cam.dir.y = -get_sine(game->player.dir_angle);
+	// remove minus?
 	ray->cam.plane.x = -ray->cam.dir.y * get_tangent(ray->cam.hFov);
 	ray->cam.plane.y = ray->cam.dir.x * get_tangent(ray->cam.hFov);
 	ray->cam.width = WIDTH;
