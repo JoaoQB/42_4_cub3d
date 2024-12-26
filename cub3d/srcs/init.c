@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/19 10:52:23 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/26 22:37:48 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	init_player(void)
 {
 	char	**map;
-	
+
 	if (!ft_game())
 		return ;
 	map = malloc(sizeof(char *) * 8);
@@ -86,6 +86,7 @@ void	init_game(char* file_path)
 
 	// ft_game()->player = (t_player *) my_calloc(1, sizeof(t_player));
 	// ft_game()->player.angle = UNKNOWN;
+	init_mlx();
 	if (ft_game()->update == 1)
 		init_player();
 	else if (ft_game()->update == 0)
@@ -99,7 +100,7 @@ void	init_game(char* file_path)
 		ft_game()->player.dir_angle = ft_game()->player.angle;
 	}
 	init_hash_table();
-	init_mlx();
+	init_texture(ft_game());
 	init_ray(ft_game());
 }
 
@@ -110,8 +111,9 @@ t_texture *extract_info_process(char **words)
 	texture = (t_texture *) my_calloc(1, sizeof(t_texture));
 	texture->image_name = ft_strdup(words[0]);
 	texture->image_path = ft_strdup(words[1]);
+	// printf("texture.image_path: %s\n", texture->image_path);
 	texture->image_data = xpm_to_binary(texture->image_path);
-	if (texture->image_data == NULL) // check for path existence and permissions 
+	if (texture->image_data == NULL) // check for path existence and permissions
 	{
 		texture->colour = get_colour(words[1]);
 		if (texture->colour == -1)
@@ -123,7 +125,7 @@ t_texture *extract_info_process(char **words)
 int get_colour(const char *str)
 {//TODO this one aint working
 	// clour is passed as R,G,B
-	//so i want con convert this into the int 
+	//so i want con convert this into the int
 	int colour;
 
 	colour = 0; // 0xRRGGBB
@@ -133,14 +135,43 @@ int get_colour(const char *str)
 	return (colour);
 }
 
+static void	print_working_directory(void)
+{
+	char	cwd[500];
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("Current working directory: %s\n", cwd);
+	else
+		perror("getcwd() error");
+}
+
 t_image*	xpm_to_binary(char *image_path)
 {
 	t_image *img;
 
+	print_working_directory();
+	if (access(image_path, F_OK) == -1) {
+		printf("Error: Cannot access file: %s\n", image_path);
+		return NULL;
+	}
+
+	if (access(image_path, R_OK) == -1) {
+		printf("Error: Cannot read file: %s\n", image_path);
+		return NULL;
+	}
+
+	if (!ft_game()->mlx || !ft_game()->mlx->mlx) {
+		printf("Error: MLX not initialized\n");
+		return NULL;
+	}
+	printf("Debug: Loading texture from: %s\n", image_path);
 	img = (t_image *) my_calloc(1, sizeof(t_image));
 	img->img = mlx_xpm_file_to_image(&ft_game()->mlx->mlx, image_path, &img->width, &img->height);
 	if (img->img == NULL)
+	{
+		printf("mlx_xpm_file_to_img failed\n");
+		free(img);
 		return (NULL);
+	}
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len_line, &img->endian);
 	//TODO delete
 	if (img->img != NULL)

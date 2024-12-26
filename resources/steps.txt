@@ -6,9 +6,32 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 18:42:25 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/26 20:49:39 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/26 21:06:48 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+Textures
+
+Create texture struct:
+	mlx image pointer
+	data address
+	width/height
+	bpp
+	line length
+	endian
+
+Load texture:
+	mlx_xpm_to_img
+	mlx_get_data_addr
+
+Wall Hit Calculation:
+	find wallX
+	find textX
+	find textY and step for y increase
+
+draw loop
+
+------------------------------------------------------
 
 1- Create struct for map and input file data
 2- Implement .cub file parser
@@ -31,6 +54,3 @@ Doors which can open and close.
 animated sprite.
 Rotate the point of view with the mouse.
 
-------------------------------------------------------
-
-Textures:

@@ -6,11 +6,11 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/26 15:17:40 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/26 21:22:30 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-// TODO extract minilibx-linux to includes?
+# TODO extract minilibx-linux to includes?
 NAME = cub3d
 
 # Colors
@@ -39,6 +39,7 @@ MLX_LNK	= -L$(MLX) -lmlx -lXext -lX11 -lm -lz
 SRCS := main.c \
 		init.c \
 		ft_free.c \
+		texture_init.c \
 		mlx_utils/mlx_control.c \
 		mlx_utils/mlx_init.c \
 		parsing/check_map.c \

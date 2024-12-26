@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/20 16:46:17 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/26 21:36:26 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,15 +129,15 @@ typedef struct s_image
 	int		len_line;
 	int		endian;
 //
-	int			width;
-	int			height;
+	int		width;
+	int		height;
 }	t_image;
 
 typedef struct s_texture
 {
 	char	*image_name; //NO SO WE EA C F
 	char	*image_path;
-	t_image *image_data; //if path, extract to this format
+	t_image	*image_data; //if path, extract to this format
 	int		colour; //if no path, try fill with colour
 }	t_texture;
 
@@ -234,6 +234,7 @@ t_game	*ft_game();
 /* init.c */
 void	init_game(char* file_path);
 //void	init_game();
+
 /* ft_free.c */
 void	free_game();
 void	free_map(char ***map_ptr);
@@ -329,5 +330,8 @@ int player_moves(void);
 /* minimap */
 void	draw_minimap(int offset_x, int offset_y);
 void draw_by_scale(int x, int y, int scale, int offset_x, int offset_y);
+
+/* texture_init.c */
+void	init_texture(t_game *game);
 
 #endif
