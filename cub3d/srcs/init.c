@@ -86,7 +86,7 @@ void	init_game(char* file_path)
 
 	// ft_game()->player = (t_player *) my_calloc(1, sizeof(t_player));
 	// ft_game()->player.angle = UNKNOWN;
-	if (ft_game()->update == 1)
+	if (ft_game()->update == 0)
 		init_player();
 	else if (ft_game()->update == 0)
 	{

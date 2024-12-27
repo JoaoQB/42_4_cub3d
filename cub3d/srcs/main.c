@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 
 	(void)argv;
 	if (argc == 1)
-		ft_game()->update = 1;
+		ft_game()->update = 0;
 	else if (argc == 2)
 		ft_game()->update = 0;
 	// if (argc != 2)
