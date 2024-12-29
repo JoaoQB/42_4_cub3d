@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/26 21:36:26 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/29 22:46:07 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@
 # include <unistd.h> // System calls
 # include <stdbool.h> // Booleans
 # include <string.h> //TODO make my own string functions
-#include <fcntl.h>
-#include <unistd.h> // For close function
-
+# include <fcntl.h>
+# include <unistd.h> // For close function
+# include <linux/limits.h> //debug
+# include <time.h> //debug
+# include <errno.h> //debug
 
 # define PI 3.14159265358979323846
 # define ANGLE_TOLERANCE 0.001
@@ -34,10 +36,11 @@
 # define FOV 60
 # define MAX_ANGLE 360
 # define SCALE 2
-# define WALL_NORTH 0xFF0000  // Red for north-facing walls
-# define WALL_SOUTH 0x00FF00  // Green for south-facing walls
-# define WALL_EAST  0x0000FF  // Blue for east-facing walls
-# define WALL_WEST  0xFFFF00  // Yellow for west-facing walls
+# define COLOR 0xFF0000
+// # define WALL_NORTH 0xFF0000  // Red for north-facing walls
+// # define WALL_SOUTH 0x00FF00  // Green for south-facing walls
+// # define WALL_EAST  0x0000FF  // Blue for east-facing walls
+// # define WALL_WEST  0xFFFF00  // Yellow for west-facing walls
 
 # define FLOOR_COLOR 0x404040   // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
@@ -45,6 +48,15 @@
 # define PLAYER_ROTATION 0.2
 # define MINIMAP_SCALE 0.2
 # define HASH_TABLE_SIZE 20
+
+typedef enum wall_texture
+{
+	WALL_EAST,
+	WALL_NORTH,
+	WALL_WEST,
+	WALL_SOUTH,
+	WALL_UNKNOWN
+} e_wall_texture;
 
 typedef enum Direction
 {
@@ -169,27 +181,41 @@ typedef struct s_trig
 	double	cosines[MAX_ANGLE];
 }	t_trig;
 
+typedef struct s_wall
+{
+	double		ray_dist;
+	int			wall_dir;
+	int			wall_height;
+	int			wall_half_height;
+	int			wall_bottom;
+	int			wall_top;
+	double		wall_x;
+	int			tex_x;
+	t_texture	*texture;
+}	t_wall;
+
 typedef struct s_ray
 {
-	int		id;
-	int		hit;
-	int		side;
-	double	camX;
-	double	rayDirX;
-	double	rayDirY;
-	int		gridX;
-	int		gridY;
-	double	rayNextX;
-	double	rayNextY;
-	double	rayInterX;
-	double	rayInterY;
-	int		stepX;
-	int		stepY;
-	double	ray_dist[WIDTH];
-	double	wall_height[WIDTH];
-	int		wall_dir[WIDTH];
-	t_trig	trign;
-	t_cam	cam;
+	int			id;
+	int			hit;
+	int			side;
+	double		camX;
+	double		rayDirX;
+	double		rayDirY;
+	int			gridX;
+	int			gridY;
+	double		rayNextX;
+	double		rayNextY;
+	double		rayInterX;
+	double		rayInterY;
+	int			stepX;
+	int			stepY;
+	// double		ray_dist[WIDTH];
+	// double		wall_height[WIDTH];
+	// int			wall_dir[WIDTH];
+	t_wall		walls[WIDTH];
+	t_trig		trign;
+	t_cam		cam;
 }	t_ray;
 
 typedef struct s_control
@@ -267,10 +293,13 @@ void	raycasting();
 /* raycasting_utils.c */
 double	get_wall_distance(t_ray *ray);
 int		get_wall_direction(t_ray *ray);
+double	get_wall_x(t_ray *ray);
+int		get_texture_x(t_ray *ray, t_wall *wall);
 
 /* draw_utils.c */
 void	draw_walls(t_game	*game);
-void	draw_vertical_line(t_game *game, int x, int wallTop, int wallBottom);
+void	draw_vertical_line(t_game *game, int x);
+void	draw_textured_line(t_game *game, t_wall *wall, int x);
 void	my_pixel_put(t_image *img, int x, int y, int colour);
 
 /* malloc tools */
@@ -298,6 +327,7 @@ char* ft_strchr(char *s, int c);
 int ft_startswith(const char *s1, const char *s2);
 int	ft_wordcount(const char *str, char c);
 void ft_putstr_fd(char *str, int fd);
+char	*str_trim_and_free(char *str);
 
 /* hash table*/
 t_hash_table *ft_hash_table(void);

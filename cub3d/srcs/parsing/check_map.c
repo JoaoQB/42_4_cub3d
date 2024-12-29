@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/26 21:46:19 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/29 15:17:19 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*file_to_str(char *file_name)
 	return (file_str);
 }
 
-e_direction get_direction_struct(const char *str)
+e_direction	get_direction_struct(const char *str)
 {
 	while (*str && ft_issapaces(*str))
 		str++;
@@ -57,7 +57,7 @@ e_direction get_direction_struct(const char *str)
 	return UNKNOWN;
 }
 
-bool get_player_direction(int y, int x)
+bool	get_player_direction(int y, int x)
 {
 	char c;
 
@@ -84,7 +84,7 @@ bool get_player_direction(int y, int x)
 	return (true);
 }
 
-void extract_textures(char **lines)
+void	extract_textures(char **lines)
 {
 	int i;
 	e_direction dir;
@@ -109,7 +109,7 @@ void extract_textures(char **lines)
 	}
 }
 
-void		extract_map(char **lines)
+void	extract_map(char **lines)
 {
 	int i;
 	char **map;
@@ -167,7 +167,7 @@ void	check_map(char **map)
 	}
 }
 
-bool		validate_position(int y, int x)
+bool	validate_position(int y, int x)
 {
 	if (ft_strchr(" 1", ft_game()->map[y][x]))
 		return (true);
@@ -183,7 +183,7 @@ bool		validate_position(int y, int x)
 	return (true);
 }
 
-bool is_valid(int y, int x, char *valid_str)
+bool	is_valid(int y, int x, char *valid_str)
 {
 	if (x < 0 || x >= ft_game()->map_width)
 		return (true);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:27:11 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/11 15:31:08 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/29 15:38:26 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int ft_startswith(const char *s1, const char *s2) {
     int i;
 
 	i = 0;
-	while (s1[i] && s2[i]) 
+	while (s1[i] && s2[i])
 	{
         if (s1[i] != s2[i])
             break;
@@ -124,4 +124,31 @@ int ft_startswith(const char *s1, const char *s2) {
 	if (s2[i] == '\0')
 		return 0;
     return 1;
+}
+
+char	*str_trim_and_free(char *str)
+{
+	char	*start;
+	char	*end;
+	char	*result;
+	size_t	len;
+
+	if (!str)
+		return (NULL);
+	start = str;
+	while (*start && (*start == ' ' || *start == '\t' || *start == '\n'))
+		start++;
+	end = str + ft_strlen(str) - 1;
+	while (end > start && (*end == ' ' || *end == '\t' || *end == '\n'))
+		end--;
+	len = end - start + 2;
+	result = (char *)malloc(len + 1);
+	if (!result)
+	{
+		free(str);
+		return (NULL);
+	}
+	ft_strlcpy(result, start, len);
+	free(str);
+	return (result);
 }

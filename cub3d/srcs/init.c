@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/26 22:37:48 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/29 23:06:55 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_player(void)
 	map[4] = strdup("110000000000011");
 	map[5] = strdup("110000101000011");
 	map[6] = strdup("111111111111111");
-	map[7] = NULL;\
+	map[7] = NULL;
 	ft_game()->map = map;
 	ft_game()->player.pos.x = 7;
 	ft_game()->player.pos.y = 3;
@@ -100,8 +100,8 @@ void	init_game(char* file_path)
 		ft_game()->player.dir_angle = ft_game()->player.angle;
 	}
 	init_hash_table();
-	init_texture(ft_game());
 	init_ray(ft_game());
+	init_texture(ft_game());
 }
 
 t_texture *extract_info_process(char **words)
@@ -109,9 +109,8 @@ t_texture *extract_info_process(char **words)
 	t_texture *texture;
 
 	texture = (t_texture *) my_calloc(1, sizeof(t_texture));
-	texture->image_name = ft_strdup(words[0]);
-	texture->image_path = ft_strdup(words[1]);
-	// printf("texture.image_path: %s\n", texture->image_path);
+	texture->image_name = str_trim_and_free(ft_strdup(words[0]));
+	texture->image_path = str_trim_and_free(ft_strdup(words[1]));
 	texture->image_data = xpm_to_binary(texture->image_path);
 	if (texture->image_data == NULL) // check for path existence and permissions
 	{
@@ -135,47 +134,48 @@ int get_colour(const char *str)
 	return (colour);
 }
 
-static void	print_working_directory(void)
-{
-	char	cwd[500];
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		printf("Current working directory: %s\n", cwd);
-	else
-		perror("getcwd() error");
-}
-
 t_image*	xpm_to_binary(char *image_path)
 {
-	t_image *img;
+	t_image	*img;
 
-	print_working_directory();
-	if (access(image_path, F_OK) == -1) {
-		printf("Error: Cannot access file: %s\n", image_path);
+	// Debug output
+	printf("\n=== Texture Loading Debug ===\n");
+	printf("Original path: %s\n", image_path);
+	// MLX validation
+	if (!ft_game() || !ft_game()->mlx || !ft_game()->mlx->mlx)
+	{
+		printf("Error: MLX not properly initialized\n");
 		return NULL;
 	}
-
-	if (access(image_path, R_OK) == -1) {
-		printf("Error: Cannot read file: %s\n", image_path);
-		return NULL;
-	}
-
-	if (!ft_game()->mlx || !ft_game()->mlx->mlx) {
-		printf("Error: MLX not initialized\n");
+	// File existence check
+	if (access(image_path, F_OK | R_OK) == -1)
+	{
+		printf("File access error for '%s': %s\n", image_path, strerror(errno));
 		return NULL;
 	}
 	printf("Debug: Loading texture from: %s\n", image_path);
-	img = (t_image *) my_calloc(1, sizeof(t_image));
-	img->img = mlx_xpm_file_to_image(&ft_game()->mlx->mlx, image_path, &img->width, &img->height);
-	if (img->img == NULL)
+	// MLX loading
+	img = (t_image *)my_calloc(1, sizeof(t_image));
+	if (!img)
 	{
-		printf("mlx_xpm_file_to_img failed\n");
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+	img->img = mlx_xpm_file_to_image(ft_game()->mlx->mlx, image_path, &img->width, &img->height);
+	if (!img->img)
+	{
+		printf("MLX XPM loading failed for: %s\n", image_path);
 		free(img);
-		return (NULL);
+		return NULL;
 	}
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len_line, &img->endian);
-	//TODO delete
-	if (img->img != NULL)
-		mlx_put_image_to_window (ft_game()->mlx, ft_game()->mlx->win, img->img, 0, 0);
+	if (!img->addr)
+	{
+		printf("MLX get data address failed\n");
+		mlx_destroy_image(ft_game()->mlx->mlx, img->img);
+		free(img);
+		return NULL;
+	}
 	return (img);
 }
 
