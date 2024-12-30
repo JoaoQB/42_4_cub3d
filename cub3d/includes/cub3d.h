@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/30 11:59:54 by jqueijo-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 #define CUB3D_H
 
@@ -171,20 +159,26 @@ typedef struct s_trig
 
 typedef struct s_ray
 {
-	int		id;
-	int		hit;
-	int		side;
-	double	camX;
-	t_coord	grid;
-	t_coord	step;
-	t_coord	rayDir;
-	t_coord	rayNext;
-	t_coord	rayInter;
-	double	ray_dist[WIDTH];
-	double	wall_height[WIDTH];
-	int		wall_dir[WIDTH];
-	t_trig	trign;
-	t_cam	cam;
+	int			id;
+	int			hit;
+	int			side;
+	double		camX;
+	double		rayDirX;
+	double		rayDirY;
+	int			gridX;
+	int			gridY;
+	double		rayNextX;
+	double		rayNextY;
+	double		rayInterX;
+	double		rayInterY;
+	int			stepX;
+	int			stepY;
+	// double		ray_dist[WIDTH];
+	// double		wall_height[WIDTH];
+	// int			wall_dir[WIDTH];
+	t_wall		walls[WIDTH];
+	t_trig		trign;
+	t_cam		cam;
 }	t_ray;
 
 typedef struct s_control
