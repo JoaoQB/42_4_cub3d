@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:34:22 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/18 15:02:55 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:04:45 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,20 @@ void	init_ray(t_game *game)
 	if (!game)
 		return ;
 	ray = &game->ray;
-	// init_trigonometry(ray);
+	init_trigonometry(ray);
 	ray->cam.fov = FOV;
 	ray->cam.hFov = ray->cam.fov / 2;
 	ray->cam.width = WIDTH;
 	ray->cam.height = HEIGHT;
-	if (game->update == 0)
-	{
-		ray->cam.pos.x = game->player.pos.x * UNIT_SIZE + UNIT_SIZE / 2;
-		ray->cam.pos.y = game->player.pos.y * UNIT_SIZE + UNIT_SIZE / 2;
-		ray->cam.dir.x = get_cosine(game->player.dir_angle);
-		ray->cam.dir.y = -get_sine(game->player.dir_angle);
-	}
+	ray->cam.pos.x = game->player.pos.x;
+	ray->cam.pos.y = game->player.pos.y;
+	ray->cam.dir.x = get_cosine(game->player.dir_angle);
+	ray->cam.dir.y = -get_sine(game->player.dir_angle);
+	// remove minus?
 	ray->cam.plane.x = -ray->cam.dir.y * get_tangent(ray->cam.hFov);
 	ray->cam.plane.y = ray->cam.dir.x * get_tangent(ray->cam.hFov);
+	ray->cam.width = WIDTH;
+	ray->cam.height = HEIGHT;
 	ray->cam.hWidth = ray->cam.width / 2;
 	ray->cam.hHeight = ray->cam.height / 2;
 	ray->cam.mapWidth = get_map_width(game->map);

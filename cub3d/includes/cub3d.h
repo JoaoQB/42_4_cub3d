@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/20 16:46:17 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/30 11:59:54 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,29 +168,6 @@ typedef struct s_trig
 	double	sines[MAX_ANGLE];
 	double	cosines[MAX_ANGLE];
 }	t_trig;
-
-// typedef struct s_ray
-// {
-// 	int		id;
-// 	int		hit;
-// 	int		side;
-// 	double	camX;
-// 	double	rayDirX;
-// 	double	rayDirY;
-// 	int		gridX;
-// 	int		gridY;
-// 	double	rayNextX;
-// 	double	rayNextY;
-// 	double	rayInterX;
-// 	double	rayInterY;
-// 	int		stepX;
-// 	int		stepY;
-// 	double	ray_dist[WIDTH];
-// 	double	wall_height[WIDTH];
-// 	int		wall_dir[WIDTH];
-// 	t_trig	trign;
-// 	t_cam	cam;
-// }	t_ray;
 
 typedef struct s_ray
 {

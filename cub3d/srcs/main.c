@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:39 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/19 11:11:16 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:01:42 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int main(int argc, char **argv)
 
 	(void)argv;
 	if (argc == 1)
-		ft_game()->update = 0;
+	{
+		// printf("argc 1\n");
+		ft_game()->update = 1;
+	}
 	else if (argc == 2)
 		ft_game()->update = 0;
 	// if (argc != 2)

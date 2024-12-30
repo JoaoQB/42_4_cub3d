@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/19 10:52:23 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:01:12 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	init_player(void)
 {
 	char	**map;
-	
+
 	if (!ft_game())
 		return ;
 	map = malloc(sizeof(char *) * 8);
@@ -86,7 +86,7 @@ void	init_game(char* file_path)
 
 	// ft_game()->player = (t_player *) my_calloc(1, sizeof(t_player));
 	// ft_game()->player.angle = UNKNOWN;
-	if (ft_game()->update == 0)
+	if (ft_game()->update == 1)
 		init_player();
 	else if (ft_game()->update == 0)
 	{
@@ -111,7 +111,7 @@ t_texture *extract_info_process(char **words)
 	texture->image_name = ft_strdup(words[0]);
 	texture->image_path = ft_strdup(words[1]);
 	texture->image_data = xpm_to_binary(texture->image_path);
-	if (texture->image_data == NULL) // check for path existence and permissions 
+	if (texture->image_data == NULL) // check for path existence and permissions
 	{
 		texture->colour = get_colour(words[1]);
 		if (texture->colour == -1)
@@ -123,7 +123,7 @@ t_texture *extract_info_process(char **words)
 int get_colour(const char *str)
 {//TODO this one aint working
 	// clour is passed as R,G,B
-	//so i want con convert this into the int 
+	//so i want con convert this into the int
 	int colour;
 
 	colour = 0; // 0xRRGGBB
