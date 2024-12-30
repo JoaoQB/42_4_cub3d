@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:24:15 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/29 20:33:03 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:22:46 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,10 @@ double	get_wall_distance(t_ray *ray)
 	if (!ray || ray->hit == 0)
 		return (-1);
 	if (ray->side == 0)
-	{
-		distance = (ray->rayInter.x - ray->rayNext.x);
-		// distance = ray->rayInter.x - ray->cam.pos.x;
-		// distance = (ray->grid.x * UNIT_SIZE - ray->cam.pos.x) / ray->rayDir.x;
-	}
+		distance = (ray->rayInterX - ray->rayNextX);
 	else
-	{
-		distance = (ray->rayInter.y - ray->rayNext.y);
-		// distance = ray->rayInter.y - ray->cam.pos.x;
-		// distance = (ray->grid.y * UNIT_SIZE - ray->cam.pos.y) / ray->rayDir.y;
-	}
-	// distance = sqrt(ray->rayInter.x * ray->rayInter.x + ray->rayInter.y * ray->rayInter.y);
-	// distance = distance * cos(atan2(ray->rayDir.y, ray->rayDir.x) - atan2(ray->cam.dir.y, ray->cam.dir.x));
-	return (distance / (UNIT_SIZE * 2));
+		distance = (ray->rayInterY - ray->rayNextY);
+	return (distance);
 }
 
 int	get_wall_direction(t_ray *ray)
@@ -41,14 +31,14 @@ int	get_wall_direction(t_ray *ray)
 		return (WALL_UNKNOWN);
 	if (ray->side == 0)
 	{
-		if (ray->rayDir.x > 0)
+		if (ray->rayDirX > 0)
 			return (WALL_EAST);
 		else
 			return (WALL_WEST);
 	}
 	else
 	{
-		if (ray->rayDir.y > 0)
+		if (ray->rayDirY > 0)
 			return (WALL_SOUTH);
 		else
 			return (WALL_NORTH);
