@@ -3,66 +3,98 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
+#    By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/11/25 16:18:53 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/20 16:46:06 by fandre-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-SRC = $(SRC_PATH)/main.c \
+# Colors
+GREEN = \033[0;32m
+YELLOW = \033[0;33m
+RED = \033[0;31m
+NC = \033[0m # No Color
 
+# Folders
+SRC_PATH := srcs
+OBJ_DIR := obj
+INCLUDES_DIR := includes
+MLX := ./includes/minilibx-linux
 
+# Compile flags
+RM := -@rm -rf
 CC = cc
-MINILIBX_FLAGS= -Lminilibx-linux -l:libmlx_Linux.a -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -Ofast
 CFLAGS = -Wall -Werror -Wextra -O3 #-Ofast #-g3
 SANITIZE = -g -fsanitize=address
 VALGRIND = --leak-chek=full --show-leak-kinds=all --track-origin=yes --track-fds=yes
 
-SRC_PATH = ./srcs
-OBJ_DIR = ./obj
+# MLX Compile flags
+MLX_LIB	= $(MLX)/libmlx_Linux.a
+MLX_LNK	= -L$(MLX) -lmlx -lXext -lX11 -lm -lz
 
-OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_DIR)%.o)
+SRCS := main.c \
+		init.c \
+		ft_free.c \
+		mlx_utils/mlx_control.c \
+		mlx_utils/mlx_init.c \
+		parsing/check_map.c \
+		raycasting/draw_utils.c \
+		raycasting/raycasting.c \
+		raycasting/raycasting_init.c \
+		raycasting/raycasting_trign_utils.c \
+		raycasting/raycasting_utils.c \
+		utils/utils.c \
+		utils/utils_str.c \
+		utils/utils_alloc.c \
+		utils/hash_table.c \
+	
+SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
+# OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c \=.o))
+OBJS = $(SRCS_PATH:%.c=$(OBJ_DIR)/%.o)
 
-MLX_DIR = ./includes/minilibx-linux
-MLX = make -C $(MLX_DIR)
 
-# Colors
-GREEN = \033[0;32m
-YELLOW = \033[0;33m
-NC = \033[0m # No Color
+all:	$(NAME)
 
-all: $(NAME)
+$(MLX_LIB):
+	-make -s -C $(MLX)
+	
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(dir $@)
+	@echo "$(RED)Compiling object file $<...$(NC)"
+	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -I$(MLX) -c $< -o $@
 
-$(NAME): $(OBJ) $(MLX)
-	@echo "$(YELLOW)Linking...$(NC)"
-	$(CC) $(CFLAGS) $(OBJ) $(MINILIBX_FLAGS) -o $(NAME)
+$(NAME):	$(OBJS) $(MLX_LIB) $(INCLUDES_DIR)/cub3d.h
+	@echo "$(YELLOW)Building program...$(NC)"
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_LNK)
 	@echo "$(GREEN)Build successful!$(NC)"
-
-$(OBJ_DIR)%.o: $(SRC_PATH)/%.C
-	@mkdir -p $(OBJ_DIR)
-	@echo "$(YELLOW)Compiling $<...$(NC)"
-	$(CC) $(CFLAGS) -I$(MLX_DIR) -c $< -o $@
-
-clean:
-	@echo "$(YELLOW)Cleaning object files...$(NC)"
-	rm -rf $(OBJ_DIR)
-
-fclean: clean
-	@echo "$(YELLOW)Cleaning executable...$(NC)"
-	rm -rf $(NAME)
-
-re: fclean all
-
-debug: CFLAGS += $(SANITIZE)
-debug: re
 
 valgrind: CFLAGS += -g
 valgrind: re
 	@echo "$(YELLOW)Running Valgrind...$(NC)"
 	valgrind $(VALGRIND) ./$(NAME)
 
+test:
+	@echo "<Still need to set up>"
+
+clean:
+	@echo "$(YELLOW)Cleaning object files...$(NC)"
+	-make -s -C $(MLX) clean
+	$(RM) $(OBJ_DIR)
+
+fclean:	clean
+	@echo "$(YELLOW)Cleaning executable...$(NC)"
+	-make -s -C $(MLX) fclean
+	$(RM) $(NAME)
+
+
+re:	fclean all
+
+debug: CFLAGS += $(SANITIZE)
+debug: re
+
 .PHONY: all clean fclean re debug valgrind
+
 
