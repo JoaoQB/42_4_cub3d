@@ -9,9 +9,11 @@
 # include <unistd.h> // System calls
 # include <stdbool.h> // Booleans
 # include <string.h> //TODO make my own string functions
-#include <fcntl.h>
-#include <unistd.h> // For close function
-
+# include <fcntl.h>
+# include <unistd.h> // For close function
+# include <linux/limits.h> //debug
+# include <time.h> //debug
+# include <errno.h> //debug
 
 # define PI 3.14159265358979323846
 # define ANGLE_TOLERANCE 0.001
@@ -22,10 +24,11 @@
 # define FOV 60
 # define MAX_ANGLE 360
 # define SCALE 2
-# define WALL_NORTH 0xFF0000  // Red for north-facing walls
-# define WALL_SOUTH 0x00FF00  // Green for south-facing walls
-# define WALL_EAST  0x0000FF  // Blue for east-facing walls
-# define WALL_WEST  0xFFFF00  // Yellow for west-facing walls
+# define COLOR 0xFF0000
+// # define WALL_NORTH 0xFF0000  // Red for north-facing walls
+// # define WALL_SOUTH 0x00FF00  // Green for south-facing walls
+// # define WALL_EAST  0x0000FF  // Blue for east-facing walls
+// # define WALL_WEST  0xFFFF00  // Yellow for west-facing walls
 
 # define FLOOR_COLOR 0x404040   // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
@@ -33,6 +36,15 @@
 # define PLAYER_ROTATION 0.2
 # define MINIMAP_SCALE 0.2
 # define HASH_TABLE_SIZE 20
+
+typedef enum wall_texture
+{
+	WALL_EAST,
+	WALL_NORTH,
+	WALL_WEST,
+	WALL_SOUTH,
+	WALL_UNKNOWN
+} e_wall_texture;
 
 typedef enum Direction
 {
@@ -117,15 +129,15 @@ typedef struct s_image
 	int		len_line;
 	int		endian;
 //
-	int			width;
-	int			height;
+	int		width;
+	int		height;
 }	t_image;
 
 typedef struct s_texture
 {
 	char	*image_name; //NO SO WE EA C F
 	char	*image_path;
-	t_image *image_data; //if path, extract to this format
+	t_image	*image_data; //if path, extract to this format
 	int		colour; //if no path, try fill with colour
 }	t_texture;
 
@@ -149,13 +161,26 @@ typedef struct s_pov
 	double	ang_dir;
 }	t_pov;
 
-typedef struct s_trig
+// typedef struct s_trig
+// {
+// 	double	radians[MAX_ANGLE];
+// 	double	tangents[MAX_ANGLE];
+// 	double	sines[MAX_ANGLE];
+// 	double	cosines[MAX_ANGLE];
+// }	t_trig;
+
+typedef struct s_wall
 {
-	double	radians[MAX_ANGLE];
-	double	tangents[MAX_ANGLE];
-	double	sines[MAX_ANGLE];
-	double	cosines[MAX_ANGLE];
-}	t_trig;
+	double		ray_dist;
+	int			wall_dir;
+	int			wall_height;
+	int			wall_half_height;
+	int			wall_bottom;
+	int			wall_top;
+	double		wall_x;
+	int			tex_x;
+	t_texture	*texture;
+}	t_wall;
 
 typedef struct s_ray
 {
@@ -223,6 +248,7 @@ t_game	*ft_game();
 /* init.c */
 void	init_game(char* file_path);
 //void	init_game();
+
 /* ft_free.c */
 void	free_game();
 void	free_map(char ***map_ptr);
@@ -255,10 +281,13 @@ void	raycasting();
 /* raycasting_utils.c */
 double	get_wall_distance(t_ray *ray);
 int		get_wall_direction(t_ray *ray);
+double	get_wall_x(t_ray *ray);
+int		get_texture_x(t_ray *ray, t_wall *wall);
 
 /* draw_utils.c */
 void	draw_walls(t_game	*game);
-void	draw_vertical_line(t_game *game, int x, int wallTop, int wallBottom);
+void	draw_vertical_line(t_game *game, int x);
+void	draw_textured_line(t_game *game, t_wall *wall, int x);
 void	my_pixel_put(t_image *img, int x, int y, int colour);
 
 /* malloc tools */
@@ -286,6 +315,7 @@ char* ft_strchr(char *s, int c);
 int ft_startswith(const char *s1, const char *s2);
 int	ft_wordcount(const char *str, char c);
 void ft_putstr_fd(char *str, int fd);
+char	*str_trim_and_free(char *str);
 
 /* hash table*/
 t_hash_table *ft_hash_table(void);
@@ -318,5 +348,8 @@ int player_moves(void);
 /* minimap */
 void	draw_minimap(int offset_x, int offset_y);
 void draw_by_scale(int x, int y, int scale, int offset_x, int offset_y);
+
+/* texture_init.c */
+void	init_texture(t_game *game);
 
 #endif

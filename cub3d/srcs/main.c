@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-/* ./cub3d | grep -e "\!\! " -e "ray_id_0," -e "ray_id_1," -e "ray_id_2," -e "ray_id_3," -e "ray_id_398," -e "ray_id_399," -e "ray_id_400," -e "ray_id_401," -e "ray_id_402," -e "ray_id_600," -e "ray_id_799," -e "ray_id_200" -e "ray_id_397," -e "ray_id_403,"
-*/
-
 int render()
 {
 	player_moves();
@@ -27,7 +24,10 @@ int main(int argc, char **argv)
 		ft_game()->update = 1;
 	}
 	else if (argc == 2)
+	{
+		// printf("argc 2\n");
 		ft_game()->update = 0;
+	}
 	// if (argc != 2)
 	else
 	{
@@ -60,7 +60,6 @@ int main(int argc, char **argv)
 	// Set the loop to call the player_moves function
 	mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
 	mlx_loop(ft_game()->mlx->mlx);
-	// mlx_loop_hook(ft_game()->mlx, player_moves, NULL);
-	// Start the loop to listen for events
+	mlx_loop_hook(ft_game()->mlx, player_moves, NULL);
 	return (0);
 }

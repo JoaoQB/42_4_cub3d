@@ -6,9 +6,34 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 18:42:25 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/11/20 19:11:18 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/29 22:39:32 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+Textures
+
+Create texture struct:
+	mlx image pointer
+	data address
+	width/height
+	bpp
+	line length
+	endian
+
+Load texture:
+	mlx_xpm_to_img
+	mlx_get_data_addr
+
+Wall Hit Calculation:
+	find wallX
+	find textX
+	find textY and step for y increase
+
+draw loop
+
+TODO if no texture, assign color
+
+------------------------------------------------------
 
 1- Create struct for map and input file data
 2- Implement .cub file parser
@@ -30,5 +55,3 @@ A minimap system.
 Doors which can open and close.
 animated sprite.
 Rotate the point of view with the mouse.
-
-

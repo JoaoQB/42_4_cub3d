@@ -3,13 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+         #
+#    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/20 16:46:06 by fandre-b         ###   ########.fr        #
+#    Updated: 2024/12/26 21:22:30 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# TODO extract minilibx-linux to includes?
 NAME = cub3d
 
 # Colors
@@ -38,6 +39,7 @@ MLX_LNK	= -L$(MLX) -lmlx -lXext -lX11 -lm -lz
 SRCS := main.c \
 		init.c \
 		ft_free.c \
+		texture_init.c \
 		mlx_utils/mlx_control.c \
 		mlx_utils/mlx_init.c \
 		parsing/check_map.c \
@@ -50,7 +52,7 @@ SRCS := main.c \
 		utils/utils_str.c \
 		utils/utils_alloc.c \
 		utils/hash_table.c \
-	
+
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
 # OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c \=.o))
 OBJS = $(SRCS_PATH:%.c=$(OBJ_DIR)/%.o)
@@ -60,7 +62,7 @@ all:	$(NAME)
 
 $(MLX_LIB):
 	-make -s -C $(MLX)
-	
+
 $(OBJ_DIR)/%.o: %.c
 	mkdir -p $(dir $@)
 	@echo "$(RED)Compiling object file $<...$(NC)"

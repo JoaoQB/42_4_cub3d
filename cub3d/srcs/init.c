@@ -15,7 +15,7 @@ void	init_player(void)
 	map[4] = strdup("110000000000011");
 	map[5] = strdup("110000101000011");
 	map[6] = strdup("111111111111111");
-	map[7] = NULL;\
+	map[7] = NULL;
 	ft_game()->map = map;
 	ft_game()->player.pos.x = 7;
 	ft_game()->player.pos.y = 3;
@@ -74,6 +74,7 @@ void	init_game(char* file_path)
 
 	// ft_game()->player = (t_player *) my_calloc(1, sizeof(t_player));
 	// ft_game()->player.angle = UNKNOWN;
+	init_mlx();
 	if (ft_game()->update == 1)
 		init_player();
 	else if (ft_game()->update == 0)
@@ -87,8 +88,8 @@ void	init_game(char* file_path)
 		ft_game()->player.dir_angle = ft_game()->player.angle;
 	}
 	init_hash_table();
-	init_mlx();
 	init_ray(ft_game());
+	init_texture(ft_game());
 }
 
 t_texture *extract_info_process(char **words)
@@ -96,8 +97,8 @@ t_texture *extract_info_process(char **words)
 	t_texture *texture;
 
 	texture = (t_texture *) my_calloc(1, sizeof(t_texture));
-	texture->image_name = ft_strdup(words[0]);
-	texture->image_path = ft_strdup(words[1]);
+	texture->image_name = str_trim_and_free(ft_strdup(words[0]));
+	texture->image_path = str_trim_and_free(ft_strdup(words[1]));
 	texture->image_data = xpm_to_binary(texture->image_path);
 	if (texture->image_data == NULL) // check for path existence and permissions
 	{
@@ -123,16 +124,46 @@ int get_colour(const char *str)
 
 t_image*	xpm_to_binary(char *image_path)
 {
-	t_image *img;
+	t_image	*img;
 
-	img = (t_image *) my_calloc(1, sizeof(t_image));
-	img->img = mlx_xpm_file_to_image(&ft_game()->mlx->mlx, image_path, &img->width, &img->height);
-	if (img->img == NULL)
-		return (NULL);
+	// Debug output
+	printf("\n=== Texture Loading Debug ===\n");
+	printf("Original path: %s\n", image_path);
+	// MLX validation
+	if (!ft_game() || !ft_game()->mlx || !ft_game()->mlx->mlx)
+	{
+		printf("Error: MLX not properly initialized\n");
+		return NULL;
+	}
+	// File existence check
+	if (access(image_path, F_OK | R_OK) == -1)
+	{
+		printf("File access error for '%s': %s\n", image_path, strerror(errno));
+		return NULL;
+	}
+	printf("Debug: Loading texture from: %s\n", image_path);
+	// MLX loading
+	img = (t_image *)my_calloc(1, sizeof(t_image));
+	if (!img)
+	{
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+	img->img = mlx_xpm_file_to_image(ft_game()->mlx->mlx, image_path, &img->width, &img->height);
+	if (!img->img)
+	{
+		printf("MLX XPM loading failed for: %s\n", image_path);
+		free(img);
+		return NULL;
+	}
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len_line, &img->endian);
-	//TODO delete
-	if (img->img != NULL)
-		mlx_put_image_to_window (ft_game()->mlx, ft_game()->mlx->win, img->img, 0, 0);
+	if (!img->addr)
+	{
+		printf("MLX get data address failed\n");
+		mlx_destroy_image(ft_game()->mlx->mlx, img->img);
+		free(img);
+		return NULL;
+	}
 	return (img);
 }
 
