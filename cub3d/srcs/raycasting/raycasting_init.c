@@ -6,28 +6,11 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:56 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/30 12:18:57 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:21:38 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	init_trigonometry(t_ray *ray)
-{
-	int	i;
-
-	if (!ray)
-		return ;
-	i = 0;
-	while (i < MAX_ANGLE)
-	{
-		ray->trign.radians[i] = i * (PI / 180);
-		ray->trign.tangents[i] = tan(ray->trign.radians[i]);
-		ray->trign.sines[i] = sin(ray->trign.radians[i]);
-		ray->trign.cosines[i] = cos(ray->trign.radians[i]);
-		i++;
-	}
-}
 
 int	get_map_width(char **map)
 {
@@ -81,7 +64,6 @@ void	init_ray(t_game *game)
 	if (!game)
 		return ;
 	ray = &game->ray;
-	init_trigonometry(ray);
 	ray->cam.fov = FOV;
 	ray->cam.hFov = ray->cam.fov / 2;
 	ray->cam.width = WIDTH;
