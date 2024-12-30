@@ -6,14 +6,11 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:39 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/29 23:01:06 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:08:35 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/* ./cub3d | grep -e "\!\! " -e "ray_id_0," -e "ray_id_1," -e "ray_id_2," -e "ray_id_3," -e "ray_id_398," -e "ray_id_399," -e "ray_id_400," -e "ray_id_401," -e "ray_id_402," -e "ray_id_600," -e "ray_id_799," -e "ray_id_200" -e "ray_id_397," -e "ray_id_403,"
-*/
 
 int render()
 {

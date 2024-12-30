@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:17:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/29 22:46:07 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:07:35 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,13 +173,13 @@ typedef struct s_pov
 	double	ang_dir;
 }	t_pov;
 
-typedef struct s_trig
-{
-	double	radians[MAX_ANGLE];
-	double	tangents[MAX_ANGLE];
-	double	sines[MAX_ANGLE];
-	double	cosines[MAX_ANGLE];
-}	t_trig;
+// typedef struct s_trig
+// {
+// 	double	radians[MAX_ANGLE];
+// 	double	tangents[MAX_ANGLE];
+// 	double	sines[MAX_ANGLE];
+// 	double	cosines[MAX_ANGLE];
+// }	t_trig;
 
 typedef struct s_wall
 {
