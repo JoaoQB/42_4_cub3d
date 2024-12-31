@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-t_hash_table *ft_hash_table(void)
+t_hash_table	*ft_hash_table(void)
 {
-	static t_hash_table hash_table;
+	static t_hash_table	hash_table;
 
 	return (&hash_table);
 }

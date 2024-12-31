@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2024/12/26 21:22:30 by jqueijo-         ###   ########.fr        #
+#    Updated: 2024/12/31 13:30:32 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,16 +38,18 @@ MLX_LNK	= -L$(MLX) -lmlx -lXext -lX11 -lm -lz
 
 SRCS := main.c \
 		init.c \
+		init_utils.c \
 		ft_free.c \
-		texture_init.c \
 		mlx_utils/mlx_control.c \
 		mlx_utils/mlx_init.c \
 		parsing/check_map.c \
+		parsing/parsing_utils.c \
 		raycasting/draw_utils.c \
 		raycasting/raycasting.c \
 		raycasting/raycasting_init.c \
 		raycasting/raycasting_trign_utils.c \
 		raycasting/raycasting_utils.c \
+		raycasting/texture_init.c \
 		utils/utils.c \
 		utils/utils_str.c \
 		utils/utils_alloc.c \

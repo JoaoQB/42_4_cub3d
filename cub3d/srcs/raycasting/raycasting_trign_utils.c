@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting_trign_utils.c                            :+:      :+:    :+:   */
+/*   raycasting_trign_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 16:57:25 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/10 22:59:41 by jqueijo-         ###   ########.fr       */
+/*   Created: 2024/12/31 12:28:32 by jqueijo-          #+#    #+#             */
+/*   Updated: 2024/12/31 12:28:54 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	normalize_angle(int angle)
 	angle = angle % MAX_ANGLE;
 	if (angle < 0)
 		angle += MAX_ANGLE;
-	return angle;
+	return (angle);
 }
 
 // Replaced M_PI with PI

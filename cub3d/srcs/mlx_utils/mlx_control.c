@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/20 16:48:59 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/31 13:18:14 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// redcross -> exit
-
-// space -> jump
-// ctrl -> crouch
-// shift -> run (change spd)
-// tab -> show map
-// m -> show menu
-
-
+/*
+** redcross -> exit
+** space -> jump
+** ctrl -> crouch
+** shift -> run (change spd)
+** tab -> show map
+** m -> show menu
+*/
 
 int	handle_close(void *param)
 {
@@ -123,9 +122,9 @@ int player_moves(void)
 	return 0;
 }
 
-	// ray->rayDirX = ray->cam.dir.x + ray->cam.plane.x * ray->camX;
-	// ray->rayDirY = ray->cam.dir.y + ray->cam.plane.y * ray->camX;
-	// // printf("ray_id_%d: Final Direction Vector (rayDirX: %f, rayDirY: %f)\n",
-	// 	// ray_id, ray->rayDirX, ray->rayDirY);
-	// ray->gridX = (int)ray->cam.pos.x;
-	// ray->gridY = (int)ray->cam.pos.y;
+	// ray->dir_x = ray->cam.dir.x + ray->cam.plane.x * ray->cam_x;
+	// ray->dir_y = ray->cam.dir.y + ray->cam.plane.y * ray->cam_x;
+	// // printf("ray_id_%d: Final Direction Vector (dir_x: %f, dir_y: %f)\n",
+	// 	// ray_id, ray->dir_x, ray->dir_y);
+	// ray->grid_x = (int)ray->cam.pos.x;
+	// ray->grid_y = (int)ray->cam.pos.y;
