@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/30 12:18:48 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:12:03 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ static void	calculate_wall_info(t_game *game, t_ray *ray)
 	// printf("Wall Top: %d\n", wall->wall_top);
 	// printf("Wall Bottom: %d\n", wall->wall_bottom);
 	wall->texture = game->texture[wall->wall_dir];
-	if (!wall->texture)
-		printf("Error: Wall texture is NULL\n");
-	else
-		printf("wall texture: %s\n", wall->texture->image_name);
+	// if (!wall->texture)
+	// 	printf("Error: Wall texture is NULL\n");
+	// else
+	// 	printf("wall texture: %s\n", wall->texture->image_name);
 	wall->tex_x = get_texture_x(ray, wall);
-	printf("Texture X: %d\n", wall->tex_x);
+	// printf("Texture X: %d\n", wall->tex_x);
 }
 
 static void cast_ray(t_game*game, t_ray *ray)
@@ -164,9 +164,6 @@ void	raycasting()
 		start_ray(ray, i);
 		aim_ray(ray);
 		cast_ray(game, ray);
-		// printf("ray_id_%d: distance is: %f\n", i, ray->ray_dist[i]);
-		// printf("ray_id_%d: wallHeight is: %f\n", i, ray->wall_height[i]);
-		// printf("ray_id_%d: wallDir is: %d\n", i, ray->wall_dir[i]);
 		i++;
 	}
 	draw_walls(game);

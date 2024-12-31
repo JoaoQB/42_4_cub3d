@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/30 12:18:51 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:16:41 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,6 @@ void	init_mlx(void)
 	return ;
 }
 
-// TODO init map from .cub file
-//void	init_game()
-//{
-	//t_game	*game_s;
-
-//	game_s = ft_game();
-	//game_s->mlx = init_mlx();
-	//game_s->map = get_test_map();
-	//init_player(game_s);
-	//init_ray(game_s);
-//}
-
 void	init_game(char* file_path)
 {
 	char **lines;
@@ -138,40 +126,40 @@ t_image*	xpm_to_binary(char *image_path)
 {
 	t_image	*img;
 
-	// Debug output
-	printf("\n=== Texture Loading Debug ===\n");
-	printf("Original path: %s\n", image_path);
+	// // Debug output
+	// printf("\n=== Texture Loading Debug ===\n");
+	// printf("Original path: %s\n", image_path);
 	// MLX validation
 	if (!ft_game() || !ft_game()->mlx || !ft_game()->mlx->mlx)
 	{
-		printf("Error: MLX not properly initialized\n");
+		// printf("Error: MLX not properly initialized\n");
 		return NULL;
 	}
 	// File existence check
 	if (access(image_path, F_OK | R_OK) == -1)
 	{
-		printf("File access error for '%s': %s\n", image_path, strerror(errno));
+		// printf("File access error for '%s': %s\n", image_path, strerror(errno));
 		return NULL;
 	}
-	printf("Debug: Loading texture from: %s\n", image_path);
+	// printf("Debug: Loading texture from: %s\n", image_path);
 	// MLX loading
 	img = (t_image *)my_calloc(1, sizeof(t_image));
 	if (!img)
 	{
-		printf("Memory allocation failed\n");
+		// printf("Memory allocation failed\n");
 		return NULL;
 	}
 	img->img = mlx_xpm_file_to_image(ft_game()->mlx->mlx, image_path, &img->width, &img->height);
 	if (!img->img)
 	{
-		printf("MLX XPM loading failed for: %s\n", image_path);
+		// printf("MLX XPM loading failed for: %s\n", image_path);
 		free(img);
 		return NULL;
 	}
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len_line, &img->endian);
 	if (!img->addr)
 	{
-		printf("MLX get data address failed\n");
+		// printf("MLX get data address failed\n");
 		mlx_destroy_image(ft_game()->mlx->mlx, img->img);
 		free(img);
 		return NULL;

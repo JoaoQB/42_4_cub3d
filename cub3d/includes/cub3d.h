@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/30 12:21:47 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:08:32 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,16 @@
 # include <errno.h> //debug
 
 # define PI 3.14159265358979323846
-# define ANGLE_TOLERANCE 0.001
 
-# define WIDTH 800 //this will define the number of rays we cast
+# define WIDTH 800
 # define HEIGHT 800
 # define UNIT_SIZE 16
 # define FOV 60
 # define MAX_ANGLE 360
 # define SCALE 2
-# define COLOR 0xFF0000
-// # define WALL_NORTH 0xFF0000  // Red for north-facing walls
-// # define WALL_SOUTH 0x00FF00  // Green for south-facing walls
-// # define WALL_EAST  0x0000FF  // Blue for east-facing walls
-// # define WALL_WEST  0xFFFF00  // Yellow for west-facing walls
+# define COLOR 0xFF0000 // Red
 
-# define FLOOR_COLOR 0x404040   // Darker gray for floor
+# define FLOOR_COLOR 0x404040 // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
 # define PLAYER_SPEED 5
 # define PLAYER_ROTATION 0.2
@@ -114,8 +109,6 @@ typedef struct s_player
 	double	speed;
 	double	dir_angle;
 	e_direction angle;
-//
-	// t_coord	dir;
 }	t_player;
 
 typedef struct s_cam
@@ -134,7 +127,7 @@ typedef struct s_cam
 } t_cam;
 
 typedef struct s_image
-{//
+{
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -145,33 +138,25 @@ typedef struct s_image
 	int		height;
 }	t_image;
 
+/*
+** image_name: NO SO WE EA C F
+** image_data: if path, extract to this format
+** colour:	   if no path, try fill with colour
+*/
 typedef struct s_texture
 {
-	char	*image_name; //NO SO WE EA C F
+	char	*image_name;
 	char	*image_path;
-	t_image	*image_data; //if path, extract to this format
-	int		colour; //if no path, try fill with colour
+	t_image	*image_data;
+	int		colour;
 }	t_texture;
 
 typedef struct s_mlx
 {
-	void		*mlx;
-	void		*win;
-	t_image		img;
+	void	*mlx;
+	void	*win;
+	t_image	img;
 }	t_mlx;
-
-/*
-** pos_ux  = position unit x
-** pos_uy  = position unit y
-** ang_dir = angle direction
-*/
-
-typedef struct s_pov
-{
-	double	pos_ux;
-	double	pos_uy;
-	double	ang_dir;
-}	t_pov;
 
 typedef struct s_wall
 {
@@ -202,42 +187,39 @@ typedef struct s_ray
 	double		rayInterY;
 	int			stepX;
 	int			stepY;
-	// double		ray_dist[WIDTH];
-	// double		wall_height[WIDTH];
-	// int			wall_dir[WIDTH];
 	t_wall		walls[WIDTH];
 	t_cam		cam;
 }	t_ray;
 
 typedef struct s_control
 {
-	t_hash_table *hash_table;
-	t_coord move;
-	int mv_angle;
-	t_coord pos;
-	int dir;
-} t_control;
+	t_hash_table	*hash_table;
+	t_coord			move;
+	int				mv_angle;
+	t_coord			pos;
+	int				dir;
+}	t_control;
 
 typedef struct s_game
 {
 	t_mlx		*mlx;
 	t_player	player;
-	//t_player	*player;
 	t_control	ctl;
 	t_ray		ray;
 	t_texture	*texture[6]; // NO SO WE EA C F
 	char		**map;
 	int			map_width;
 	int			map_height;
-	int update;
+	int			update;
 }	t_game;
 
-typedef struct s_data
-{//
-	char	*path_to_map;
-	char	*path_to_textures;
-	char	*player;
-}	t_data;
+// TODO Delete
+// typedef struct s_data
+// {
+// 	char	*path_to_map;
+// 	char	*path_to_textures;
+// 	char	*player;
+// }	t_data;
 
 /******************/
 /******************/
@@ -250,7 +232,6 @@ t_game	*ft_game();
 
 /* init.c */
 void	init_game(char* file_path);
-//void	init_game();
 
 /* ft_free.c */
 void	free_game();
@@ -268,7 +249,6 @@ void	init_ray(t_game *game);
 int		get_map_width(char **map);
 int		get_map_height(char **map);
 void	print_ray(t_ray *ray);
-void	init_trigonometry(t_ray *ray);
 
 /* raycasting_trign_utils.c */
 int		normalize_angle(int angle);
@@ -294,49 +274,49 @@ void	draw_textured_line(t_game *game, t_wall *wall, int x);
 void	my_pixel_put(t_image *img, int x, int y, int colour);
 
 /* malloc tools */
-void *my_calloc(int num, int size);
-char *ft_strdup(char *str);
+void	*my_calloc(int num, int size);
+char	*ft_strdup(char *str);
 char	*ft_strnjoin(char *old_str, char *str_add, int size);
-char **ft_split(char *str, char c);
+char	**ft_split(char *str, char c);
 
 
 /* map generation*/
-char	*file_to_str(char *file_name);
-e_direction get_direction_struct(const char *str);
-void extract_textures(char **lines);
+char		*file_to_str(char *file_name);
+e_direction	get_direction_struct(const char *str);
+void		extract_textures(char **lines);
 
 /* map generation tools */
-bool is_valid(int y, int x, char *valid_str);
+bool		is_valid(int y, int x, char *valid_str);
 bool		validate_position(int y, int x);
 
 
 /* str tools*/
-bool ft_issapaces(char c);
-int ft_strlen(const char *str);
+bool	ft_issapaces(char c);
+int		ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-char* ft_strchr(char *s, int c);
-int ft_startswith(const char *s1, const char *s2);
-int	ft_wordcount(const char *str, char c);
-void ft_putstr_fd(char *str, int fd);
+char*	ft_strchr(char *s, int c);
+int		ft_startswith(const char *s1, const char *s2);
+int		ft_wordcount(const char *str, char c);
+void	ft_putstr_fd(char *str, int fd);
 char	*str_trim_and_free(char *str);
 
 /* hash table*/
-t_hash_table *ft_hash_table(void);
-int hash_find(int key);
-void hash_update(int key, bool value);
+t_hash_table	*ft_hash_table(void);
+int				hash_find(int key);
+void			hash_update(int key, bool value);
 
 /* image read*/
 t_image*	xpm_to_binary(char *image_path);
 void		extract_map(char **lines);
-void	check_map(char **map);
-int get_colour(const char *str);
-t_texture *extract_info_process(char **words);
+void		check_map(char **map);
+int			get_colour(const char *str);
+t_texture	*extract_info_process(char **words);
 
 /* error handle*/
 void	ft_print_error(char *str);
 
 /* testing*/
-void print_map(char **double_array);
+void	print_map(char **double_array);
 void	init_player(void);
 
 
@@ -345,12 +325,12 @@ int	handle_close(void *param);
 int	handle_mouse(int button, int x, int y, void *param);
 int	key_press(int key, void *param);
 int	key_release(int key, void *param);
-int mouse_moved(int x, int y, void *param);
-int player_moves(void);
+int	mouse_moved(int x, int y, void *param);
+int	player_moves(void);
 
 /* minimap */
 void	draw_minimap(int offset_x, int offset_y);
-void draw_by_scale(int x, int y, int scale, int offset_x, int offset_y);
+void	draw_by_scale(int x, int y, int scale, int offset_x, int offset_y);
 
 /* texture_init.c */
 void	init_texture(t_game *game);

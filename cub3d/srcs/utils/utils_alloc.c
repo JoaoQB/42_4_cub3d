@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_alloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:29:42 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/11 15:36:05 by fandre-b         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:10:34 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ char **ft_split(char *str, char c)
 
 void *my_calloc(int num, int size)
 {
-    void *ptr;
+	void *ptr;
 
-    ptr = malloc(num * size);
-    if (!ptr)
-        return NULL;
-    memset(ptr, 0, num * size);
-    return ptr;
+	ptr = malloc(num * size);
+	if (!ptr)
+		return NULL;
+	memset(ptr, 0, num * size);
+	return (ptr);
 }

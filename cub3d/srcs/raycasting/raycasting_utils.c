@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:24:15 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/30 12:22:46 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:14:48 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,31 +64,16 @@ int	get_texture_x(t_ray *ray, t_wall *wall)
 	int	tex_x;
 	int	tex_width;
 
-	printf("\n=== Texture X Debug ===\n");
-
-	// Check pointers
-	if (!ray) {
-		printf("Error: Ray is NULL\n");
+	// printf("\n=== Texture X Debug ===\n");
+	if (!ray || !wall || !wall->texture || !wall->texture->image_data)
+	{
 		return (0);
 	}
-	if (!wall) {
-		printf("Error: Wall is NULL\n");
-		return (0);
-	}
-	if (!wall->texture) {
-		printf("Error: Wall texture is NULL\n");
-		return (0);
-	}
-	if (!wall->texture->image_data) {
-		printf("Error: Image data is NULL\n");
-		return (0);
-	}
-	// Print debug info
-	printf("Ray side: %d\n", ray->side);
-	printf("Ray direction X: %f\n", ray->rayDirX);
-	printf("Ray direction Y: %f\n", ray->rayDirY);
-	printf("Wall X: %f\n", wall->wall_x);
-	printf("Texture width: %d\n", wall->texture->image_data->width);
+	// printf("Ray side: %d\n", ray->side);
+	// printf("Ray direction X: %f\n", ray->rayDirX);
+	// printf("Ray direction Y: %f\n", ray->rayDirY);
+	// printf("Wall X: %f\n", wall->wall_x);
+	// printf("Texture width: %d\n", wall->texture->image_data->width);
 	tex_width = wall->texture->image_data->width;
 	tex_x = (int)(wall->wall_x * tex_width);
 	if ((ray->side == 0 && ray->rayDirX > 0)

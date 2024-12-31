@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:56 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/30 12:21:38 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:10:02 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,21 @@ void	print_ray(t_ray *ray)
 		return;
 	printf("!! Camera Width: %f\n", ray->cam.width);
 	printf("!! Camera Height: %f\n", ray->cam.height);
-	printf("!! Camera Position: x = %f, y = %f\n", ray->cam.pos.x, ray->cam.pos.y);
-	printf("!! Camera Direction: dir_x = %f, dir_y = %f\n", ray->cam.dir.x, ray->cam.dir.y);
-	printf("!! Camera Plane: plane_x = %f, plane_y = %f\n", ray->cam.plane.x, ray->cam.plane.y);
+	printf("!! Camera Half Width: %f\n", ray->cam.hWidth);
+	printf("!! Camera Half Height: %f\n", ray->cam.hHeight);
+	printf("!! Camera FOV: %f\n", ray->cam.fov);
+	printf("!! Camera Half FOV: %f\n", ray->cam.hFov);
+	printf("!! Camera Position: x = %f, y = %f\n"
+		, ray->cam.pos.x, ray->cam.pos.y);
+	printf("!! Camera Direction: dir_x = %f, dir_y = %f\n"
+		, ray->cam.dir.x, ray->cam.dir.y);
+	printf("!! Camera Plane: plane_x = %f, plane_y = %f\n"
+		, ray->cam.plane.x, ray->cam.plane.y);
 	printf("!! Map Width: %d\n", ray->cam.mapWidth);
 	printf("!! Map Height: %d\n", ray->cam.mapHeight);
 }
 
+// TODO remove minus from camp.plane.x?
 void	init_ray(t_game *game)
 {
 	t_ray	*ray;
@@ -72,7 +80,6 @@ void	init_ray(t_game *game)
 	ray->cam.pos.y = game->player.pos.y;
 	ray->cam.dir.x = get_cosine(game->player.dir_angle);
 	ray->cam.dir.y = -get_sine(game->player.dir_angle);
-	// remove minus?
 	ray->cam.plane.x = -ray->cam.dir.y * get_tangent(ray->cam.hFov);
 	ray->cam.plane.y = ray->cam.dir.x * get_tangent(ray->cam.hFov);
 	ray->cam.width = WIDTH;

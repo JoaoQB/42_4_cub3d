@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:27:11 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/29 15:38:26 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:10:51 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 		s1++;
 		s2++;
 	}
-    return (unsigned char)*s1 - (unsigned char)*s2;
+	return (unsigned char)*s1 - (unsigned char)*s2;
 }
 
 int ft_startswith(const char *s1, const char *s2) {

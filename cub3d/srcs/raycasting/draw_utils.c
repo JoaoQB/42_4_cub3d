@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/29 23:00:37 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:09:03 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	my_pixel_put(t_image *img, int x, int y, int colour)
 	*(unsigned int *)(img->addr + offset) = colour;
 }
 
-// TODO define WALL_TEXTURE for WALL_COLOR and change floor and ceiling colors
 void	draw_vertical_line(t_game *game, int x)
 {
 	int		y;
@@ -84,7 +83,6 @@ void	draw_walls(t_game *game)
 	{
 		wall = &game->ray.walls[i];
 		draw_textured_line(game, wall, i);
-		// draw_vertical_line(game, i);
 		i++;
 	}
 }
