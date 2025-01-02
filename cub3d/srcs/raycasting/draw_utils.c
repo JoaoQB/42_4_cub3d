@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/02 19:57:21 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/02 22:00:48 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ void	my_pixel_put(t_image *img, int x, int y, int colour)
 
 	offset = (y * img->len_line) + (x * (img->bpp / 8));
 	*(unsigned int *)(img->addr + offset) = colour;
+}
+
+void	draw_solid_line(t_game *game, int x, int start, int end, int color)
+{
+	int	y;
+
+	y = start;
+	while (y < end)
+	{
+		my_pixel_put(&game->mlx->img, x, y, color);
+		y++;
+	}
 }
 
 void	draw_vertical_line(t_game *game, int x)
@@ -52,10 +64,7 @@ void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 	int		color;
 
 	if (!game || !wall || !wall->texture || !data)
-	{
-		draw_vertical_line(game, x);
 		return ;
-	}
 	y = wall->top;
 	step = 1.0 * data->height / (wall->bottom - y);
 	tex_pos = (y - game->ray.cam.h_height + (wall->bottom - y) / 2) * step;
@@ -72,6 +81,8 @@ void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 	}
 }
 
+// TODO: Always draw color from texture struct.
+// 			Ceiling and floor color must be there defined.
 void	draw_walls(t_game *game)
 {
 	int		i;
@@ -84,13 +95,17 @@ void	draw_walls(t_game *game)
 	while (i < WIDTH)
 	{
 		wall = &game->ray.walls[i];
+		draw_solid_line(game, i, 0, wall->top, CEILING_COLOR);
 		if (wall->texture)
 		{
 			image_data = wall->texture->image_data;
 			draw_text_line(game, wall, image_data, i);
 		}
 		else
-			draw_vertical_line(game, i);
+		{
+			draw_solid_line(game, i, wall->top, wall->bottom, COLOR);
+		}
+		draw_solid_line(game, i, wall->bottom, HEIGHT, FLOOR_COLOR);
 		i++;
 	}
 }
