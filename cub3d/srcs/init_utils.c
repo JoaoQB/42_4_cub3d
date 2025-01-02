@@ -6,13 +6,12 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:02:56 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/31 13:13:42 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:03:07 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// if !texture.image_data: check for path existence and permissions
 t_texture	*extract_info_process(char **words)
 {
 	t_texture	*texture;

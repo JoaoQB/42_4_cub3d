@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/31 13:28:06 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:14:30 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,8 @@ void			ft_print_error(char *str);
 
 /* testing*/
 void			print_map(char **double_array);
-void			init_player(void);
+void			init_test_player(void);
+void			init_test_textures(t_game *game);
 
 /* controls mlx*/
 int				handle_close(void *param);
