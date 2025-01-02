@@ -6,74 +6,16 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/02 19:38:15 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:11:33 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_test_textures(t_game *game)
-{
-	char *textures[][2] = {
-		{"EA", "./includes/textures/water_texture2.xpm"},
-		{"NO", "./includes/textures/water_texture.xpm"},
-		{"WE", "./includes/textures/wall_blackhole.xpm"},
-		{"SO", "./includes/textures/wall_gold_energy.xpm"},
-		{"F", "220,100,0"},
-		{"C", "225,30,0"},
-		{NULL, NULL} // Sentinel value to mark the end of the array
-	};
-	for (int i = 0; textures[i][0] != NULL; i++)
-	{
-		t_texture *texture = extract_info_process(textures[i]);
-		if (strcmp(textures[i][0], "EA") == 0)
-			game->texture[0] = texture;
-		else if (strcmp(textures[i][0], "NO") == 0)
-			game->texture[1] = texture;
-		else if (strcmp(textures[i][0], "WE") == 0)
-			game->texture[2] = texture;
-		else if (strcmp(textures[i][0], "SO") == 0)
-			game->texture[3] = texture;
-		else if (strcmp(textures[i][0], "F") == 0)
-			game->texture[4] = texture;
-		else if (strcmp(textures[i][0], "C") == 0)
-			game->texture[5] = texture;
-	}
-}
-
-// TODO init player from .cub file
-void	init_test_player(void)
-{
-	char	**map;
-
-	if (!ft_game())
-		return ;
-	map = malloc(sizeof(char *) * 8);
-	map[0] = strdup("111111111111111");
-	map[1] = strdup("100000000000001");
-	map[2] = strdup("110110000001011");
-	map[3] = strdup("1110000P0000011");
-	map[4] = strdup("110000000000011");
-	map[5] = strdup("110000101000011");
-	map[6] = strdup("111111111111111");
-	map[7] = NULL;
-	ft_game()->map = map;
-	ft_game()->player.pos.x = 7;
-	ft_game()->player.pos.y = 3;
-	ft_game()->player.dir_angle = SOUTH;
-	ft_game()->player.speed = 1;
-	init_test_textures(ft_game());
-	printf("!! Player initialized:\n");
-	printf("!! Position: (%f, %f)\n",
-		ft_game()->player.pos.x, ft_game()->player.pos.y);
-	printf("!! Direction angle: %f\n", ft_game()->player.dir_angle);
-	printf("!! Speed: %f\n", ft_game()->player.speed);
-}
-
 // jqueijo: changed syntax for normi
 static void	init_hash_table(void)
 {
-	t_hash_table	*table;
+	t_hashtable	*table;
 
 	table = ft_hash_table();
 	if (!table)

@@ -6,21 +6,21 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:27:11 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/31 11:10:51 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:45:07 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void ft_putstr_fd(char *str, int fd)
+void	ft_putstr_fd(char *str, int fd)
 {
-	int ret;
+	int	ret;
+
 	if (!str)
 		return ;
 	ret = write(fd, str, ft_strlen(str));
 	(void)ret;
 }
-
 
 int	ft_wordcount(const char *str, char c)
 {
@@ -43,9 +43,9 @@ int	ft_wordcount(const char *str, char c)
 	return (count);
 }
 
-int ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	int i;
+	int	i;
 
 	if (!str)
 		return (0);
@@ -88,67 +88,4 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	}
 	dest[count] = '\0';
 	return (ft_strlen(src));
-}
-
-char* ft_strchr(char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == c)
-			return (s);
-		s++;
-	}
-	return (NULL);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	while ((*s1 && *s2) && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (unsigned char)*s1 - (unsigned char)*s2;
-}
-
-int ft_startswith(const char *s1, const char *s2) {
-    int i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-        if (s1[i] != s2[i])
-            break;
-		i++;
-    }
-	if (s2[i] == '\0')
-		return 0;
-    return 1;
-}
-
-char	*str_trim_and_free(char *str)
-{
-	char	*start;
-	char	*end;
-	char	*result;
-	size_t	len;
-
-	if (!str)
-		return (NULL);
-	start = str;
-	while (*start && (*start == ' ' || *start == '\t' || *start == '\n'))
-		start++;
-	end = str + ft_strlen(str) - 1;
-	while (end > start && (*end == ' ' || *end == '\t' || *end == '\n'))
-		end--;
-	len = end - start + 2;
-	result = (char *)malloc(len + 1);
-	if (!result)
-	{
-		free(str);
-		return (NULL);
-	}
-	ft_strlcpy(result, start, len);
-	free(str);
-	return (result);
 }

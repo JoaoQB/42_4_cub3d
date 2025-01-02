@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/02 19:14:30 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:28:17 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_hash_table
 {
 	t_bucket	**buckets;
 	int			size;
-}	t_hash_table;
+}	t_hashtable;
 
 typedef struct s_coord
 {
@@ -194,11 +194,11 @@ typedef struct s_ray
 
 typedef struct s_control
 {
-	t_hash_table	*hash_table;
-	t_coord			move;
-	int				mv_angle;
-	t_coord			pos;
-	int				dir;
+	t_hashtable	*hash_table;
+	t_coord		move;
+	int			mv_angle;
+	t_coord		pos;
+	int			dir;
 }	t_control;
 
 typedef struct s_game
@@ -229,15 +229,15 @@ typedef struct s_game
 /******************/
 
 /* main.c */
-t_game			*ft_game(void);
+t_game		*ft_game(void);
 
 /* init.c */
-void			init_game(char *file_path);
+void		init_game(char *file_path);
 
 /* ft_free.c */
-void			free_game(void);
-void			free_map(char ***map_ptr);
-void			free_mlx(t_mlx **mlx_ptr);
+void		free_game(void);
+void		free_map(char ***map_ptr);
+void		free_mlx(t_mlx **mlx_ptr);
 
 /******************/
 /******************/
@@ -246,91 +246,97 @@ void			free_mlx(t_mlx **mlx_ptr);
 /******************/
 
 /* raycasting_init.c */
-void			init_ray(t_game *game);
-int				get_map_width(char **map);
-int				get_map_height(char **map);
-void			print_ray(t_ray *ray);
+void		init_ray(t_game *game);
+int			get_map_width(char **map);
+int			get_map_height(char **map);
+void		print_ray(t_ray *ray);
 
 /* raycasting_trign_utils.c */
-int				normalize_angle(int angle);
-double			get_radiant(int ray_angle);
-double			get_tangent(int ray_angle);
-double			get_sine(int ray_angle);
-double			get_cosine(int ray_angle);
+int			normalize_angle(int angle);
+double		get_radiant(int ray_angle);
+double		get_tangent(int ray_angle);
+double		get_sine(int ray_angle);
+double		get_cosine(int ray_angle);
 
 /* raycasting.c */
-void			raycasting(void);
+void		raycasting(void);
+
+/* raycasting_debug.c */
+void		debug_start(t_ray *ray);
+void		debug_aim(t_ray *ray);
+void		debug_wall_info(t_ray *ray, t_wall *wall);
+void		debug_cast(t_ray *ray);
 
 /* raycasting_utils.c */
-double			get_wall_distance(t_ray *ray);
-int				get_wall_direction(t_ray *ray);
-double			get_wall_x(t_ray *ray);
-int				get_texture_x(t_ray *ray, t_wall *wall);
+double		get_wall_distance(t_ray *ray);
+int			get_wall_direction(t_ray *ray);
+double		get_wall_x(t_ray *ray);
+int			get_texture_x(t_ray *ray, t_wall *wall);
 
 /* draw_utils.c */
-void			draw_walls(t_game	*game);
-void			draw_vertical_line(t_game *game, int x);
-void			draw_textured_line(t_game *game, t_wall *wall, t_image *data, int x);
-void			my_pixel_put(t_image *img, int x, int y, int colour);
+void		draw_walls(t_game	*game);
+void		draw_vertical_line(t_game *game, int x);
+void		draw_text_line(t_game *game, t_wall *wall, t_image *data, int x);
+void		my_pixel_put(t_image *img, int x, int y, int colour);
 
 /* malloc tools */
-void			*my_calloc(int num, int size);
-char			*ft_strdup(char *str);
-char			*ft_strnjoin(char *old_str, char *str_add, int size);
-char			**ft_split(char *str, char c);
+void		*my_calloc(int num, int size);
+char		*ft_strdup(char *str);
+char		*ft_strnjoin(char *old_str, char *str_add, int size);
+char		**ft_split(char *str, char c);
 
 /* map generation*/
-char			*file_to_str(char *file_name);
-t_direction		get_direction_struct(const char *str);
-void			extract_textures(char **lines);
+char		*file_to_str(char *file_name);
+t_direction	get_direction_struct(const char *str);
+void		extract_textures(char **lines);
 
 /* map generation tools */
-bool			is_valid(int y, int x, char *valid_str);
-bool			validate_position(int y, int x);
+bool		is_valid(int y, int x, char *valid_str);
+bool		validate_position(int y, int x);
 
 /* str tools*/
-bool			ft_issapaces(char c);
-int				ft_strlen(const char *str);
-size_t			ft_strlcpy(char *dest, const char *src, size_t size);
-char			*ft_strchr(char *s, int c);
-int				ft_startswith(const char *s1, const char *s2);
-int				ft_wordcount(const char *str, char c);
-void			ft_putstr_fd(char *str, int fd);
-char			*str_trim_and_free(char *str);
+bool		ft_issapaces(char c);
+int			ft_strlen(const char *str);
+size_t		ft_strlcpy(char *dest, const char *src, size_t size);
+char		*ft_strchr(char *s, int c);
+int			ft_startswith(const char *s1, const char *s2);
+int			ft_wordcount(const char *str, char c);
+void		ft_putstr_fd(char *str, int fd);
+char		*str_trim_and_free(char *str);
 
 /* hash table*/
-t_hash_table	*ft_hash_table(void);
-int				hash_find(int key);
-void			hash_update(int key, bool value);
+t_hashtable	*ft_hash_table(void);
+int			hash_find(int key);
+void		hash_update(int key, bool value);
 
 /* image read*/
-t_image			*xpm_to_binary(char *image_path);
-void			extract_map(t_game *game, char **lines);
-void			check_map(char **map);
-int				get_colour(const char *str);
-t_texture		*extract_info_process(char **words);
+t_image		*xpm_to_binary(char *image_path);
+void		extract_map(t_game *game, char **lines);
+void		check_map(char **map);
+int			get_colour(const char *str);
+t_texture	*extract_info_process(char **words);
 
 /* error handle*/
-void			ft_print_error(char *str);
+void		ft_print_error(char *str);
 
 /* testing*/
-void			print_map(char **double_array);
-void			init_test_player(void);
-void			init_test_textures(t_game *game);
+void		print_map(char **double_array);
+void		init_test_player(void);
+void		init_test_textures(t_game *game);
 
 /* controls mlx*/
-int				handle_close(void *param);
-int				handle_mouse(int button, int x, int y, void *param);
-int				key_press(int key, void *param);
-int				key_release(int key, void *param);
-int				mouse_moved(int x, int y, void *param);
-int				player_moves(void);
+int			handle_close(void *param);
+int			handle_mouse(int button, int x, int y, void *param);
+int			key_press(int key, void *param);
+int			key_release(int key, void *param);
+int			mouse_moved(int x, int y, void *param);
+int			player_moves(void);
 
 /* minimap */
-void			draw_minimap(int offset_x, int offset_y);
-void			draw_by_scale(int x, int y, int offset_x, int offset_y);
+void		draw_minimap(int offset_x, int offset_y);
+void		draw_by_scale(int x, int y, int offset_x, int offset_y);
 
 /* texture_init.c */
-void			init_texture(t_game *game);
+void		init_texture(t_game *game);
 
 #endif

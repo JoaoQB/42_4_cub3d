@@ -12,14 +12,14 @@
 
 #include "cub3d.h"
 
-t_hash_table	*ft_hash_table(void)
+t_hashtable	*ft_hash_table(void)
 {
-	static t_hash_table	hash_table;
+	static t_hashtable	hash_table;
 
 	return (&hash_table);
 }
 
-static t_bucket *index_bucket(int key)
+static t_bucket	*index_bucket(int key)
 {
 	t_bucket	*curr_buck;
 
@@ -29,7 +29,7 @@ static t_bucket *index_bucket(int key)
 	return (curr_buck);
 }
 
-static void add_hash_entry(int key, bool value)
+static void	add_hash_entry(int key, bool value)
 {
 	t_bucket	*curr_buck;
 
@@ -53,7 +53,7 @@ static void add_hash_entry(int key, bool value)
 	*(bool *)curr_buck->content = value;
 }
 
-int hash_find(int key)
+int	hash_find(int key)
 {
 	t_bucket	*curr_buck;
 
@@ -67,7 +67,7 @@ int hash_find(int key)
 	return (-1); //the key has no entry
 }
 
-void hash_update(int key, bool value)
+void	hash_update(int key, bool value)
 {
 	t_bucket	*curr_buck;
 

@@ -6,16 +6,16 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:29:42 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/31 11:10:34 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:41:11 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char *ft_strdup(char *str)
+char	*ft_strdup(char *str)
 {
-	int i;
-	char *new_str;
+	int		i;
+	char	*new_str;
 
 	i = 0;
 	while (str[i])
@@ -47,11 +47,11 @@ char	*ft_strnjoin(char *old_str, char *str_add, int size)
 	return (new_str);
 }
 
-char **ft_split(char *str, char c)
+char	**ft_split(char *str, char c)
 {
-	char **map;
-	int i;
-	int j;
+	char	**map;
+	int		i;
+	int		j;
 
 	map = (char **) my_calloc(ft_wordcount(str, c) + 1, sizeof(char *));
 	j = -1;
@@ -71,13 +71,13 @@ char **ft_split(char *str, char c)
 	return (map);
 }
 
-void *my_calloc(int num, int size)
+void	*my_calloc(int num, int size)
 {
-	void *ptr;
+	void	*ptr;
 
 	ptr = malloc(num * size);
 	if (!ptr)
-		return NULL;
+		return (NULL);
 	memset(ptr, 0, num * size);
 	return (ptr);
 }

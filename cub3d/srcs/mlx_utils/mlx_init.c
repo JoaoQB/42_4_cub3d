@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:32:26 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/31 11:43:48 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:39:43 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	draw_minimap(int offset_x, int offset_y)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = -1;
 	while (++x < WIDTH)
@@ -31,9 +31,9 @@ void	draw_minimap(int offset_x, int offset_y)
 // jqueijo: Hardcoded MINIMAP_SCALE as function had too many parameters
 void	draw_by_scale(int x, int y, int offset_x, int offset_y)
 {
-	int i;
-	int j;
-	int color;
+	int	i;
+	int	j;
+	int	color;
 
 	i = x * MINIMAP_SCALE + offset_x;
 	while (i < (x + 1) * MINIMAP_SCALE + offset_x)
@@ -41,7 +41,10 @@ void	draw_by_scale(int x, int y, int offset_x, int offset_y)
 		j = y * MINIMAP_SCALE + offset_y;
 		while (j < (y + 1) * MINIMAP_SCALE + offset_y)
 		{
-			color = ft_game()->map[y][x] == 1 ? 0x00FF00 : 0x000000;
+			if (ft_game()->map[y][x] == 1)
+				color = 0x00FF00;
+			else
+				color = 0x000000;
 			my_pixel_put(&ft_game()->mlx->img, i, j, color);
 			j++;
 		}

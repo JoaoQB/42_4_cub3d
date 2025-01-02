@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/31 13:06:06 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:57:21 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_vertical_line(t_game *game, int x)
 	}
 }
 
-void	draw_textured_line(t_game *game, t_wall *wall, t_image *data, int x)
+void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 {
 	double	step;
 	double	tex_pos;
@@ -87,7 +87,7 @@ void	draw_walls(t_game *game)
 		if (wall->texture)
 		{
 			image_data = wall->texture->image_data;
-			draw_textured_line(game, wall, image_data, i);
+			draw_text_line(game, wall, image_data, i);
 		}
 		else
 			draw_vertical_line(game, i);
