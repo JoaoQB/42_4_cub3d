@@ -32,17 +32,9 @@ t_game	*ft_game(void)
 int	main(int argc, char **argv)
 {
 	(void)argv;
-	if (argc == 1)
+	if (argc != 2)
 	{
-		ft_game()->update = 1;
-	}
-	else if (argc == 2)
-	{
-		ft_game()->update = 0;
-	}
-	else
-	{
-		printf("Please run ./cub3d <.cub_file_path> \n");
+		printf("Please run ./cub3d <file_path.cub> \n");
 		return (EXIT_FAILURE);
 	}
 	init_game(argv[1]);

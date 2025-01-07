@@ -56,18 +56,16 @@ void	init_game(char *file_path)
 	// ft_game()->player.angle = UNKNOWN;
 	game = ft_game();
 	init_mlx();
-	if (game->update == 1)
-		init_test_player();
-	else if (game->update == 0)
-	{
-		file_str = file_to_str(file_path);
-		lines = ft_split(file_str, '\n');
-		extract_textures(lines);
-		extract_map(game, lines);
-		print_map (game->map);
-		free(lines);
-		game->player.dir_angle = game->player.angle;
-	}
+
+	printf("Parsing file: %s\n", file_path);
+	file_str = file_to_str(file_path);
+	lines = ft_split(file_str, '\n');
+	extract_textures(lines);
+	extract_map(game, lines);
+	check_map(game->map);
+	print_map (game->map);
+	free(lines);
+	game->player.dir_angle = game->player.angle;
 	init_hash_table();
 	init_ray(game);
 	init_texture(game);

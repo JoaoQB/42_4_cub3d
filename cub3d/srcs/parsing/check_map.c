@@ -55,6 +55,7 @@ bool	get_player_direction(int y, int x)
 	}
 	ft_game()->player.pos.x = x;
 	ft_game()->player.pos.y = y;
+	printf("\033[1;31mPlayer pos updated: x = %d, y = %d\033[0m\n", x, y);
 	return (true);
 }
 
@@ -122,7 +123,7 @@ void	check_map(char **map)
 	int		x;
 	int		y;
 
-	if (ft_game()->map_height == 0 || ft_game()->map == NULL)
+	if (ft_game()->map == NULL || ft_game()->map_height == 0)
 		return (ft_print_error("No map found"));
 	y = -1;
 	while (++y < ft_game()->map_height)
@@ -134,12 +135,12 @@ void	check_map(char **map)
 			if (!ft_strchr("1 0NWES", map[y][x]))
 				ft_print_error("Invalid character in map");
 			if (!validate_position(y, x))
-			{
-				printf("y: %d, x: %d, char: %c\n", y, x, map[y][x]);
 				ft_print_error("Of map encapsulation");
-			}
+			//TODO add 1 to the diagonal
+			printf("hello\n");
 			if (!get_player_direction(y, x))
 				ft_print_error("Repeated player pos");
+			printf("y: %d, x: %d, char: %c\n", y, x, map[y][x]);
 			x++;
 		}
 	}

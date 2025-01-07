@@ -64,6 +64,7 @@ void	init_test_player(void)
 
 	if (!ft_game())
 		return ;
+	printf("test mode\n");
 	map = malloc(sizeof(char *) * 8);
 	map[0] = strdup("111111111111111");
 	map[1] = strdup("100000000000001");

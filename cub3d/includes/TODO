@@ -1,0 +1,12 @@
+Player position
+
+colour extraction
+
+map print
+
+move debug
+-use prespective normalisation
+-try to use the same function for all the moves
+-mouse is moving faster in angles 0 and 180
+-hid the mouse
+

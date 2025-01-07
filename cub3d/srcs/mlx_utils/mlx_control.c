@@ -60,9 +60,8 @@ int	mouse_moved(int x, int y, void *param)
 	int			diff_x;
 
 	(void) param;
-	printf("Mouse moved %d %d\n", x, y);
+	(void) y;
 	diff_x = x - last_x;
-	printf("diff_x: %d\n", diff_x);
 	ft_game()->ctl.mv_angle -= diff_x;
 	last_x = x;
 	ft_game()->update = 1;
@@ -84,11 +83,19 @@ int	player_moves(void)
 	// if (game->ctl.mv_angle == 0 && game->ctl.move.x == 0
 	// 	&& game->ctl.move.x == 0)
 	// 	return (0);
+	game->player.speed = 0.1;
+	game->ctl.move.y = game->ctl.move.y * game->player.speed;
+	game->ctl.move.x = game->ctl.move.x * game->player.speed;
 	game->player.dir_angle += game->ctl.mv_angle;
+	game->player.dir_angle = normalize_angle(game->player.dir_angle);
 	cam->dir.x = get_cosine(game->player.dir_angle);
 	cam->dir.y = -get_sine(game->player.dir_angle);
+	 printf("Player Angle: %f, Camera Dir X: %f, Camera Dir Y: %f\n",
+           game->player.dir_angle, game->ray.cam.dir.x, game->ray.cam.dir.y);
 	cam->pos.x += game->ctl.move.x * cam->dir.x - game->ctl.move.y * cam->dir.y;
 	cam->pos.y += game->ctl.move.x * cam->dir.y + game->ctl.move.y * cam->dir.x;
+	// printf("new angle: %f\n", game->player.dir_angle);
+	printf("new pos: (%f, %f)\n", cam->pos.x, cam->pos.y);
 	game->ctl.mv_angle = 0;
 	game->ctl.move.x = 0;
 	game->ctl.move.y = 0;
