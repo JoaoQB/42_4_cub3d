@@ -62,6 +62,6 @@ int	main(int argc, char **argv)
 	// Set the loop to call the player_moves function
 	mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
 	mlx_loop(ft_game()->mlx->mlx);
-	mlx_loop_hook(ft_game()->mlx, player_moves, NULL);
+	// mlx_loop_hook(ft_game()->mlx, player_moves, NULL);
 	return (0);
 }

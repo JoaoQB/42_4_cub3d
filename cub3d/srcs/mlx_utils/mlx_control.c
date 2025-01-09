@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/01/02 20:38:23 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:59:17 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,19 @@ int	key_press(int key, void *param)
 	// if (hash_find(key) == 1)
 	// 	return (0);
 	// hash_update(key, 1);
+	ft_game()->player.speed = 0.1;
 	if (key == KEY_ESC)
 		handle_close(NULL);
 	if (key == KEY_W)
-		ft_game()->ctl.move.x += 1;
+		ft_game()->ctl.move.x += ft_game()->player.speed;
 	if (key == KEY_S)
-		ft_game()->ctl.move.x += -1;
+		ft_game()->ctl.move.x += - ft_game()->player.speed;
 	if (key == KEY_A)
-		ft_game()->ctl.move.y += -1;
+		ft_game()->ctl.move.y += - ft_game()->player.speed;
 	if (key == KEY_D)
-		ft_game()->ctl.move.y += 1;
+		ft_game()->ctl.move.y += ft_game()->player.speed;
 	if (key == KEY_LEFT || key == KEY_Q)
-		ft_game()->ctl.mv_angle += -1;
+		ft_game()->ctl.mv_angle += -1 ;
 	if (key == KEY_RIGHT || key == KEY_E)
 		ft_game()->ctl.mv_angle += 1;
 	ft_game()->update = 1;
@@ -83,25 +84,39 @@ int	player_moves(void)
 	// if (game->ctl.mv_angle == 0 && game->ctl.move.x == 0
 	// 	&& game->ctl.move.x == 0)
 	// 	return (0);
-	game->player.speed = 0.1;
-	game->ctl.move.y = game->ctl.move.y * game->player.speed;
-	game->ctl.move.x = game->ctl.move.x * game->player.speed;
+	// update player's 
+
+
 	game->player.dir_angle += game->ctl.mv_angle;
-	game->player.dir_angle = normalize_angle(game->player.dir_angle);
+	// game->player.dir_angle = normalize_angle(game->player.dir_angle);
+
+	cam->dir.x = get_cosine((int) game->player.dir_angle % 90);
+	cam->dir.y = -get_sine((int) game->player.dir_angle % 90);
+
+	// Update player's position
+	// cam->pos.x += game->ctl.move.x * cam->dir.x - game->ctl.move.y * cam->dir.y;
+	// cam->pos.y += game->ctl.move.x * cam->dir.y + game->ctl.move.y * cam->dir.x;
+
+    // Calculate new position
+    cam->pos.x += game->ctl.move.y * cam->dir.x + game->ctl.move.x * cam->dir.y;
+    cam->pos.y += game->ctl.move.y * cam->dir.y - game->ctl.move.x * cam->dir.x;
+
 	cam->dir.x = get_cosine(game->player.dir_angle);
 	cam->dir.y = -get_sine(game->player.dir_angle);
-	 printf("Player Angle: %f, Camera Dir X: %f, Camera Dir Y: %f\n",
-           game->player.dir_angle, game->ray.cam.dir.x, game->ray.cam.dir.y);
-	cam->pos.x += game->ctl.move.x * cam->dir.x - game->ctl.move.y * cam->dir.y;
-	cam->pos.y += game->ctl.move.x * cam->dir.y + game->ctl.move.y * cam->dir.x;
-	// printf("new angle: %f\n", game->player.dir_angle);
+
+	// printf
+	printf("Player Angle: %f, Camera Dir X: %f, Camera Dir Y: %f\n", game->player.dir_angle, game->ray.cam.dir.x, game->ray.cam.dir.y);
 	printf("new pos: (%f, %f)\n", cam->pos.x, cam->pos.y);
+
+	// reset values
 	game->ctl.mv_angle = 0;
 	game->ctl.move.x = 0;
 	game->ctl.move.y = 0;
+
+	// run raycasting
 	raycasting();
 	mlx_put_image_to_window(game->mlx->mlx,
-		game->mlx->win, game->mlx->img.img, 0, 0);
+	game->mlx->win, game->mlx->img.img, 0, 0);
 	game->update = 0;
 	return (0);
 }

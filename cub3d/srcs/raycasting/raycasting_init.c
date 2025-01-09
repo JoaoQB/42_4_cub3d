@@ -80,8 +80,6 @@ void	init_ray(t_game *game)
 	ray->cam.pos.y = game->player.pos.y;
 	ray->cam.dir.x = get_cosine(game->player.dir_angle);
 	ray->cam.dir.y = -get_sine(game->player.dir_angle);
-	ray->cam.plane.x = -ray->cam.dir.y * get_tangent(ray->cam.hfov);
-	ray->cam.plane.y = ray->cam.dir.x * get_tangent(ray->cam.hfov);
 	ray->cam.width = WIDTH;
 	ray->cam.height = HEIGHT;
 	ray->cam.hwidth = ray->cam.width / 2;

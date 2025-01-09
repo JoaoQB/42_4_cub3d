@@ -128,9 +128,11 @@ void	raycasting(void)
 	int		i;
 
 	game = ft_game();
+	ray = &game->ray;
+	ray->cam.plane.x = -ray->cam.dir.y * get_tangent(ray->cam.hfov);
+	ray->cam.plane.y = ray->cam.dir.x * get_tangent(ray->cam.hfov);
 	if (!game)
 		return ;
-	ray = &game->ray;
 	i = 0;
 	while (i < WIDTH)
 	{
