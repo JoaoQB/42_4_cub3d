@@ -22,7 +22,8 @@ int	handle_mouse(int button, int x, int y, void *param)
 int	key_release(int key, void *param)
 {
 	(void) param;
-	printf("Key %d released\n", key);
+	(void) key;
+	// printf("Key %d released\n", key);
 	// if (hash_find(key) == 0)
 	// 	return (1);
 	// hash_update(key, 1);

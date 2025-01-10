@@ -128,18 +128,19 @@ void	raycasting(void)
 	int		i;
 
 	game = ft_game();
+	if (!game)
+		return ;
 	ray = &game->ray;
 	ray->cam.plane.x = -ray->cam.dir.y * get_tangent(ray->cam.hfov);
 	ray->cam.plane.y = ray->cam.dir.x * get_tangent(ray->cam.hfov);
-	if (!game)
-		return ;
-	i = 0;
-	while (i < WIDTH)
+	i = -1;
+	while (++i < WIDTH)
 	{
 		start_ray(ray, i);
 		aim_ray(ray);
 		cast_ray(game, ray);
-		i++;
 	}
 	draw_walls(game);
+	mlx_put_image_to_window(game->mlx->mlx,
+	game->mlx->win, game->mlx->img.img, 0, 0);
 }

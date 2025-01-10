@@ -32,7 +32,7 @@ int	handle_close(void *param)
 int	key_press(int key, void *param)
 {
 	(void) param;
-	printf("Key %d pressed\n", key);
+	// printf("Key %d pressed\n", key);
 	// if (hash_find(key) == 1)
 	// 	return (0);
 	// hash_update(key, 1);
@@ -81,32 +81,17 @@ int	player_moves(void)
 	cam = &ray->cam;
 	if (game->update == 0)
 		return (0);
-	// if (game->ctl.mv_angle == 0 && game->ctl.move.x == 0
-	// 	&& game->ctl.move.x == 0)
-	// 	return (0);
-	// update player's 
 
-
+	// update direction angle
 	game->player.dir_angle += game->ctl.mv_angle;
-	// game->player.dir_angle = normalize_angle(game->player.dir_angle);
 
-	cam->dir.x = get_cosine((int) game->player.dir_angle % 90);
-	cam->dir.y = -get_sine((int) game->player.dir_angle % 90);
-
-	// Update player's position
-	// cam->pos.x += game->ctl.move.x * cam->dir.x - game->ctl.move.y * cam->dir.y;
-	// cam->pos.y += game->ctl.move.x * cam->dir.y + game->ctl.move.y * cam->dir.x;
-
-    // Calculate new position
-    cam->pos.x += game->ctl.move.y * cam->dir.x + game->ctl.move.x * cam->dir.y;
-    cam->pos.y += game->ctl.move.y * cam->dir.y - game->ctl.move.x * cam->dir.x;
-
+	// update direction vector
 	cam->dir.x = get_cosine(game->player.dir_angle);
 	cam->dir.y = -get_sine(game->player.dir_angle);
 
-	// printf
-	printf("Player Angle: %f, Camera Dir X: %f, Camera Dir Y: %f\n", game->player.dir_angle, game->ray.cam.dir.x, game->ray.cam.dir.y);
-	printf("new pos: (%f, %f)\n", cam->pos.x, cam->pos.y);
+    // Calculate new position
+    cam->pos.x += game->ctl.move.x * cam->dir.x - game->ctl.move.y * cam->dir.y;
+    cam->pos.y += game->ctl.move.x * cam->dir.y + game->ctl.move.y * cam->dir.x;
 
 	// reset values
 	game->ctl.mv_angle = 0;
@@ -115,15 +100,6 @@ int	player_moves(void)
 
 	// run raycasting
 	raycasting();
-	mlx_put_image_to_window(game->mlx->mlx,
-	game->mlx->win, game->mlx->img.img, 0, 0);
 	game->update = 0;
 	return (0);
 }
-
-	// ray->dir_x = ray->cam.dir.x + ray->cam.plane.x * ray->cam_x;
-	// ray->dir_y = ray->cam.dir.y + ray->cam.plane.y * ray->cam_x;
-	// // printf("ray_id_%d: Final Direction Vector (dir_x: %f, dir_y: %f)\n",
-	// 	// ray_id, ray->dir_x, ray->dir_y);
-	// ray->grid_x = (int)ray->cam.pos.x;
-	// ray->grid_y = (int)ray->cam.pos.y;
