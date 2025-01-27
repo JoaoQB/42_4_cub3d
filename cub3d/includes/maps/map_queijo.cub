@@ -1,5 +1,5 @@
 EA ./includes/textures/water_texture2.xpm
-NO ./includes/textures/water_texture.xpm
+NO ./includes/textures/water_textudre.xpm
 WE ./includes/textures/wall_blackhole.xpm
 SO ./includes/textures/wall_gold_energy.xpm
 F 220,100,0

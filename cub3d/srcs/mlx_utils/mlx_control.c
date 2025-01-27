@@ -12,15 +12,6 @@
 
 #include "cub3d.h"
 
-/*
-** redcross -> exit
-** space -> jump
-** ctrl -> crouch
-** shift -> run (change spd)
-** tab -> show map
-** m -> show menu
-*/
-
 int	handle_close(void *param)
 {
 	(void) param;
@@ -32,10 +23,6 @@ int	handle_close(void *param)
 int	key_press(int key, void *param)
 {
 	(void) param;
-	// printf("Key %d pressed\n", key);
-	// if (hash_find(key) == 1)
-	// 	return (0);
-	// hash_update(key, 1);
 	ft_game()->player.speed = 0.1;
 	if (key == KEY_ESC)
 		handle_close(NULL);
@@ -107,38 +94,31 @@ void player_walk (void)
 		cam->pos.x = get_coord(ref).x - collision.x;
 }
 
-// intead of using dir_angle, use vector from start (cam->dir)
 int	player_moves(void)
 {
-	t_ray	*ray;
-	t_game	*game;
 	t_cam	*cam;
 
-	game = ft_game();
-	ray = &game->ray;
-	cam = &ray->cam;
-	if (game->update == 0)
+	cam = &ft_game()->ray.cam;
+	if (ft_game()->update == 0)
 		return (0);
-	// if(is_valid(y, x, "1 \n"))
-		// return (1);
 	// update direction angle
-	game->player.dir_angle += game->ctl.mv_angle;
+	ft_game()->player.dir_angle += ft_game()->ctl.mv_angle;
 
 	// update direction vector
-	cam->dir.x = get_cosine(game->player.dir_angle);
-	cam->dir.y = -get_sine(game->player.dir_angle);
+	cam->dir.x = get_cosine(ft_game()->player.dir_angle);
+	cam->dir.y = -get_sine(ft_game()->player.dir_angle);
 
     // Calculate new position
-	if (game->ctl.move.x != 0 || game->ctl.move.y != 0)
-    player_walk();
+	if (ft_game()->ctl.move.x != 0 || ft_game()->ctl.move.y != 0)
+    	player_walk();
 
 	// reset values
-	game->ctl.mv_angle = 0;
-	game->ctl.move.x = 0;
-	game->ctl.move.y = 0;
+	ft_game()->ctl.mv_angle = 0;
+	ft_game()->ctl.move.x = 0;
+	ft_game()->ctl.move.y = 0;
 
 	// run raycasting
 	raycasting();
-	game->update = 0;
+	ft_game()->update = 0;
 	return (0);
 }

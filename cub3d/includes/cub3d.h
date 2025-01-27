@@ -32,7 +32,7 @@
 # define WIDTH 800
 # define HEIGHT 800
 # define UNIT_SIZE 16
-# define COLISION 0.5
+# define COLISION 0.1
 # define FOV 60
 # define MAX_ANGLE 360
 # define SCALE 2
@@ -297,6 +297,7 @@ bool		validate_position(int y, int x);
 
 /* str tools*/
 bool		ft_issapaces(char c);
+int			ft_atoi(const char *nptr);
 int			ft_strlen(const char *str);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 char		*ft_strchr(char *s, int c);

@@ -21,7 +21,7 @@ char	*file_to_str(char *file_name)
 
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
+		ft_print_error("Error opening file");
 	bytes = 1;
 	file_str = NULL;
 	while (bytes > 0)
