@@ -24,7 +24,7 @@ t_texture	*extract_info_process(char **words)
 	{
 		texture->colour = get_colour(words[1]);
 		if (texture->colour == -1)
-			ft_print_error("Failed to load image or colour\n");
+			ft_print_error("File: Failed to load image or colour\n");
 	}
 	return (texture);
 }
@@ -56,24 +56,17 @@ t_image	*xpm_to_binary(char *image_path)
 	t_image	*img;
 
 	if (!ft_game() || !ft_game()->mlx || !ft_game()->mlx->mlx)
-		ft_print_error("MLX not properly initialized");
-	// File existence check
+		ft_print_error("MLX: not properly initialized");
 	if (access(image_path, F_OK | R_OK) == -1)
-	{
-		// printf("File access error for '%s': %s\n"
-			// , image_path, strerror(errno));
 		return (NULL);
-	}
 	img = (t_image *)my_calloc(1, sizeof(t_image));
 	img->img = mlx_xpm_file_to_image(ft_game()->mlx->mlx,
 			image_path, &img->width, &img->height);
 	if (!img->img)
-		ft_print_error("MLX XPM loading failed");
-	// printf("MLX XPM loading failed for: %s\n", image_path);
+		ft_print_error("MLX: XPM loading failed");
 	img->addr = mlx_get_data_addr(img->img,
 			&img->bpp, &img->len_line, &img->endian);
 	if (!img->addr)
-		ft_print_error("MLX get data address failed");
-	// mlx_destroy_image(ft_game()->mlx->mlx, img->img);
+		ft_print_error("MLX: get data address failed");
 	return (img);
 }
