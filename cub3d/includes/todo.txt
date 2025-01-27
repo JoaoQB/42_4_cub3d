@@ -12,7 +12,8 @@ MOVEMENT
 
 TEXTURES
 	if texture cant be loaded, not run game or replace with solid color?
-
+	ceiling and floor textures are switched
+	Diria meter no draw utils 
 
 // TODO  Textures are not accepting colors well
 // TODO  confirm parsing is up to evalsheet - map allways last done

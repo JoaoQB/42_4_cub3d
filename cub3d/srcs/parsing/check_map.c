@@ -49,10 +49,7 @@ bool	get_player_direction(int y, int x)
 	else if (c == 'W')
 		ft_game()->player.angle = WEST;
 	else
-	{
 		ft_print_error("Invalid player direction");
-		ft_game()->player.angle = UNKNOWN;
-	}
 	ft_game()->player.pos.x = x + 0.5;
 	ft_game()->player.pos.y = y + 0.5;
 	return (true);
@@ -68,13 +65,13 @@ void	extract_textures(char **lines)
 	while (lines[++i] != NULL)
 	{
 		dir = get_direction_struct(lines[i]) / 90;
-		if (dir == UNKNOWN / 90)
+		if (dir == TEXTURE_SIZE)
 			break ;
 		if (ft_game()->texture[dir] != NULL)
 			return (free(lines), ft_print_error("Duplicated texture line"));
-		//dir is a valid dir
-		if (dir != UNKNOWN / 90)
+		if (dir != TEXTURE_SIZE)
 		{
+			printf("lines[%d] = %s\n", i, lines[i]);
 			if (ft_wordcount(lines[i], ' ') != 2)
 				return (free(lines), ft_print_error("Invalid texture line"));
 			words = ft_split(lines[i], ' ');
@@ -122,11 +119,11 @@ void	check_map(char **map)
 	int		x;
 	int		y;
 
-	y = -1;
-	while (ft_game()->texture[++y] != NULL)
-		;
-	// if (y != UNKNOWN / 90)
-	// 	return (ft_print_error("File: Texture not loaded"));
+	y = 0;
+	while (ft_game()->texture[y] != NULL && y < TEXTURE_SIZE)
+		y++;
+	if (y != TEXTURE_SIZE)
+		return (ft_print_error("File: Texture not loaded"));
 	if (ft_game()->map == NULL || ft_game()->map_height == 0)
 		return (ft_print_error("File: No map found"));
 	y = -1;

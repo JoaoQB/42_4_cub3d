@@ -340,5 +340,6 @@ void		draw_by_scale(int x, int y, int offset_x, int offset_y);
 
 /* texture_init.c */
 void		init_texture(t_game *game);
+void	export_textures(void);
 
 #endif

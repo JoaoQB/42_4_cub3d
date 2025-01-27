@@ -64,6 +64,25 @@ void	print_ray(t_ray *ray)
 	printf("!! Map Height: %d\n", ray->cam.map_height);
 }
 
+void	export_textures(void)
+{
+	t_texture	**texture;
+	int i;
+
+	texture = ft_game()->texture;
+	i = -1;
+	while (++i < TEXTURE_SIZE)
+	{
+		texture[i]->image_data = xpm_to_binary(texture[i]->image_path);
+		if (texture[i]->image_data == NULL)
+		{
+			texture[i]->colour = get_colour(texture[i]->image_path);
+			if (texture[i]->colour == -1)
+				ft_print_error("File: Failed to load image or colour\n");
+		}
+	}
+}
+
 // TODO remove minus from camp.plane.x?
 void	init_ray(t_game *game)
 {

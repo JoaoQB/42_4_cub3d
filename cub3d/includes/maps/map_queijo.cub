@@ -1,14 +1,15 @@
 EA ./includes/textures/water_texture2.xpm
 NO ./includes/textures/water_texture.xpm
 WE ./includes/textures/wall_blackhole.xpm
-SO ./includes/textures/wall_gold_energy.xpm
-F 220,50,0
-C 0,0,250
+SO ./includes/textures/brushwalker137.xpm
+F 139,0,0
+C 135,206,235
+
 
 111111111111111
 100000000000001
-110110000001011
-1110000N0000011
+11N110000001011
+111000000000011
 110000000000011
 110000101000011
 111111111111111

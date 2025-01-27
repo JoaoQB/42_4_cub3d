@@ -15,17 +15,16 @@
 t_texture	*extract_info_process(char **words)
 {
 	t_texture	*texture;
+	int i;
 
+	i = -1;
+	while (words[++i])
+		;
+	if (i != 2)
+		ft_print_error("Error\nInvalid texture format");
 	texture = (t_texture *) my_calloc(1, sizeof(t_texture));
 	texture->image_name = str_trim_and_free(ft_strdup(words[0]));
 	texture->image_path = str_trim_and_free(ft_strdup(words[1]));
-	texture->image_data = xpm_to_binary(texture->image_path);
-	if (texture->image_data == NULL)
-	{
-		texture->colour = get_colour(words[1]);
-		if (texture->colour == -1)
-			ft_print_error("File: Failed to load image or colour\n");
-	}
 	return (texture);
 }
 
@@ -38,15 +37,15 @@ int	get_colour(const char *str)
 	colour = 0;
 	while (*str && ft_issapaces(*str))
 		str++;
-	rgb = ft_split((char *)str, ',');
 	if (ft_wordcount((char *)str, ',') != 3)
-		return (free(rgb), -1);
+		ft_print_error("Invalid colour format");
+	rgb = ft_split((char *)str, ',');
 	colour = ft_atoi(rgb[0]) << 16;
 	colour |= ft_atoi(rgb[1]) << 8;
-	colour |= ft_atoi(rgb[2]);
+	colour |= ft_atoi(rgb[2]); // TODO check if the values are between 0 and 255
 	i = 0;
 	while (rgb[i])
-		free(rgb[i++]);
+		free(rgb[i++]); // TODO free last element of the array
 	free(rgb);
 	return (colour);
 }
