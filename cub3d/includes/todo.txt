@@ -1,0 +1,32 @@
+PARSER
+	fix: mlx window appears before parser finished. i.e. shows up before map encapsulation error.
+	fix: map parser accepts and bugs with map without player letter
+	fix?: when other char exists returns map encapsulation error message. change to Forbidden char error?
+	fix: parser accepts and then segfaults if player letter instead of wall.
+	fix?: segfault when cam vector hits wall? see map: ./includes/map/segfault.cub
+
+
+MOVEMENT
+	player movement way too fast. one keypress more than 1/UNIT_SIZE
+	mouse movement too fast?
+
+TEXTURES
+	if texture cant be loaded, not run game or replace with solid color?
+
+
+// TODO  Textures are not accepting colors well
+// TODO  confirm parsing is up to evalsheet - map allways last done
+
+
+// TODO  confirm frees
+// TODO  Norminette
+
+//MLX nuances
+// DONE  Trying to make so 2 keys add up simultaneously (if w, and press random i have to retrigger w)
+// TODO  Hide cursor with mlx_mouse_hide and an key
+
+// BONUS:
+// TODO  Minimap
+// TODO  sprites
+// TODO  textures in FLOOR and CEIL
+// DONE  walls hitbox
