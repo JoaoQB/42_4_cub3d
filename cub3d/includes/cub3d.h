@@ -17,7 +17,7 @@
 # include <stdint.h> // Define integer types, limits, macros
 # include <stdlib.h> // Memory allocation
 # include <stdio.h> // Standard input and output, perror function / Debugging
-# include <math.h> // math functions
+# include <math.h> // math functions, including fabs for modulus
 # include <unistd.h> // System calls
 # include <stdbool.h> // Booleans
 # include <string.h> //TODO make my own string functions
@@ -32,6 +32,7 @@
 # define WIDTH 800
 # define HEIGHT 800
 # define UNIT_SIZE 16
+# define COLISION 0.5
 # define FOV 60
 # define MAX_ANGLE 360
 # define SCALE 2

@@ -67,7 +67,6 @@ char	**ft_split(char *str, char c)
 		map[++j] = ft_strnjoin(NULL, str, i);
 		str += i;
 	}
-	map[++j] = NULL;
 	return (map);
 }
 

@@ -62,6 +62,8 @@ bool	is_valid(int y, int x, char *valid_str)
 		return (true);
 	if (y < 0 || y >= ft_game()->map_height)
 		return (true);
+	if (ft_game()->map[y][x] == '\0')
+		return (true);
 	if (ft_strchr(valid_str, ft_game()->map[y][x]))
 		return (true);
 	return (false);

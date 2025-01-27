@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	// Triggered when a key is pressed.
 	mlx_hook(ft_game()->mlx->win, 2, 1L << 0, key_press, NULL);
 	// Triggered when a key is released.
-	mlx_hook(ft_game()->mlx->win, 3, 1L << 1, key_release, NULL);
+	// mlx_hook(ft_game()->mlx->win, 3, 1L << 1, key_release, NULL);
 	// Triggered when the mouse is moved.
 	mlx_hook(ft_game()->mlx->win, 6, 1L << 6, mouse_moved, NULL);
 	// Triggered when a mouse button is pressed.
