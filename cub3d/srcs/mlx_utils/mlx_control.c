@@ -23,31 +23,26 @@ int	handle_close(void *param)
 int	key_press(int key, void *param)
 {
 	(void) param;
-	// if (hash_find(key) == 1)
-	// 	return (0);
-	// hash_update(key, 1);
-	// printf("Key %d pressed\n", key);
+	printf("Key %d pressed\n", key);
 	if (key == 104)
-		mlx_mouse_hide();
+		mlx_mouse_hide(ft_game()->mlx->mlx, ft_game()->mlx->win);
 	if (key == 106)
-		mlx_mouse_show();
+		mlx_mouse_show(ft_game()->mlx->mlx, ft_game()->mlx->win);
 	ft_game()->player.speed = 0.1;
 	if (key == KEY_ESC)
 		handle_close(NULL);
-	if (key == KEY_W) // i can do move check
-		ft_game()->ctl.move.x = ft_game()->player.speed;
-	if (key == KEY_S)
-		ft_game()->ctl.move.x = - ft_game()->player.speed;
-	if (key == KEY_A)
-		ft_game()->ctl.move.y = - ft_game()->player.speed;
-	if (key == KEY_D)
-		ft_game()->ctl.move.y = ft_game()->player.speed;
+	if (key == KEY_W && ft_game()->ctl.move.x <= 0) // i can do move check
+		ft_game()->ctl.move.x += ft_game()->player.speed;
+	if (key == KEY_S && ft_game()->ctl.move.x >= 0)
+		ft_game()->ctl.move.x += - ft_game()->player.speed;
+	if (key == KEY_A && ft_game()->ctl.move.y >= 0)
+		ft_game()->ctl.move.y += - ft_game()->player.speed;
+	if (key == KEY_D && ft_game()->ctl.move.y <= 0)
+		ft_game()->ctl.move.y += ft_game()->player.speed;
 	if (key == KEY_LEFT || key == KEY_Q)
 		ft_game()->ctl.mv_angle += -1 ;
 	if (key == KEY_RIGHT || key == KEY_E)
 		ft_game()->ctl.mv_angle += 1;
-	if (key == 32)
-		printf("\033[31mSTAMP\033[0m\n"); // Red text
 	ft_game()->update = 1;
 	return (0);
 }
@@ -55,19 +50,14 @@ int	key_press(int key, void *param)
 int	key_release(int key, void *param)
 {
 	(void) param;
-	// (void) key;
-	// if (hash_find(key) == 0)
-	// 	return (1);
-	// printf("Key %d released\n", key);
-	// hash_update(key, 1);
-	if (key == KEY_W)
-		ft_game()->ctl.move.x = 0;
-	if (key == KEY_S)
-		ft_game()->ctl.move.x = 0;
-	if (key == KEY_A)
-		ft_game()->ctl.move.y = 0;
-	if (key == KEY_D)
-		ft_game()->ctl.move.y = 0;
+	if (key == KEY_W && ft_game()->ctl.move.x >= 0) // i can do move check
+		ft_game()->ctl.move.x -= ft_game()->player.speed;
+	if (key == KEY_S && ft_game()->ctl.move.x <= 0)
+		ft_game()->ctl.move.x -= - ft_game()->player.speed;
+	if (key == KEY_A && ft_game()->ctl.move.y <= 0)
+		ft_game()->ctl.move.y -= - ft_game()->player.speed;
+	if (key == KEY_D && ft_game()->ctl.move.y >= 0)
+		ft_game()->ctl.move.y -= ft_game()->player.speed;
 	if (key == KEY_LEFT || key == KEY_Q)
 		ft_game()->ctl.mv_angle -= -1;
 	if (key == KEY_RIGHT || key == KEY_E)
