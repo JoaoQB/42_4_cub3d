@@ -23,24 +23,59 @@ int	handle_close(void *param)
 int	key_press(int key, void *param)
 {
 	(void) param;
+	// if (hash_find(key) == 1)
+	// 	return (0);
+	// hash_update(key, 1);
+	// printf("Key %d pressed\n", key);
+	if (key == 104)
+		mlx_mouse_hide();
+	if (key == 106)
+		mlx_mouse_show();
 	ft_game()->player.speed = 0.1;
 	if (key == KEY_ESC)
 		handle_close(NULL);
-	if (key == KEY_W)
-		ft_game()->ctl.move.x += ft_game()->player.speed;
+	if (key == KEY_W) // i can do move check
+		ft_game()->ctl.move.x = ft_game()->player.speed;
 	if (key == KEY_S)
-		ft_game()->ctl.move.x += - ft_game()->player.speed;
+		ft_game()->ctl.move.x = - ft_game()->player.speed;
 	if (key == KEY_A)
-		ft_game()->ctl.move.y += - ft_game()->player.speed;
+		ft_game()->ctl.move.y = - ft_game()->player.speed;
 	if (key == KEY_D)
-		ft_game()->ctl.move.y += ft_game()->player.speed;
+		ft_game()->ctl.move.y = ft_game()->player.speed;
 	if (key == KEY_LEFT || key == KEY_Q)
 		ft_game()->ctl.mv_angle += -1 ;
 	if (key == KEY_RIGHT || key == KEY_E)
 		ft_game()->ctl.mv_angle += 1;
+	if (key == 32)
+		printf("\033[31mSTAMP\033[0m\n"); // Red text
 	ft_game()->update = 1;
 	return (0);
 }
+
+int	key_release(int key, void *param)
+{
+	(void) param;
+	// (void) key;
+	// if (hash_find(key) == 0)
+	// 	return (1);
+	// printf("Key %d released\n", key);
+	// hash_update(key, 1);
+	if (key == KEY_W)
+		ft_game()->ctl.move.x = 0;
+	if (key == KEY_S)
+		ft_game()->ctl.move.x = 0;
+	if (key == KEY_A)
+		ft_game()->ctl.move.y = 0;
+	if (key == KEY_D)
+		ft_game()->ctl.move.y = 0;
+	if (key == KEY_LEFT || key == KEY_Q)
+		ft_game()->ctl.mv_angle -= -1;
+	if (key == KEY_RIGHT || key == KEY_E)
+		ft_game()->ctl.mv_angle -= 1;
+	ft_game()->update = 1;
+	return (0);
+}
+
 
 int	mouse_moved(int x, int y, void *param)
 {
@@ -86,15 +121,23 @@ void player_walk (void)
 	ref.y = cam->dir.y * game->ctl.move.x + cam->dir.x * game->ctl.move.y;
 	collision.x = copysign(COLISION, ref.x);
 	collision.y = copysign(COLISION, ref.y);
+	// printf("collision set to %f %f\n", collision.x, collision.y);
 	cam->pos.y += ref.y;
-	if (is_valid(cam->pos.y + collision.y, cam->pos.x, "1 \n\0"))
+	if (is_valid(cam->pos.y + collision.y * (1.01), cam->pos.x, "1 \n\0"))
+	{
+        // printf("\033[34m !!!!!collision direction!!!!!\033[0m\n"); // Blue text
 		cam->pos.y = get_coord(ref).y - collision.y;
+	}
 	cam->pos.x += ref.x;
-	if (is_valid(cam->pos.y, cam->pos.x + collision.x, "1 \n\0"))
+	if (is_valid(cam->pos.y, cam->pos.x + collision.x * (1.01), "1 \n\0"))
+	{
+        // printf("\033[32m !!!!!collision direction!!!!!\033[0m\n"); // green text
 		cam->pos.x = get_coord(ref).x - collision.x;
+	}
+	// printf("player moves to %f %f\n", cam->pos.x, cam->pos.y);
 }
 
-int	player_moves(void)
+int	render(void)
 {
 	t_cam	*cam;
 
@@ -114,11 +157,11 @@ int	player_moves(void)
 
 	// reset values
 	ft_game()->ctl.mv_angle = 0;
-	ft_game()->ctl.move.x = 0;
-	ft_game()->ctl.move.y = 0;
+	// ft_game()->ctl.move.x = 0;
+	// ft_game()->ctl.move.y = 0;
 
 	// run raycasting
 	raycasting();
-	ft_game()->update = 0;
+	// ft_game()->update = 0;
 	return (0);
 }

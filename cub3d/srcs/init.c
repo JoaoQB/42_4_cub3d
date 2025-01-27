@@ -63,10 +63,10 @@ void	init_game(char *file_path)
 	extract_textures(lines);
 	extract_map(game, lines);
 	check_map(game->map);
-	print_map (game->map);
+	// print_map (game->map);
 	free(lines);
 	game->player.dir_angle = game->player.angle;
-	init_hash_table();
+	init_hash_table(); //TODO remove
 	init_ray(game);
 	init_texture(game);
 }

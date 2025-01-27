@@ -29,16 +29,12 @@ t_texture	*extract_info_process(char **words)
 	return (texture);
 }
 
-/*
-** TODO this one ain't working
-** colour is passed as R,G,B
-** so i want con convert this into the int
-** 0xRRGGBB
-*/
 int	get_colour(const char *str)
 {
 	int	colour;
 	char **rgb;
+	int i;
+
 	colour = 0;
 	while (*str && ft_issapaces(*str))
 		str++;
@@ -48,11 +44,13 @@ int	get_colour(const char *str)
 	colour = ft_atoi(rgb[0]) << 16;
 	colour |= ft_atoi(rgb[1]) << 8;
 	colour |= ft_atoi(rgb[2]);
+	i = 0;
+	while (rgb[i])
+		free(rgb[i++]);
 	free(rgb);
 	return (colour);
 }
 
-// Keeping debug logs for now
 t_image	*xpm_to_binary(char *image_path)
 {
 	t_image	*img;

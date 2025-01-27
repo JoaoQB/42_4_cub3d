@@ -32,7 +32,7 @@
 # define WIDTH 800
 # define HEIGHT 800
 # define UNIT_SIZE 16
-# define COLISION 0.1
+# define COLISION 0.2
 # define FOV 60
 # define MAX_ANGLE 360
 # define SCALE 2
@@ -230,6 +230,7 @@ typedef struct s_game
 /******************/
 
 /* main.c */
+int	render(void);
 t_game		*ft_game(void);
 
 /* init.c */

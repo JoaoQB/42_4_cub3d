@@ -19,26 +19,3 @@ int	handle_mouse(int button, int x, int y, void *param)
 	return (0);
 }
 
-int	key_release(int key, void *param)
-{
-	(void) param;
-	(void) key;
-	// printf("Key %d released\n", key);
-	// if (hash_find(key) == 0)
-	// 	return (1);
-	// hash_update(key, 1);
-	// if (key == KEY_W)
-	// 	ft_game()->ctl.move.x -= 1;
-	// if (key == KEY_S)
-	// 	ft_game()->ctl.move.x -= -1;
-	// if (key == KEY_A)
-	// 	ft_game()->ctl.move.y -= -1;
-	// if (key == KEY_D)
-	// 	ft_game()->ctl.move.y -= 1;
-	// if (key == KEY_LEFT || key == KEY_Q)
-	// 	ft_game()->ctl.mv_angle -= -1;
-	// if (key == KEY_RIGHT || key == KEY_E)
-	// 	ft_game()->ctl.mv_angle -= 1;
-	// ft_game()->update = 1;
-	return (0);
-}

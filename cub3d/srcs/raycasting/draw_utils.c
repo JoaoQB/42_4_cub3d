@@ -48,9 +48,9 @@ void	draw_vertical_line(t_game *game, int x)
 		if (y >= wall->top && y <= wall->bottom)
 			my_pixel_put(&img, x, y, COLOR);
 		else if (y < wall->top)
-			my_pixel_put(&img, x, y, CEILING_COLOR);
+			my_pixel_put(&img, x, y, ft_game()->texture[4]->colour);
 		else
-			my_pixel_put(&img, x, y, FLOOR_COLOR);
+			my_pixel_put(&img, x, y, ft_game()->texture[5]->colour);
 		y++;
 	}
 }
@@ -95,7 +95,7 @@ void	draw_walls(t_game *game)
 	while (i < WIDTH)
 	{
 		wall = &game->ray.walls[i];
-		draw_solid_line(game, i, 0, wall->top, CEILING_COLOR);
+		draw_solid_line(game, i, 0, wall->top,  ft_game()->texture[4]->colour);
 		if (wall->texture)
 		{
 			image_data = wall->texture->image_data;
@@ -105,7 +105,7 @@ void	draw_walls(t_game *game)
 		{
 			draw_solid_line(game, i, wall->top, wall->bottom, COLOR);
 		}
-		draw_solid_line(game, i, wall->bottom, HEIGHT, FLOOR_COLOR);
+		draw_solid_line(game, i, wall->bottom, HEIGHT,  ft_game()->texture[3]->colour);
 		i++;
 	}
 }
