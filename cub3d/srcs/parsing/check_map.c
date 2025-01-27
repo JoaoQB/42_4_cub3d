@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2024/12/31 13:33:39 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:08:40 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,9 @@ void	check_map(char **map)
 
 	y = -1;
 	while (ft_game()->texture[++y] != NULL)
-	if (y != UNKNOWN / 90)
-		return (ft_print_error("File: Texture not loaded"));
+		;
+	// if (y != UNKNOWN / 90)
+	// 	return (ft_print_error("File: Texture not loaded"));
 	if (ft_game()->map == NULL || ft_game()->map_height == 0)
 		return (ft_print_error("File: No map found"));
 	y = -1;
