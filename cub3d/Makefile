@@ -39,7 +39,6 @@ MLX_LNK	= -L$(MLX) -lmlx -lXext -lX11 -lm -lz
 SRCS := main.c \
 		init.c \
 		init_utils.c \
-		init_test.c \
 		ft_free.c \
 		mlx_utils/mlx_control.c \
 		mlx_utils/mlx_init.c \
@@ -57,7 +56,6 @@ SRCS := main.c \
 		utils/utils_str.c \
 		utils/utils_str_2.c \
 		utils/utils_alloc.c \
-		utils/hash_table.c \
 
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
 # OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c \=.o))

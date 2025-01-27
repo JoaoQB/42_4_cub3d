@@ -308,7 +308,6 @@ void		ft_putstr_fd(char *str, int fd);
 char		*str_trim_and_free(char *str);
 
 /* hash table*/
-t_hashtable	*ft_hash_table(void);
 int			hash_find(int key);
 void		hash_update(int key, bool value);
 

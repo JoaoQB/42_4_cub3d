@@ -12,21 +12,6 @@
 
 #include "cub3d.h"
 
-// jqueijo: changed syntax for normi
-static void	init_hash_table(void)
-{
-	t_hashtable	*table;
-
-	table = ft_hash_table();
-	if (!table)
-		return ;
-	ft_game()->ctl.hash_table = ft_hash_table();
-	table->size = HASH_TABLE_SIZE;
-	table->buckets = (t_bucket **)my_calloc(table->size, sizeof(t_bucket *));
-	// ft_bzero(table->buckets, table->size * sizeof(t_bucket *));
-	// memset(table->buckets, 0, table->size * sizeof(t_bucket *));
-}
-
 void	init_mlx(void)
 {
 	t_mlx	*mlx;
@@ -52,21 +37,15 @@ void	init_game(char *file_path)
 	char	**lines;
 	char	*file_str;
 
-	// ft_game()->player = (t_player *) my_calloc(1, sizeof(t_player));
-	// ft_game()->player.angle = UNKNOWN;
 	game = ft_game();
 	init_mlx();
-
-	printf("Parsing file: %s\n", file_path);
 	file_str = file_to_str(file_path);
 	lines = ft_split(file_str, '\n');
 	extract_textures(lines);
 	extract_map(game, lines);
 	check_map(game->map);
-	// print_map (game->map);
 	free(lines);
 	game->player.dir_angle = game->player.angle;
-	init_hash_table(); //TODO remove
 	init_ray(game);
 	init_texture(game);
 }
