@@ -36,6 +36,7 @@
 # define FOV 60
 # define MAX_ANGLE 360
 # define SCALE 2
+# define SPEED (1.0 / UNIT_SIZE) * 0.33
 # define TEXTURE_SIZE 6
 # define COLOR 0xFF0000 // Red
 
@@ -108,7 +109,6 @@ typedef struct s_coord
 typedef struct s_player
 {
 	t_coord		pos;
-	double		speed;
 	double		dir_angle;
 	t_direction	angle;
 }	t_player;

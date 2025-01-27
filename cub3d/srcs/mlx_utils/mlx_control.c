@@ -23,22 +23,20 @@ int	handle_close(void *param)
 int	key_press(int key, void *param)
 {
 	(void) param;
-	printf("Key %d pressed\n", key);
 	if (key == 104)
 		mlx_mouse_hide(ft_game()->mlx->mlx, ft_game()->mlx->win);
 	if (key == 106)
 		mlx_mouse_show(ft_game()->mlx->mlx, ft_game()->mlx->win);
-	ft_game()->player.speed = 0.1;
 	if (key == KEY_ESC)
 		handle_close(NULL);
 	if (key == KEY_W && ft_game()->ctl.move.x <= 0) // i can do move check
-		ft_game()->ctl.move.x += ft_game()->player.speed;
+		ft_game()->ctl.move.x += SPEED;
 	if (key == KEY_S && ft_game()->ctl.move.x >= 0)
-		ft_game()->ctl.move.x += - ft_game()->player.speed;
+		ft_game()->ctl.move.x += - SPEED;
 	if (key == KEY_A && ft_game()->ctl.move.y >= 0)
-		ft_game()->ctl.move.y += - ft_game()->player.speed;
+		ft_game()->ctl.move.y += - SPEED;
 	if (key == KEY_D && ft_game()->ctl.move.y <= 0)
-		ft_game()->ctl.move.y += ft_game()->player.speed;
+		ft_game()->ctl.move.y += SPEED;
 	if (key == KEY_LEFT || key == KEY_Q)
 		ft_game()->ctl.mv_angle += -1 ;
 	if (key == KEY_RIGHT || key == KEY_E)
@@ -51,13 +49,13 @@ int	key_release(int key, void *param)
 {
 	(void) param;
 	if (key == KEY_W && ft_game()->ctl.move.x >= 0) // i can do move check
-		ft_game()->ctl.move.x -= ft_game()->player.speed;
+		ft_game()->ctl.move.x -= SPEED;
 	if (key == KEY_S && ft_game()->ctl.move.x <= 0)
-		ft_game()->ctl.move.x -= - ft_game()->player.speed;
+		ft_game()->ctl.move.x -= - SPEED;
 	if (key == KEY_A && ft_game()->ctl.move.y <= 0)
-		ft_game()->ctl.move.y -= - ft_game()->player.speed;
+		ft_game()->ctl.move.y -= - SPEED;
 	if (key == KEY_D && ft_game()->ctl.move.y >= 0)
-		ft_game()->ctl.move.y -= ft_game()->player.speed;
+		ft_game()->ctl.move.y -= SPEED;
 	if (key == KEY_LEFT || key == KEY_Q)
 		ft_game()->ctl.mv_angle -= -1;
 	if (key == KEY_RIGHT || key == KEY_E)

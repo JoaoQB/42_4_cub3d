@@ -53,8 +53,8 @@ bool	get_player_direction(int y, int x)
 		ft_print_error("Invalid player direction");
 		ft_game()->player.angle = UNKNOWN;
 	}
-	ft_game()->player.pos.x = x;
-	ft_game()->player.pos.y = y;
+	ft_game()->player.pos.x = x + 0.5;
+	ft_game()->player.pos.y = y + 0.5;
 	return (true);
 }
 
