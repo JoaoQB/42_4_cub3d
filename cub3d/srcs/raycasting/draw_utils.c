@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/02 22:00:48 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:44:17 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	draw_walls(t_game *game)
 		{
 			draw_solid_line(game, i, wall->top, wall->bottom, COLOR);
 		}
-		draw_solid_line(game, i, wall->bottom, HEIGHT,  ft_game()->texture[3]->colour);
+		draw_solid_line(game, i, wall->bottom, HEIGHT,  ft_game()->texture[5]->colour);
 		i++;
 	}
 }
