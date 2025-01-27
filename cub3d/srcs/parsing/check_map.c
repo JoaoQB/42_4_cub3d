@@ -68,10 +68,12 @@ void	extract_textures(char **lines)
 	while (lines[++i] != NULL)
 	{
 		dir = get_direction_struct(lines[i]) / 90;
+		if (dir == UNKNOWN / 90)
+			break ;
 		if (ft_game()->texture[dir] != NULL)
 			return (free(lines), ft_print_error("Duplicated texture line"));
 		//dir is a valid dir
-		if (dir * 90 != UNKNOWN)
+		if (dir != UNKNOWN / 90)
 		{
 			if (ft_wordcount(lines[i], ' ') != 2)
 				return (free(lines), ft_print_error("Invalid texture line"));
@@ -92,8 +94,6 @@ void	extract_map(t_game *game, char **lines)
 	if (!game)
 		return ;
 	game->player.angle = UNKNOWN;
-	// game->map_height = 0;
-	// game->map_width = 0;
 	i = -1;
 	while (lines[++i] != NULL)
 	{
@@ -122,8 +122,12 @@ void	check_map(char **map)
 	int		x;
 	int		y;
 
+	y = -1;
+	while (ft_game()->texture[++y] != NULL)
+	if (y != UNKNOWN / 90)
+		return (ft_print_error("File: Texture not loaded"));
 	if (ft_game()->map == NULL || ft_game()->map_height == 0)
-		return (ft_print_error("No map found"));
+		return (ft_print_error("File: No map found"));
 	y = -1;
 	while (++y < ft_game()->map_height)
 	{
@@ -132,12 +136,11 @@ void	check_map(char **map)
 			&& map[y][x] != '\n' && map[y][x] != '\0')
 		{
 			if (!ft_strchr("1 0NWES", map[y][x]))
-				ft_print_error("Invalid character in map");
+				ft_print_error("Map: Invalid character in map");
 			if (!validate_position(y, x))
-				ft_print_error("Of map encapsulation");
-			//TODO add 1 to the diagonal
+				ft_print_error("Map: Of map encapsulation");
 			if (!get_player_direction(y, x))
-				ft_print_error("Repeated player pos");
+				ft_print_error("Map: Repeated player pos");
 			x++;
 		}
 	}

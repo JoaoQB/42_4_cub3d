@@ -46,13 +46,6 @@ bool	validate_position(int y, int x)
 		return (false);
 	if (!is_valid(y, x - 1, "01NWES") || !is_valid(y, x + 1, "01NWES"))
 		return (false);
-	//this also checks for diagonal walls
-	// if (!is_valid(y - 1, x - 1, "01NWES")
-		// || !is_valid(y + 1, x + 1, "01NWES"))
-	// 	return (false);
-	// if (!is_valid(y - 1, x + 1, "01NWES")
-		// || !is_valid(y + 1, x - 1, "01NWES"))
-	// 	return (false);
 	return (true);
 }
 
