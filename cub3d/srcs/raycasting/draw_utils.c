@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/27 16:44:17 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:58:47 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 	}
 }
 
-// TODO: Always draw color from texture struct.
-// 			Ceiling and floor color must be there defined.
 void	draw_walls(t_game *game)
 {
 	int		i;
@@ -95,8 +93,8 @@ void	draw_walls(t_game *game)
 	while (i < WIDTH)
 	{
 		wall = &game->ray.walls[i];
-		draw_solid_line(game, i, 0, wall->top,  ft_game()->texture[4]->colour);
-		if (wall->texture)
+		draw_solid_line(game, i, 0, wall->top,  ft_game()->texture[5]->colour);
+		if (wall->texture && wall->texture->image_data)
 		{
 			image_data = wall->texture->image_data;
 			draw_text_line(game, wall, image_data, i);
@@ -105,7 +103,7 @@ void	draw_walls(t_game *game)
 		{
 			draw_solid_line(game, i, wall->top, wall->bottom, COLOR);
 		}
-		draw_solid_line(game, i, wall->bottom, HEIGHT,  ft_game()->texture[5]->colour);
+		draw_solid_line(game, i, wall->bottom, HEIGHT,  ft_game()->texture[4]->colour);
 		i++;
 	}
 }
