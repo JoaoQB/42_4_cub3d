@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:52 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/29 13:55:16 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:46:07 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_game	*ft_game(void)
 
 	return (&game_s);
 }
-
 
 int	main(int argc, char **argv)
 {

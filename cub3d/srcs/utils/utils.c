@@ -6,13 +6,13 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 12:20:34 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/01/02 20:41:51 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:14:27 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	ft_issapaces(char c)
+bool	ft_isspaces(char c)
 {
 	if (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\f'
 		|| c == '\r')
@@ -51,12 +51,12 @@ void	ft_print_error(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	print_map(char **double_array)
-{
-	int	i;
+// void	print_map(char **double_array)
+// {
+// 	int	i;
 
-	i = -1;
-	while (double_array[++i])
-		ft_putstr_fd(double_array[i], 1);
-	ft_putstr_fd("\n", 1);
-}
+// 	i = -1;
+// 	while (double_array[++i])
+// 		ft_putstr_fd(double_array[i], 1);
+// 	ft_putstr_fd("\n", 1);
+// }
