@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:56 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/02 19:22:05 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:46:36 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,10 @@ int	get_map_height(char **map)
 	return (i);
 }
 
-void	print_ray(t_ray *ray)
-{
-	if (!ray)
-		return ;
-	printf("!! Camera Width: %f\n", ray->cam.width);
-	printf("!! Camera Height: %f\n", ray->cam.height);
-	printf("!! Camera Half Width: %f\n", ray->cam.hwidth);
-	printf("!! Camera Half Height: %f\n", ray->cam.h_height);
-	printf("!! Camera FOV: %f\n", ray->cam.fov);
-	printf("!! Camera Half FOV: %f\n", ray->cam.hfov);
-	printf("!! Camera Position: x = %f, y = %f\n",
-		ray->cam.pos.x, ray->cam.pos.y);
-	printf("!! Camera Direction: dir_x = %f, dir_y = %f\n",
-		ray->cam.dir.x, ray->cam.dir.y);
-	printf("!! Camera Plane: plane_x = %f, plane_y = %f\n",
-		ray->cam.plane.x, ray->cam.plane.y);
-	printf("!! Map Width: %d\n", ray->cam.map_width);
-	printf("!! Map Height: %d\n", ray->cam.map_height);
-}
-
 void	export_textures(void)
 {
 	t_texture	**texture;
-	int i;
+	int			i;
 
 	texture = ft_game()->texture;
 	i = -1;
@@ -83,7 +63,6 @@ void	export_textures(void)
 	}
 }
 
-// TODO remove minus from camp.plane.x?
 void	init_ray(t_game *game)
 {
 	t_ray	*ray;
@@ -105,5 +84,5 @@ void	init_ray(t_game *game)
 	ray->cam.h_height = ray->cam.height / 2;
 	ray->cam.map_width = get_map_width(game->map);
 	ray->cam.map_height = get_map_height(game->map);
-	print_ray(ray);
+	// print_ray(ray);
 }

@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:29:42 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/01/02 20:41:11 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:12:50 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**ft_split(char *str, char c)
 	while (*str)
 	{
 		i = 0;
-		while (*str && ft_issapaces(*str))
+		while (*str && ft_isspaces(*str))
 			str++;
 		while (str[i] && str[i] != c)
 			i++;

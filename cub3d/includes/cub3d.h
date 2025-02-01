@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/02 20:28:17 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:49:28 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@
 # define FOV 60
 # define MAX_ANGLE 360
 # define SCALE 2
-# define SPEED (1.0 / UNIT_SIZE) * 0.33
+// From 0.1 slow to 1 fast
+# define SPEED 0.1
 # define TEXTURE_SIZE 6
 # define COLOR 0xFF0000 // Red
 
-# define FLOOR_COLOR 0x404040 // Darker gray for floor
-# define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
-# define PLAYER_SPEED 5
-# define PLAYER_ROTATION 0.2
+// # define FLOOR_COLOR 0x404040 // Darker gray for floor
+// # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
+// # define PLAYER_SPEED 100
+// # define PLAYER_ROTATION 0.2
 # define MINIMAP_SCALE 0.2
 # define HASH_TABLE_SIZE 20
 
@@ -215,14 +216,6 @@ typedef struct s_game
 	int			update;
 }	t_game;
 
-// TODO Delete
-// typedef struct s_data
-// {
-// 	char	*path_to_map;
-// 	char	*path_to_textures;
-// 	char	*player;
-// }	t_data;
-
 /******************/
 /******************/
 /****** GAME ******/
@@ -230,7 +223,7 @@ typedef struct s_game
 /******************/
 
 /* main.c */
-int	render(void);
+int			render(void);
 t_game		*ft_game(void);
 
 /* init.c */
@@ -251,7 +244,6 @@ void		free_mlx(t_mlx **mlx_ptr);
 void		init_ray(t_game *game);
 int			get_map_width(char **map);
 int			get_map_height(char **map);
-void		print_ray(t_ray *ray);
 
 /* raycasting_trign_utils.c */
 int			normalize_angle(int angle);
@@ -264,6 +256,7 @@ double		get_cosine(int ray_angle);
 void		raycasting(void);
 
 /* raycasting_debug.c */
+void		print_ray(t_ray *ray);
 void		debug_start(t_ray *ray);
 void		debug_aim(t_ray *ray);
 void		debug_wall_info(t_ray *ray, t_wall *wall);
@@ -277,7 +270,7 @@ int			get_texture_x(t_ray *ray, t_wall *wall);
 
 /* draw_utils.c */
 void		draw_walls(t_game	*game);
-void		draw_vertical_line(t_game *game, int x);
+void		draw_solid_line(int x, int start, int end, int color);
 void		draw_text_line(t_game *game, t_wall *wall, t_image *data, int x);
 void		my_pixel_put(t_image *img, int x, int y, int colour);
 
@@ -297,7 +290,7 @@ bool		is_valid(int y, int x, char *valid_str);
 bool		validate_position(int y, int x);
 
 /* str tools*/
-bool		ft_issapaces(char c);
+bool		ft_isspaces(char c);
 int			ft_atoi(const char *nptr);
 int			ft_strlen(const char *str);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
@@ -322,9 +315,9 @@ t_texture	*extract_info_process(char **words);
 void		ft_print_error(char *str);
 
 /* testing*/
-void		print_map(char **double_array);
-void		init_test_player(void);
-void		init_test_textures(t_game *game);
+// void		print_map(char **double_array);
+// void		init_test_player(void);
+// void		init_test_textures(t_game *game);
 
 /* controls mlx*/
 int			handle_close(void *param);
@@ -332,7 +325,7 @@ int			handle_mouse(int button, int x, int y, void *param);
 int			key_press(int key, void *param);
 int			key_release(int key, void *param);
 int			mouse_moved(int x, int y, void *param);
-int			player_moves(void);
+// int			player_moves(void);
 
 /* minimap */
 void		draw_minimap(int offset_x, int offset_y);
@@ -340,6 +333,6 @@ void		draw_by_scale(int x, int y, int offset_x, int offset_y);
 
 /* texture_init.c */
 void		init_texture(t_game *game);
-void	export_textures(void);
+void		export_textures(void);
 
 #endif

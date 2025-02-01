@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:02:56 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/02 19:03:07 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:45:40 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_texture	*extract_info_process(char **words)
 {
 	t_texture	*texture;
-	int i;
+	int			i;
 
 	i = -1;
 	while (words[++i])
@@ -30,12 +30,12 @@ t_texture	*extract_info_process(char **words)
 
 int	get_colour(const char *str)
 {
-	int	colour;
-	char **rgb;
-	int i;
+	int		colour;
+	char	**rgb;
+	int		i;
 
 	colour = 0;
-	while (*str && ft_issapaces(*str))
+	while (*str && ft_isspaces(*str))
 		str++;
 	if (ft_wordcount((char *)str, ',') != 3)
 		ft_print_error("Invalid colour format");

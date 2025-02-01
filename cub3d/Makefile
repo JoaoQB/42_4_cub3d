@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2025/01/02 20:47:41 by jqueijo-         ###   ########.fr        #
+#    Updated: 2025/02/01 18:18:03 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS := main.c \
 		init_utils.c \
 		ft_free.c \
 		mlx_utils/mlx_control.c \
+		mlx_utils/mlx_keys.c \
 		mlx_utils/mlx_init.c \
 		mlx_utils/mlx_utils.c \
 		parsing/check_map.c \

@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/02 20:30:12 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:54:52 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,5 @@ void	raycasting(void)
 	}
 	draw_walls(game);
 	mlx_put_image_to_window(game->mlx->mlx,
-	game->mlx->win, game->mlx->img.img, 0, 0);
+		game->mlx->win, game->mlx->img.img, 0, 0);
 }

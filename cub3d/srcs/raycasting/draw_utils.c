@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/01/29 13:58:47 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:52:59 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	my_pixel_put(t_image *img, int x, int y, int colour)
 	*(unsigned int *)(img->addr + offset) = colour;
 }
 
-void	draw_solid_line(t_game *game, int x, int start, int end, int color)
+void	draw_solid_line(int x, int start, int end, int color)
 {
-	int	y;
+	int		y;
+	t_game	*game;
 
 	y = start;
+	game = ft_game();
 	while (y < end)
 	{
 		my_pixel_put(&game->mlx->img, x, y, color);
@@ -32,28 +34,28 @@ void	draw_solid_line(t_game *game, int x, int start, int end, int color)
 	}
 }
 
-void	draw_vertical_line(t_game *game, int x)
-{
-	int		y;
-	t_image	img;
-	t_wall	*wall;
+// void	draw_vertical_line(t_game *game, int x)
+// {
+// 	int		y;
+// 	t_image	img;
+// 	t_wall	*wall;
 
-	if (!game)
-		return ;
-	wall = &game->ray.walls[x];
-	img = game->mlx->img;
-	y = 0;
-	while (y < HEIGHT)
-	{
-		if (y >= wall->top && y <= wall->bottom)
-			my_pixel_put(&img, x, y, COLOR);
-		else if (y < wall->top)
-			my_pixel_put(&img, x, y, ft_game()->texture[4]->colour);
-		else
-			my_pixel_put(&img, x, y, ft_game()->texture[5]->colour);
-		y++;
-	}
-}
+// 	if (!game)
+// 		return ;
+// 	wall = &game->ray.walls[x];
+// 	img = game->mlx->img;
+// 	y = 0;
+// 	while (y < HEIGHT)
+// 	{
+// 		if (y >= wall->top && y <= wall->bottom)
+// 			my_pixel_put(&img, x, y, COLOR);
+// 		else if (y < wall->top)
+// 			my_pixel_put(&img, x, y, ft_game()->texture[4]->colour);
+// 		else
+// 			my_pixel_put(&img, x, y, ft_game()->texture[5]->colour);
+// 		y++;
+// 	}
+// }
 
 void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 {
@@ -93,7 +95,7 @@ void	draw_walls(t_game *game)
 	while (i < WIDTH)
 	{
 		wall = &game->ray.walls[i];
-		draw_solid_line(game, i, 0, wall->top,  ft_game()->texture[5]->colour);
+		draw_solid_line(i, 0, wall->top, ft_game()->texture[5]->colour);
 		if (wall->texture && wall->texture->image_data)
 		{
 			image_data = wall->texture->image_data;
@@ -101,9 +103,9 @@ void	draw_walls(t_game *game)
 		}
 		else
 		{
-			draw_solid_line(game, i, wall->top, wall->bottom, COLOR);
+			draw_solid_line(i, wall->top, wall->bottom, COLOR);
 		}
-		draw_solid_line(game, i, wall->bottom, HEIGHT,  ft_game()->texture[4]->colour);
+		draw_solid_line(i, wall->bottom, HEIGHT, ft_game()->texture[4]->colour);
 		i++;
 	}
 }

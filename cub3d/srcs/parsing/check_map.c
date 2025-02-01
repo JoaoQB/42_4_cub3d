@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/01/27 16:08:40 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:12:43 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_direction	get_direction_struct(const char *str)
 {
-	while (*str && ft_issapaces(*str))
+	while (*str && ft_isspaces(*str))
 		str++;
 	if (ft_startswith(str, "NO") == 0)
 		return (NORTH);
