@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 21:07:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/31 13:05:43 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:29:19 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	print_all_textures(t_game *game)
 			printf("no texture[%d]\n", i);
 		i++;
 	}
+	print_texture_info(game->door, TEXTURE_SIZE);
 }
 
 void	init_texture(t_game *game)
@@ -61,12 +62,22 @@ void	init_texture(t_game *game)
 
 	if (!game)
 		return ;
-	print_all_textures(game);
 	i = 0;
 	while (i < WIDTH)
 	{
 		game->ray.walls[i].texture = NULL;
 		i++;
 	}
+	game->door = (t_texture *)my_calloc(1, sizeof(t_texture));
+	game->door->image_path = "./includes/textures/wall_tiles.xpm";
+	game->door->image_name = "DOOR";
+	game->door->image_data = xpm_to_binary(game->door->image_path);
+	if (game->door->image_data == NULL)
+	{
+		game->door->colour = get_colour(game->door->image_path);
+		if (game->door->colour == -1)
+			ft_print_error("File: Failed to load image or colour\n");
+	}
+	print_all_textures(game);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 16:27:29 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:18:26 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ typedef struct s_game
 	t_control	ctl;
 	t_ray		ray;
 	t_texture	*texture[TEXTURE_SIZE]; // NO SO WE EA C F
+	t_texture	*door;
 	char		**map;
 	int			map_width;
 	int			map_height;

@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 16:29:36 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:31:51 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	raycasting(void)
 		cast_ray(game, ray);
 	}
 	// door_switch for debug
-	door_switch(game);
+	// door_switch(game);
 	draw_walls(game);
 	mlx_put_image_to_window(game->mlx->mlx,
 		game->mlx->win, game->mlx->img.img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 15:05:53 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 16:27:27 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:30:41 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ t_direction	get_direction()
 	cam = &ft_game()->ray.cam;
 	if (cam->dir.y >= 0.8 && cam->dir.y <= 1)
 	{
-		printf("looking south\n");
+		// printf("looking south\n");
 		return (SOUTH);
 	}
 	if (cam->dir.y <= -0.8 && cam->dir.y >= -1)
 	{
-		printf("looking north\n");
+		// printf("looking north\n");
 		return (NORTH);
 	}
 	if (cam->dir.x <= -0.8 && cam->dir.x >= -1)
 	{
-		printf("looking west\n");
+		// printf("looking west\n");
 		return (WEST);
 	}
 	if (cam->dir.x >= 0.8 && cam->dir.x <= 1)
 	{
-		printf("looking EAST\n");
+		// printf("looking EAST\n");
 		return (EAST);
 	}
 	return (UNKNOWN);
