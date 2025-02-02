@@ -1,0 +1,43 @@
+BUG TESTS
+	Controls not working properly.
+	When no player character is in map.
+
+LEAK TESTS
+	Invalid color format: valgrind --leak-check=full ./cub3d ./includes/maps/map.cub
+	Texture not loaded (delete or alter texture path).
+	Map encapsulation.
+	repeated player pos.
+	Exiting with esc key.
+	Exiting with x button.
+
+Leaks from exiting:
+==47352== 6 bytes in 6 blocks are definitely lost in loss record 2 of 60
+==47352==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47352==    by 0x112D09: ft_strdup (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x110E1A: extract_textures (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x10FCD1: init_game (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x10F9C1: main (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==
+==47352== 191 bytes in 7 blocks are definitely lost in loss record 41 of 60
+==47352==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47352==    by 0x112C48: ft_strnjoin.part.0 (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x112E10: ft_split (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x10FCC6: init_game (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x10F9C1: main (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==
+==47352== 201 bytes in 12 blocks are definitely lost in loss record 43 of 60
+==47352==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47352==    by 0x112C48: ft_strnjoin.part.0 (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x112E10: ft_split (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x110DE6: extract_textures (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x10FCD1: init_game (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x10F9C1: main (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==
+==47352== 375 bytes in 1 blocks are definitely lost in loss record 48 of 60
+==47352==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47352==    by 0x112C48: ft_strnjoin.part.0 (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x11122F: file_to_str (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x10FCB9: init_game (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+==47352==    by 0x10F9C1: main (in /home/jqueijo-/projectos/cursus42/42_4_cub3d/cub3d/cub3d)
+
+
