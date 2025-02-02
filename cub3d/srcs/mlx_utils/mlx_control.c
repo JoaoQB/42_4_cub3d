@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/01 18:18:49 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 10:12:25 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ int	render(void)
 	// run raycasting
 	raycasting();
 	// ft_game()->update = 0;
+	draw_minimap(0, 0);
 	return (0);
 }

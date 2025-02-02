@@ -41,12 +41,21 @@
 # define TEXTURE_SIZE 6
 # define COLOR 0xFF0000 // Red
 
-// # define FLOOR_COLOR 0x404040 // Darker gray for floor
-// # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
 // # define PLAYER_SPEED 100
 // # define PLAYER_ROTATION 0.2
 # define MINIMAP_SCALE 0.2
 # define HASH_TABLE_SIZE 20
+
+# define FLOOR_COLOR 0x404040 // Darker gray for floor
+# define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
+# define RED_COLOR 0xFF0000 // Red color
+# define GREEN_COLOR 0x00FF00 // Green color
+# define WHITE_COLOR 0xFFFFFF // White color
+# define BLACK_COLOR 0x000000 // Black color
+# define PINK_COLOR 0xFFC0CB // Pink color
+# define YELLOW_COLOR 0xFFFF00 // Yellow color
+# define BLUE_COLOR 0x0000FF // Blue color
+
 
 typedef enum WALL_TEXTURE
 {
