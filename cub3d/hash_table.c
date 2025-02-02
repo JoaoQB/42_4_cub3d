@@ -12,6 +12,19 @@
 
 #include "cub3d.h"
 
+typedef struct s_bucket
+{
+	int				entry;
+	void			*content;
+	struct s_bucket	*next;
+}	t_bucket;
+
+typedef struct s_hash_table
+{
+	t_bucket	**buckets;
+	int			size;
+}	t_hashtable;
+
 t_hashtable	*ft_hash_table(void)
 {
 	static t_hashtable	hash_table;

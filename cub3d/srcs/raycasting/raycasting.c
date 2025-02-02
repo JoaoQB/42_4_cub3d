@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/01 17:54:52 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 10:28:49 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ static void	start_ray(t_ray *ray, int ray_id)
 	ray->id = ray_id;
 	ray->hit = 0;
 	ray->cam_x = 2 * ray_id / ray->cam.width - 1;
-	ray->dir_x = ray->cam.dir.x + ray->cam.plane.x * ray->cam_x;
-	ray->dir_y = ray->cam.dir.y + ray->cam.plane.y * ray->cam_x;
+	ray->dir.x = ray->cam.dir.x + ray->cam.plane.x * ray->cam_x;
+	ray->dir.y = ray->cam.dir.y + ray->cam.plane.y * ray->cam_x;
 	ray->grid_x = (int)ray->cam.pos.x;
 	ray->grid_y = (int)ray->cam.pos.y;
-	if (ray->dir_x == 0)
-		ray->next_x = 1e30;
+	if (ray->dir.x == 0)
+		ray->next.x = 1e30;
 	else
-		ray->next_x = fabs(1 / ray->dir_x);
-	if (ray->dir_y == 0)
-		ray->next_y = 1e30;
+		ray->next.x = fabs(1 / ray->dir.x);
+	if (ray->dir.y == 0)
+		ray->next.y = 1e30;
 	else
-		ray->next_y = fabs(1 / ray->dir_y);
+		ray->next.y = fabs(1 / ray->dir.y);
 	// debug_start(ray);
 }
 
@@ -39,25 +39,25 @@ static void	aim_ray(t_ray *ray)
 {
 	if (!ray)
 		return ;
-	if (ray->dir_x < 0)
+	if (ray->dir.x < 0)
 	{
-		ray->step_x = -1;
-		ray->delta_x = (ray->cam.pos.x - ray->grid_x) * ray->next_x;
+		ray->step.x = -1;
+		ray->delta.x = (ray->cam.pos.x - ray->grid_x) * ray->next.x;
 	}
 	else
 	{
-		ray->step_x = 1;
-		ray->delta_x = (ray->grid_x + 1.0 - ray->cam.pos.x) * ray->next_x;
+		ray->step.x = 1;
+		ray->delta.x = (ray->grid_x + 1.0 - ray->cam.pos.x) * ray->next.x;
 	}
-	if (ray->dir_y < 0)
+	if (ray->dir.y < 0)
 	{
-		ray->step_y = -1;
-		ray->delta_y = (ray->cam.pos.y - ray->grid_y) * ray->next_y;
+		ray->step.y = -1;
+		ray->delta.y = (ray->cam.pos.y - ray->grid_y) * ray->next.y;
 	}
 	else
 	{
-		ray->step_y = 1;
-		ray->delta_y = (ray->grid_y + 1.0 - ray->cam.pos.y) * ray->next_y;
+		ray->step.y = 1;
+		ray->delta.y = (ray->grid_y + 1.0 - ray->cam.pos.y) * ray->next.y;
 	}
 	// debug_aim(ray);
 }
@@ -94,16 +94,16 @@ static void	cast_ray(t_game*game, t_ray *ray)
 		return ;
 	while (ray->hit == 0)
 	{
-		if (ray->delta_x < ray->delta_y)
+		if (ray->delta.x < ray->delta.y)
 		{
-			ray->delta_x += ray->next_x;
-			ray->grid_x += ray->step_x;
+			ray->delta.x += ray->next.x;
+			ray->grid_x += ray->step.x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->delta_y += ray->next_y;
-			ray->grid_y += ray->step_y;
+			ray->delta.y += ray->next.y;
+			ray->grid_y += ray->step.y;
 			ray->side = 1;
 		}
 		if (ray->grid_y < 0 || ray->grid_y >= ray->cam.map_height
@@ -112,7 +112,7 @@ static void	cast_ray(t_game*game, t_ray *ray)
 			// debug_cast(ray);
 			break ;
 		}
-		if (game->map[ray->grid_y][ray->grid_x] == '1')
+		if (game->map[(int)ray->grid_y][(int)ray->grid_x] == '1')
 		{
 			// debug_cast(ray);
 			ray->hit = 1;

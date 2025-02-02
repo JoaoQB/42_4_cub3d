@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:24:15 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/31 11:34:48 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 10:19:40 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ double	get_wall_distance(t_ray *ray)
 	if (!ray || ray->hit == 0)
 		return (-1);
 	if (ray->side == 0)
-		distance = (ray->delta_x - ray->next_x);
+		distance = (ray->delta.x - ray->next.x);
 	else
-		distance = (ray->delta_y - ray->next_y);
+		distance = (ray->delta.y - ray->next.y);
 	return (distance);
 }
 
@@ -31,14 +31,14 @@ int	get_wall_direction(t_ray *ray)
 		return (WALL_UNKNOWN);
 	if (ray->side == 0)
 	{
-		if (ray->dir_x > 0)
+		if (ray->dir.x > 0)
 			return (WALL_EAST);
 		else
 			return (WALL_WEST);
 	}
 	else
 	{
-		if (ray->dir_y > 0)
+		if (ray->dir.y > 0)
 			return (WALL_SOUTH);
 		else
 			return (WALL_NORTH);
@@ -52,9 +52,9 @@ double	get_wall_x(t_ray *ray)
 	if (!ray)
 		return (-1);
 	if (ray->side == 0)
-		wall_x = ray->cam.pos.y + ray->walls[ray->id].ray_dist * ray->dir_y;
+		wall_x = ray->cam.pos.y + ray->walls[ray->id].ray_dist * ray->dir.y;
 	else
-		wall_x = ray->cam.pos.x + ray->walls[ray->id].ray_dist * ray->dir_x;
+		wall_x = ray->cam.pos.x + ray->walls[ray->id].ray_dist * ray->dir.x;
 	wall_x -= floor(wall_x);
 	return (wall_x);
 }
@@ -70,14 +70,14 @@ int	get_texture_x(t_ray *ray, t_wall *wall)
 		return (0);
 	}
 	// printf("Ray side: %d\n", ray->side);
-	// printf("Ray direction X: %f\n", ray->dir_x);
-	// printf("Ray direction Y: %f\n", ray->dir_y);
+	// printf("Ray direction X: %f\n", ray->dir.x);
+	// printf("Ray direction Y: %f\n", ray->dir.y);
 	// printf("Wall X: %f\n", wall->wall_x);
 	// printf("Texture width: %d\n", wall->texture->image_data->width);
 	tex_width = wall->texture->image_data->width;
 	tex_x = (int)(wall->wall_x * tex_width);
-	if ((ray->side == 0 && ray->dir_x > 0)
-		|| (ray->side == 1 && ray->dir_y < 0))
+	if ((ray->side == 0 && ray->dir.x > 0)
+		|| (ray->side == 1 && ray->dir.y < 0))
 		tex_x = tex_width - tex_x - 1;
 	return (tex_x);
 }

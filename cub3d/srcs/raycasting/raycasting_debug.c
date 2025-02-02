@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_debug.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 20:25:32 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/01 17:09:50 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 10:28:21 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_ray(t_ray *ray)
 	printf("!! Camera Half FOV: %f\n", ray->cam.hfov);
 	printf("!! Camera Position: x = %f, y = %f\n",
 		ray->cam.pos.x, ray->cam.pos.y);
-	printf("!! Camera Direction: dir_x = %f, dir_y = %f\n",
+	printf("!! Camera Direction: dir.x = %f, dir.y = %f\n",
 		ray->cam.dir.x, ray->cam.dir.y);
 	printf("!! Camera Plane: plane_x = %f, plane_y = %f\n",
 		ray->cam.plane.x, ray->cam.plane.y);
@@ -38,24 +38,24 @@ void	debug_start(t_ray *ray)
 		return ;
 	printf("ray_id_%d: cam_x = %f (normalized ray pos on camera plane)\n",
 		ray->id, ray->cam_x);
-	printf("ray_id_%d: Final Direction Vector (dir_x: %f, dir_y: %f)\n",
-		ray->id, ray->dir_x, ray->dir_y);
+	printf("ray_id_%d: Final Direction Vector (dir.x: %f, dir.y: %f)\n",
+		ray->id, ray->dir.x, ray->dir.y);
 	printf("ray_id_%d: Starting grid position -> grid_x: %d, grid_y: %d\n",
 		ray->id, ray->grid_x, ray->grid_y);
-	printf("ray_id_%d: next_x = %f (distance between vertical grid lines)\n",
-		ray->id, ray->next_x);
-	printf("ray_id_%d: next_y = %f (distance between horizntl grid lines)\n",
-		ray->id, ray->next_y);
+	printf("ray_id_%d: next.x = %f (distance between vertical grid lines)\n",
+		ray->id, ray->next.x);
+	printf("ray_id_%d: next.y = %f (distance between horizntl grid lines)\n",
+		ray->id, ray->next.y);
 }
 
 void	debug_aim(t_ray *ray)
 {
 	if (!ray)
 		return ;
-	printf("ray_id_%d: step_x = %d, delta_x = %f\n",
-		ray->id, ray->step_x, ray->delta_x);
-	printf("ray_id_%d: step_y = %d, delta_y = %f\n",
-		ray->id, ray->step_y, ray->delta_y);
+	printf("ray_id_%d: delta.x = %f, delta.x = %f\n",
+		ray->id, ray->delta.x, ray->delta.x);
+	printf("ray_id_%d: step.y = %f, delta.x = %f\n",
+		ray->id, ray->step.y, ray->delta.x);
 }
 
 void	debug_wall_info(t_ray *ray, t_wall *wall)
@@ -81,10 +81,10 @@ void	debug_cast(t_ray *ray)
 {
 	if (!ray)
 		return ;
-	printf("ray_id_%d: delta_x = %f, delta_y = %f\n",
-		ray->id, ray->delta_x, ray->delta_y);
-	printf("ray_id_%d: delta_x = %f, delta_y = %f, grid_x = %d, grid_y = %d\n",
-		ray->id, ray->delta_x, ray->delta_y, ray->grid_x, ray->grid_y);
+	printf("ray_id_%d: delta.x = %f, delta.x = %f\n",
+		ray->id, ray->delta.x, ray->delta.x);
+	printf("ray_id_%d: delta.x = %f, delta.x = %f, grid_x = %d, grid_y = %d\n",
+		ray->id, ray->delta.x, ray->delta.x, ray->grid_x, ray->grid_y);
 	printf("ray_id_%d: Out of bounds at grid_x = %d, grid_y = %d\n",
 		ray->id, ray->grid_x, ray->grid_y);
 	printf("ray_id_%d: Hit wall at grid_x = %d, grid_y = %d\n",

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/01 17:49:28 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 10:33:36 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@
 // # define PLAYER_SPEED 100
 // # define PLAYER_ROTATION 0.2
 # define MINIMAP_SCALE 0.2
-# define HASH_TABLE_SIZE 20
 
 # define FLOOR_COLOR 0x404040 // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
@@ -97,31 +96,11 @@ typedef enum KEY
 	// KEY_SPACE = 32,
 }	t_key;
 
-typedef struct s_bucket
-{
-	int				entry;
-	void			*content;
-	struct s_bucket	*next;
-}	t_bucket;
-
-typedef struct s_hash_table
-{
-	t_bucket	**buckets;
-	int			size;
-}	t_hashtable;
-
 typedef struct s_coord
 {
 	double	x;
 	double	y;
 }	t_coord;
-
-typedef struct s_player
-{
-	t_coord		pos;
-	double		dir_angle;
-	t_direction	angle;
-}	t_player;
 
 typedef struct s_cam
 {
@@ -189,23 +168,25 @@ typedef struct s_ray
 	int			hit;
 	int			side;
 	double		cam_x;
-	double		dir_x;
-	double		dir_y;
+	t_coord		dir;
+	t_coord		next;
+	t_coord		delta;
+	t_coord		step;
 	int			grid_x;
 	int			grid_y;
-	double		next_x;
-	double		next_y;
-	double		delta_x;
-	double		delta_y;
-	int			step_x;
-	int			step_y;
 	t_wall		walls[WIDTH];
 	t_cam		cam;
 }	t_ray;
 
+typedef struct s_player
+{
+	t_coord		pos;
+	double		dir_angle;
+	t_direction	angle;
+}	t_player;
+
 typedef struct s_control
 {
-	t_hashtable	*hash_table;
 	t_coord		move;
 	int			mv_angle;
 	t_coord		pos;
