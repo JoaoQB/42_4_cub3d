@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 17:31:51 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:24:17 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ static void	calculate_wall_info(t_game *game, t_ray *ray)
 	wall->bottom = game->ray.cam.h_height + wall->half_height;
 	if (wall->bottom >= HEIGHT)
 		wall->bottom = HEIGHT - 1;
-	wall->texture = game->texture[wall->dir];
+	// BONUS
+	if (game->map[(int)ray->grid_y][(int)ray->grid_x] == 'D')
+		wall->texture = game->door;
+	else
+		wall->texture = game->texture[wall->dir];
 	wall->tex_x = get_texture_x(ray, wall);
 	// debug_wall_info(ray, wall);
 }
@@ -112,7 +116,8 @@ static void	cast_ray(t_game*game, t_ray *ray)
 			// debug_cast(ray);
 			break ;
 		}
-		if (game->map[(int)ray->grid_y][(int)ray->grid_x] == '1')
+		if (game->map[(int)ray->grid_y][(int)ray->grid_x] == '1'
+			|| game->map[(int)ray->grid_y][(int)ray->grid_x] == 'D') // BONUS
 		{
 			// debug_cast(ray);
 			ray->hit = 1;
@@ -141,7 +146,7 @@ void	raycasting(void)
 		cast_ray(game, ray);
 	}
 	// door_switch for debug
-	// door_switch(game);
+	door_switch(game);
 	draw_walls(game);
 	mlx_put_image_to_window(game->mlx->mlx,
 		game->mlx->win, game->mlx->img.img, 0, 0);

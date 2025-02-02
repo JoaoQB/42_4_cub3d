@@ -6,12 +6,13 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 15:05:53 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 17:30:41 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:25:31 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+// BONUS FUNCTIONS DOOR
 t_direction	get_direction()
 {
 	t_cam	*cam;
