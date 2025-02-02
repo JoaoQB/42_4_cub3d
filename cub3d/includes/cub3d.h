@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 10:33:36 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:27:29 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,10 @@ int			handle_mouse(int button, int x, int y, void *param);
 int			key_press(int key, void *param);
 int			key_release(int key, void *param);
 int			mouse_moved(int x, int y, void *param);
+t_coord		get_coord(t_coord ref);
 // int			player_moves(void);
+void		door_switch(t_game *game);
+t_direction	get_direction();
 
 /* minimap */
 void		draw_minimap(int offset_x, int offset_y);

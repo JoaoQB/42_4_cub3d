@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2025/02/01 18:18:03 by jqueijo-         ###   ########.fr        #
+#    Updated: 2025/02/02 15:29:29 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS := main.c \
 		mlx_utils/mlx_keys.c \
 		mlx_utils/mlx_init.c \
 		mlx_utils/mlx_utils.c \
+		mlx_utils/mlx_door.c \
 		parsing/check_map.c \
 		parsing/parsing_utils.c \
 		raycasting/draw_utils.c \
