@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/02 18:26:05 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:27:58 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	check_map(char **map)
 			&& map[y][x] != '\n' && map[y][x] != '\0')
 		{
 			// BONUS CHANGE, ADDED D
-			if (!ft_strchr("1 0NWESD", map[y][x]))
+			if (!ft_strchr("1 0NWESDC", map[y][x]))
 				ft_print_error("Map: Invalid character in map");
 			if (!validate_position(y, x))
 				ft_print_error("Map: Of map encapsulation");
@@ -143,4 +143,6 @@ void	check_map(char **map)
 			x++;
 		}
 	}
+	if (is_valid(ft_game()->player.pos.y, ft_game()->player.pos.x, ""))
+		ft_print_error("Map: No player position found");
 }

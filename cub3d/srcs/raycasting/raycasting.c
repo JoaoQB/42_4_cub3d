@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 18:24:17 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:51:39 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,12 @@ static void	calculate_wall_info(t_game *game, t_ray *ray)
 	// debug_wall_info(ray, wall);
 }
 
-static void	cast_ray(t_game*game, t_ray *ray)
+void	cast_ray(t_game*game, t_ray *ray, char *str_block)
 {
 	if (!game || !ray)
 		return ;
+	start_ray(ray, ray->id);
+	aim_ray(ray);
 	while (ray->hit == 0)
 	{
 		if (ray->delta.x < ray->delta.y)
@@ -116,8 +118,9 @@ static void	cast_ray(t_game*game, t_ray *ray)
 			// debug_cast(ray);
 			break ;
 		}
-		if (game->map[(int)ray->grid_y][(int)ray->grid_x] == '1'
-			|| game->map[(int)ray->grid_y][(int)ray->grid_x] == 'D') // BONUS
+		// if (game->map[(int)ray->grid_y][(int)ray->grid_x] == '1'
+			// || game->map[(int)ray->grid_y][(int)ray->grid_x] == 'D') // BONUS
+		if (is_valid(ray->grid_y, ray->grid_x, str_block))
 		{
 			// debug_cast(ray);
 			ray->hit = 1;
@@ -141,12 +144,9 @@ void	raycasting(void)
 	i = -1;
 	while (++i < WIDTH)
 	{
-		start_ray(ray, i);
-		aim_ray(ray);
-		cast_ray(game, ray);
+		ray->id = i;
+		cast_ray(game, ray, "1D");
 	}
-	// door_switch for debug
-	door_switch(game);
 	draw_walls(game);
 	mlx_put_image_to_window(game->mlx->mlx,
 		game->mlx->win, game->mlx->img.img, 0, 0);

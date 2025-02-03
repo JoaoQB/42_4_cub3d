@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 17:18:26 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:54:38 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define MAX_ANGLE 360
 # define SCALE 2
 // From 0.1 slow to 1 fast
-# define SPEED 0.1
+# define SPEED 0.33
 # define TEXTURE_SIZE 6
 # define COLOR 0xFF0000 // Red
 
@@ -54,7 +54,8 @@
 # define PINK_COLOR 0xFFC0CB // Pink color
 # define YELLOW_COLOR 0xFFFF00 // Yellow color
 # define BLUE_COLOR 0x0000FF // Blue color
-
+# define CYAN_COLOR 0x00FFFF // Cyan color
+# define BROWN_COLOR 0xA52A2A // Brown color
 
 typedef enum WALL_TEXTURE
 {
@@ -124,7 +125,6 @@ typedef struct s_image
 	int		bpp;
 	int		len_line;
 	int		endian;
-//
 	int		width;
 	int		height;
 }	t_image;
@@ -179,18 +179,24 @@ typedef struct s_ray
 }	t_ray;
 
 typedef struct s_player
-{
+{// can ditch this one?
 	t_coord		pos;
 	double		dir_angle;
 	t_direction	angle;
 }	t_player;
 
 typedef struct s_control
-{
+{//am i using all the variables?
 	t_coord		move;
 	int			mv_angle;
 	t_coord		pos;
 	int			dir;
+	// player speed
+	// mouse speed
+	// minimap zoom
+	// minimap size ???
+	// game darkness for fog/ambience/fading
+
 }	t_control;
 
 typedef struct s_game
@@ -202,10 +208,13 @@ typedef struct s_game
 	t_texture	*texture[TEXTURE_SIZE]; // NO SO WE EA C F
 	t_texture	*door;
 	char		**map;
+	//do i need this size they are in header also
 	int			map_width;
 	int			map_height;
+	//i may ditch update
 	int			update;
 }	t_game;
+
 
 /******************/
 /******************/
@@ -244,6 +253,7 @@ double		get_sine(int ray_angle);
 double		get_cosine(int ray_angle);
 
 /* raycasting.c */
+void	cast_ray(t_game*game, t_ray *ray, char *str_block);
 void		raycasting(void);
 
 /* raycasting_debug.c */
@@ -317,9 +327,7 @@ int			key_press(int key, void *param);
 int			key_release(int key, void *param);
 int			mouse_moved(int x, int y, void *param);
 t_coord		get_coord(t_coord ref);
-// int			player_moves(void);
 void		door_switch(t_game *game);
-t_direction	get_direction();
 
 /* minimap */
 void		draw_minimap(int offset_x, int offset_y);

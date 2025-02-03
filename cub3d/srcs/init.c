@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 17:26:20 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:23:38 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	init_game(char *file_path)
 	extract_textures(lines);
 	extract_map(ft_game(), lines);
 	free(lines);
+	ft_game()->player.pos.y = -1;
+	ft_game()->player.pos.x = -1;
 	check_map(ft_game()->map);
 	ft_game()->player.dir_angle = ft_game()->player.angle;
 	init_mlx();

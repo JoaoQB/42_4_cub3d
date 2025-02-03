@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:32:26 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/01 14:18:55 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:43:21 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ void	draw_minimap(int offset_x, int offset_y)
 				my_pixel_put(&ft_game()->mlx->img, i, j, GREEN_COLOR);
 			else if (is_valid(player_pos.y, player_pos.x, "1")) // wall
 				my_pixel_put(&ft_game()->mlx->img, i, j, BLUE_COLOR);
+			else if (is_valid(player_pos.y, player_pos.x, "D")) // door
+				my_pixel_put(&ft_game()->mlx->img, i, j, BROWN_COLOR);
+			else if (is_valid(player_pos.y, player_pos.x, "C")) // empty space
+				my_pixel_put(&ft_game()->mlx->img, i, j, CYAN_COLOR);
 			else
 				my_pixel_put(&ft_game()->mlx->img, i, j, WHITE_COLOR);
 		}

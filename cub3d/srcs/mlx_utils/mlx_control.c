@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/02 10:17:49 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:52:49 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ void	player_walk(void)
 	collision.y = copysign(COLISION, ref.y);
 	// printf("collision set to %f %f\n", collision.x, collision.y);
 	cam->pos.y += ref.y;
-	if (is_valid(cam->pos.y + collision.y * (1.01), cam->pos.x, "1 \n\0"))
+	if (is_valid(cam->pos.y + collision.y * (1.01), cam->pos.x, "1D \n\0"))
 	{
 		// printf("\033[34m !!!!!collision direction!!!!!\033[0m\n"); // Blue text
 		cam->pos.y = get_coord(ref).y - collision.y;
 	}
 	cam->pos.x += ref.x;
-	if (is_valid(cam->pos.y, cam->pos.x + collision.x * (1.01), "1 \n\0"))
+	if (is_valid(cam->pos.y, cam->pos.x + collision.x * (1.01), "1D \n\0"))
 	{
 		// printf("\033[32m !!!!!collision direction!!!!!\033[0m\n"); // green text
 		cam->pos.x = get_coord(ref).x - collision.x;
