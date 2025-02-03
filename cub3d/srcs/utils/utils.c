@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 12:20:34 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/01 17:14:27 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:17:06 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_print_error(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
 	free_game();
-	exit(EXIT_FAILURE);
+	exit(1);
 }
 
 // void	print_map(char **double_array)

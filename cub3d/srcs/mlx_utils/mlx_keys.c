@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:17:26 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/03 18:38:49 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:12:48 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	handle_close(void *param)
 {
 	(void) param;
-	// ft_free_all();
+	free_game();
 	exit(0);
 	return (0);
 }
