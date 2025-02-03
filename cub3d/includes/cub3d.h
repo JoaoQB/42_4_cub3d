@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/03 19:54:38 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:56:28 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,5 +336,5 @@ void		draw_by_scale(int x, int y, int offset_x, int offset_y);
 /* texture_init.c */
 void		init_texture(t_game *game);
 void		export_textures(void);
-
+void	free_frases(char **array_ptr);
 #endif

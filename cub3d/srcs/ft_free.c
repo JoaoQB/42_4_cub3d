@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:49:36 by jqueijo-          #+#    #+#             */
-/*   Updated: 2024/12/31 11:45:30 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:00:12 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,28 @@ void	free_mlx(t_mlx **mlx_ptr)
 		free(mlx);
 		*mlx_ptr = NULL;
 	}
+}
+
+// void	free_array(char **array_ptr)
+// {
+
+// }
+
+void	free_frases(char **array_ptr)
+{
+	int		i;
+
+	if (!array_ptr || !*array_ptr)
+		return ;
+	i = -1;
+	while (array_ptr[++i])
+	{
+		free(array_ptr[i]);
+		array_ptr[i] = NULL;
+	}
+	free(array_ptr[i]);
+	free(array_ptr);
+	array_ptr = NULL;
 }
 
 void	free_map(char ***map_ptr)

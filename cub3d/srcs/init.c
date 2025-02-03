@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/03 13:23:38 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:57:15 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	init_game(char *file_path)
 
 	file_str = file_to_str(file_path);
 	lines = ft_split(file_str, '\n');
-	// free(file_str);
+	free(file_str);
 	extract_textures(lines);
 	extract_map(ft_game(), lines);
-	free(lines);
+	free_frases(lines);
 	ft_game()->player.pos.y = -1;
 	ft_game()->player.pos.x = -1;
 	check_map(ft_game()->map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:02:56 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/01 17:45:40 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:03:32 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	get_colour(const char *str)
 {
 	int		colour;
 	char	**rgb;
-	int		i;
 
 	colour = 0;
 	while (*str && ft_isspaces(*str))
@@ -43,10 +42,7 @@ int	get_colour(const char *str)
 	colour = ft_atoi(rgb[0]) << 16;
 	colour |= ft_atoi(rgb[1]) << 8;
 	colour |= ft_atoi(rgb[2]); // TODO check if the values are between 0 and 255
-	i = 0;
-	while (rgb[i])
-		free(rgb[i++]); // TODO free last element of the array
-	free(rgb);
+	free_frases(rgb);
 	return (colour);
 }
 

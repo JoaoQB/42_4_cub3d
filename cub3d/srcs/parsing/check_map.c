@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/03 13:27:58 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:03:16 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,15 @@ void	extract_textures(char **lines)
 		if (dir == TEXTURE_SIZE)
 			break ;
 		if (ft_game()->texture[dir] != NULL)
-			return (free(lines), ft_print_error("Duplicated texture line"));
+			return (free_frases(lines), ft_print_error("Duplicated texture line"));
 		if (dir != TEXTURE_SIZE)
 		{
 			printf("lines[%d] = %s\n", i, lines[i]);
 			if (ft_wordcount(lines[i], ' ') != 2)
-				return (free(lines), ft_print_error("Invalid texture line"));
+				return (free_frases(lines), ft_print_error("Invalid texture line"));
 			words = ft_split(lines[i], ' ');
 			ft_game()->texture[dir] = extract_info_process(words);
-			free(words);
+			free_frases(words);
 			free(lines[i]);
 			lines[i] = ft_strdup("");
 		}
