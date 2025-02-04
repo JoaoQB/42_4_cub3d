@@ -12,16 +12,46 @@
 
 #include "cub3d.h"
 
-void	my_pixel_put(t_image *img, int x, int y, int colour, bool fade)
-{
-	int		offset;
-	float	fading;
+// void	my_pixel_put(t_image *img, int x, int y, int colour, double distance)
+// {
+//     int		offset;
+//     double	fading;
+//     int		r, g, b;
+//     int		fog_r, fog_g, fog_b;
+//     int		final_r, final_g, final_b;
+//     int		fog_colour = 0xAAAAAA; // Light gray fog color, adjust as needed
 
-	fading = 1;
-	if (fade)
-		fading = ft_game()->ctl.fade;
+//     // Calculate fading factor based on distance
+//     fading = 1 / (1 + distance * 0.1); // Adjust the multiplier as needed
+
+//     // Extract RGB components from the original color
+//     r = (colour >> 16) & 0xFF;
+//     g = (colour >> 8) & 0xFF;
+//     b = colour & 0xFF;
+
+//     // Extract RGB components from the fog color
+//     fog_r = (fog_colour >> 16) & 0xFF;
+//     fog_g = (fog_colour >> 8) & 0xFF;
+//     fog_b = fog_colour & 0xFF;
+
+//     // Blend the original color with the fog color based on the fading factor
+//     final_r = (int)(r * fading + fog_r * (1 - fading));
+//     final_g = (int)(g * fading + fog_g * (1 - fading));
+//     final_b = (int)(b * fading + fog_b * (1 - fading));
+
+//     // Combine the components back into a single color
+//     colour = (final_r << 16) | (final_g << 8) | final_b;
+
+//     offset = (y * img->len_line) + (x * (img->bpp / 8));
+//     *(unsigned int *)(img->addr + offset) = colour;
+// }
+
+void	my_pixel_put(t_image *img, int x, int y, int colour)
+{
+	int	offset;
+
 	offset = (y * img->len_line) + (x * (img->bpp / 8));
-	*(unsigned int *)(img->addr + offset) = colour * fading;
+	*(unsigned int *)(img->addr + offset) = colour;
 }
 
 void	draw_solid_line(int x, int start, int end, int color)
@@ -33,7 +63,7 @@ void	draw_solid_line(int x, int start, int end, int color)
 	game = ft_game();
 	while (y < end)
 	{
-		my_pixel_put(&game->mlx->img, x, y, color, 1);
+		my_pixel_put(&game->mlx->img, x, y, color);
 		y++;
 	}
 }
@@ -82,7 +112,7 @@ void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 		tex_pos += step;
 		color = *(unsigned int *)(data->addr + tex_y * data->len_line
 				+ wall->tex_x * (data->bpp / 8));
-		my_pixel_put(&game->mlx->img, x, y, color, 1);
+		my_pixel_put(&game->mlx->img, x, y, color);
 		y++;
 	}
 }

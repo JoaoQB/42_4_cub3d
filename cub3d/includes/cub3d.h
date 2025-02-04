@@ -275,7 +275,7 @@ int			get_texture_x(t_ray *ray, t_wall *wall);
 void		draw_walls(t_game	*game);
 void		draw_solid_line(int x, int start, int end, int color);
 void		draw_text_line(t_game *game, t_wall *wall, t_image *data, int x);
-void		my_pixel_put(t_image *img, int x, int y, int colour, bool fade);
+void		my_pixel_put(t_image *img, int x, int y, int colour);
 
 /* malloc tools */
 void		*my_calloc(int num, int size);

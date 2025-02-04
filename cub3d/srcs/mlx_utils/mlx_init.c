@@ -39,17 +39,17 @@ void	draw_minimap(int offset_x, int offset_y)
 		{
 			player_pos.y = curr_pos.y - 5.0 + j * 10.0 / 160;
 			if (j == 0 || i == 0 || j == 160 || i == 160)
-				my_pixel_put(&ft_game()->mlx->img, i, j, BLACK_COLOR, 0);
+				my_pixel_put(&ft_game()->mlx->img, i, j, BLACK_COLOR);
 			else if (is_valid(player_pos.y, player_pos.x, "\n\0")) // out of map
-				my_pixel_put(&ft_game()->mlx->img, i, j, GREY_COLOR, 0);
+				my_pixel_put(&ft_game()->mlx->img, i, j, GREY_COLOR);
 			else if (is_valid(player_pos.y, player_pos.x, "1")) // wall
-				my_pixel_put(&ft_game()->mlx->img, i, j, BLUE_COLOR, 0);
+				my_pixel_put(&ft_game()->mlx->img, i, j, BLUE_COLOR);
 			else if (is_valid(player_pos.y, player_pos.x, "D")) // door
-				my_pixel_put(&ft_game()->mlx->img, i, j, BROWN_COLOR, 0);
+				my_pixel_put(&ft_game()->mlx->img, i, j, BROWN_COLOR);
 			else if (is_valid(player_pos.y, player_pos.x, "C")) // empty space
-				my_pixel_put(&ft_game()->mlx->img, i, j, CYAN_COLOR, 0);
+				my_pixel_put(&ft_game()->mlx->img, i, j, CYAN_COLOR);
 			else
-				my_pixel_put(&ft_game()->mlx->img, i, j, WHITE_COLOR, 0);
+				my_pixel_put(&ft_game()->mlx->img, i, j, WHITE_COLOR);
 		}
 	}
 	//draw pov left and right rays
