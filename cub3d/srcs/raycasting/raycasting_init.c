@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:56 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 10:17:49 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:46:09 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,18 @@ void	export_textures(void)
 	i = -1;
 	while (++i < TEXTURE_SIZE)
 	{
-		texture[i]->image_data = xpm_to_binary(texture[i]->image_path);
-		if (texture[i]->image_data == NULL)
+		if (texture[i])
 		{
-			texture[i]->colour = get_colour(texture[i]->image_path);
-			if (texture[i]->colour == -1)
-				ft_print_error("File: Failed to load image or colour\n");
+			texture[i]->image_data = xpm_to_binary(texture[i]->image_path);
+			if (texture[i]->image_data == NULL)
+			{
+				texture[i]->colour = get_colour(texture[i]->image_path);
+				if (texture[i]->colour == -1)
+					ft_print_error("File: Failed to load image or colour\n");
+			}
 		}
+		else
+			ft_print_error("File: Failed to load image or colour\n");
 	}
 }
 
