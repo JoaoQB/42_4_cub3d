@@ -43,9 +43,9 @@ bool	validate_position(int y, int x)
 {
 	if (ft_strchr(" 1", ft_game()->map[y][x]))
 		return (true);
-	if (!is_valid(y - 1, x, "01NWESD") || !is_valid(y + 1, x, "01NWESD"))
+	if (is_valid(y - 1, x, "") || is_valid(y + 1, x, ""))
 		return (false);
-	if (!is_valid(y, x - 1, "01NWESD") || !is_valid(y, x + 1, "01NWESD"))
+	if (is_valid(y, x - 1, "") || is_valid(y, x + 1, ""))
 		return (false);
 	return (true);
 }

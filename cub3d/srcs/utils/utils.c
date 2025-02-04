@@ -29,7 +29,7 @@ int	ft_atoi(const char *nptr)
 	res = 0;
 	i = 0;
 	sign = 1;
-	while ((nptr[i] >= '\t' && nptr[i] <= '\r') || nptr[i] == ' ')
+	while (ft_isspaces(nptr[i]))
 		i++;
 	if (nptr[i] == '-' || nptr[i] == '+')
 		if (nptr[i++] == '-')
@@ -44,7 +44,7 @@ int	ft_atoi(const char *nptr)
 
 void	ft_print_error(char *str)
 {
-	ft_putstr_fd("\n\nError:", 2);
+	ft_putstr_fd("\n\nError: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
 	free_game();

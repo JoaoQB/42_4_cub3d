@@ -74,10 +74,10 @@ void	init_ray(t_game *game)
 	ray->cam.hfov = ray->cam.fov / 2;
 	ray->cam.width = WIDTH;
 	ray->cam.height = HEIGHT;
-	ray->cam.pos.x = game->player.pos.x;
-	ray->cam.pos.y = game->player.pos.y;
-	ray->cam.dir.x = get_cosine(game->player.dir_angle);
-	ray->cam.dir.y = -get_sine(game->player.dir_angle);
+	ray->cam.pos.x = game->ctl.pos.x;
+	ray->cam.pos.y = game->ctl.pos.y;
+	ray->cam.dir.x = get_cosine(game->ctl.dir_angle);
+	ray->cam.dir.y = -get_sine(game->ctl.dir_angle);
 	ray->cam.width = WIDTH;
 	ray->cam.height = HEIGHT;
 	ray->cam.hwidth = ray->cam.width / 2;

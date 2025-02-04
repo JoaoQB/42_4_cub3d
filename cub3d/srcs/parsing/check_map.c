@@ -38,20 +38,20 @@ bool	get_player_direction(int y, int x)
 	c = ft_game()->map[y][x];
 	if (!ft_strchr("NWES", c))
 		return (true);
-	if (ft_game()->player.angle != UNKNOWN)
+	if (ft_game()->ctl.angle != UNKNOWN)
 		return (false);
 	else if (c == 'N')
-		ft_game()->player.angle = NORTH;
+		ft_game()->ctl.angle = NORTH;
 	else if (c == 'S')
-		ft_game()->player.angle = SOUTH;
+		ft_game()->ctl.angle = SOUTH;
 	else if (c == 'E')
-		ft_game()->player.angle = EAST;
+		ft_game()->ctl.angle = EAST;
 	else if (c == 'W')
-		ft_game()->player.angle = WEST;
+		ft_game()->ctl.angle = WEST;
 	else
 		ft_print_error("Invalid player direction");
-	ft_game()->player.pos.x = x + 0.5;
-	ft_game()->player.pos.y = y + 0.5;
+	ft_game()->ctl.pos.x = x + 0.5;
+	ft_game()->ctl.pos.y = y + 0.5;
 	return (true);
 }
 
@@ -71,7 +71,6 @@ void	extract_textures(char **lines)
 			return (free_frases(lines), ft_print_error("Duplicated texture line"));
 		if (dir != TEXTURE_SIZE)
 		{
-			printf("lines[%d] = %s\n", i, lines[i]);
 			if (ft_wordcount(lines[i], ' ') != 2)
 				return (free_frases(lines), ft_print_error("Invalid texture line"));
 			words = ft_split(lines[i], ' ');
@@ -90,7 +89,7 @@ void	extract_map(t_game *game, char **lines)
 
 	if (!game)
 		return ;
-	game->player.angle = UNKNOWN;
+	game->ctl.angle = UNKNOWN;
 	i = -1;
 	while (lines[++i] != NULL)
 	{
@@ -129,8 +128,8 @@ void	check_map(char **map)
 	y = -1;
 	while (++y < ft_game()->map_height)
 	{
-		x = 0;
-		while (x < ft_game()->map_width
+		x = -1;
+		while (++x < ft_game()->map_width
 			&& map[y][x] != '\n' && map[y][x] != '\0')
 		{
 			// BONUS CHANGE, ADDED D
@@ -140,9 +139,8 @@ void	check_map(char **map)
 				ft_print_error("Map: Of map encapsulation");
 			if (!get_player_direction(y, x))
 				ft_print_error("Map: Repeated player pos");
-			x++;
 		}
 	}
-	if (is_valid(ft_game()->player.pos.y, ft_game()->player.pos.x, ""))
+	if (is_valid(ft_game()->ctl.pos.y, ft_game()->ctl.pos.x, ""))
 		ft_print_error("Map: No player position found");
 }

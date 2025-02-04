@@ -41,7 +41,7 @@ void	init_mlx(void)
 	mlx_hook(ft_game()->mlx->win, 5, 1L << 3, handle_mouse, NULL);
 }
 
-void	init_game(char *file_path)
+void	init_parsing(char *file_path)
 {
 	char	**lines;
 	char	*file_str;
@@ -52,10 +52,15 @@ void	init_game(char *file_path)
 	extract_textures(lines);
 	extract_map(ft_game(), lines);
 	free_frases(lines);
-	ft_game()->player.pos.y = -1;
-	ft_game()->player.pos.x = -1;
+	ft_game()->ctl.pos.y = -1;
+	ft_game()->ctl.pos.x = -1;
 	check_map(ft_game()->map);
-	ft_game()->player.dir_angle = ft_game()->player.angle;
+	ft_game()->ctl.dir_angle = ft_game()->ctl.angle;
+}
+
+void	init_game(char *file_path)
+{
+	init_parsing(file_path);
 	init_mlx();
 	init_texture(ft_game());
 	export_textures();

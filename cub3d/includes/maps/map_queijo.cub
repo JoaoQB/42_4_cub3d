@@ -2,7 +2,7 @@ EA ./includes/textures/water_texture2.xpm
 NO ./includes/textures/water_texture.xpm
 WE ./includes/textures/wall_blackhole.xpm
 SO 139,0,0
-F 139,0,0
+F 100,100,100
 C 135,206,235
 
 
@@ -10,7 +10,7 @@ C 135,206,235
 100000000000001
 11N1111D1111111
 111000000000011
-110000000000011
+110000000C00011
 110000101000011
 111111111111111
 

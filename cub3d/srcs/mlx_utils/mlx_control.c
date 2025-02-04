@@ -80,10 +80,10 @@ int	render(void)
 	if (ft_game()->update == 0)
 		return (0);
 	// update direction angle
-	ft_game()->player.dir_angle += ft_game()->ctl.mv_angle;
+	ft_game()->ctl.dir_angle += ft_game()->ctl.mv_angle;
 	// update direction vector
-	cam->dir.x = get_cosine(ft_game()->player.dir_angle);
-	cam->dir.y = -get_sine(ft_game()->player.dir_angle);
+	cam->dir.x = get_cosine(ft_game()->ctl.dir_angle);
+	cam->dir.y = -get_sine(ft_game()->ctl.dir_angle);
 	// Calculate new position
 	if (ft_game()->ctl.move.x != 0 || ft_game()->ctl.move.y != 0)
 		player_walk();

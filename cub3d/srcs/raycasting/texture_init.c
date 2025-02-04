@@ -37,7 +37,7 @@ static void	print_texture_info(t_texture *texture, int index)
 	printf("================\n");
 }
 
-static void	print_all_textures(t_game *game)
+void	print_all_textures(t_game *game)
 {
 	int	i;
 
@@ -78,6 +78,6 @@ void	init_texture(t_game *game)
 		if (game->door->colour == -1)
 			ft_print_error("File: Failed to load image or colour\n");
 	}
-	print_all_textures(game);
+	// print_all_textures(game);
 	return ;
 }

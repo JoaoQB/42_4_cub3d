@@ -45,8 +45,9 @@
 // # define PLAYER_ROTATION 0.2
 # define MINIMAP_SCALE 0.2
 
-# define FLOOR_COLOR 0x404040 // Darker gray for floor
+# define FLOOR_COLOR 0x808080 // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
+
 # define RED_COLOR 0xFF0000 // Red color
 # define GREEN_COLOR 0x00FF00 // Green color
 # define WHITE_COLOR 0xFFFFFF // White color
@@ -56,6 +57,7 @@
 # define BLUE_COLOR 0x0000FF // Blue color
 # define CYAN_COLOR 0x00FFFF // Cyan color
 # define BROWN_COLOR 0xA52A2A // Brown color
+# define GREY_COLOR 0x808080 // Grey color
 
 typedef enum WALL_TEXTURE
 {
@@ -187,16 +189,21 @@ typedef struct s_player
 
 typedef struct s_control
 {//am i using all the variables?
+	t_coord		pos;
+	double		dir_angle;
+	int			dir;
+	t_direction	angle;
 	t_coord		move;
 	int			mv_angle;
-	t_coord		pos;
-	int			dir;
+	double		mv_speed;
+	double		rot_speed;
+	double		fading;
+	double		map_scale;
 	// player speed
 	// mouse speed
 	// minimap zoom
 	// minimap size ???
 	// game darkness for fog/ambience/fading
-
 }	t_control;
 
 typedef struct s_game

@@ -57,7 +57,7 @@ void	draw_minimap(int offset_x, int offset_y)
 			if (j == 0 || i == 0 || j == 160 || i == 160)
 				my_pixel_put(&ft_game()->mlx->img, i, j, BLACK_COLOR);
 			else if (is_valid(player_pos.y, player_pos.x, "\n\0")) // out of map
-				my_pixel_put(&ft_game()->mlx->img, i, j, GREEN_COLOR);
+				my_pixel_put(&ft_game()->mlx->img, i, j, GREY_COLOR);
 			else if (is_valid(player_pos.y, player_pos.x, "1")) // wall
 				my_pixel_put(&ft_game()->mlx->img, i, j, BLUE_COLOR);
 			else if (is_valid(player_pos.y, player_pos.x, "D")) // door
