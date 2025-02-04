@@ -27,27 +27,30 @@
 # include <time.h> //debug
 # include <errno.h> //debug
 
+//math const
 # define PI 3.14159265358979323846
+# define MAX_ANGLE 360
 
+// Map Size
 # define WIDTH 800
 # define HEIGHT 800
+// Dimentions variables
 # define UNIT_SIZE 16
-# define COLISION 0.2
-# define FOV 60
-# define MAX_ANGLE 360
-# define SCALE 2
-// From 0.1 slow to 1 fast
-# define SPEED 0.33
 # define TEXTURE_SIZE 6
-# define COLOR 0xFF0000 // Red
-
-// # define PLAYER_SPEED 100
-// # define PLAYER_ROTATION 0.2
+// raycast variables
+# define FOV 60
+// Control variables
+# define FADE_VALUE 0.5
+# define COLISION 0.2 //0-0.5
+# define MOVE_SPEED 0.33 //0-1
+# define ROTATION_SPEED 1 //~2
+# define SCALE 2
 # define MINIMAP_SCALE 0.2
 
+// Default Map Colors
 # define FLOOR_COLOR 0x808080 // Darker gray for floor
 # define CEILING_COLOR 0xC0C0C0 // Lighter gray for ceiling
-
+// Colors
 # define RED_COLOR 0xFF0000 // Red color
 # define GREEN_COLOR 0x00FF00 // Green color
 # define WHITE_COLOR 0xFFFFFF // White color
@@ -180,24 +183,17 @@ typedef struct s_ray
 	t_cam		cam;
 }	t_ray;
 
-typedef struct s_player
-{// can ditch this one?
-	t_coord		pos;
-	double		dir_angle;
-	t_direction	angle;
-}	t_player;
-
 typedef struct s_control
 {//am i using all the variables?
 	t_coord		pos;
-	double		dir_angle;
+	double		dir_angle; //
 	int			dir;
 	t_direction	angle;
-	t_coord		move;
-	int			mv_angle;
+	t_coord		move; //
+	int			mv_angle; //
 	double		mv_speed;
 	double		rot_speed;
-	double		fading;
+	double		fade;
 	double		map_scale;
 	// player speed
 	// mouse speed
@@ -209,7 +205,6 @@ typedef struct s_control
 typedef struct s_game
 {
 	t_mlx		*mlx;
-	t_player	player;
 	t_control	ctl;
 	t_ray		ray;
 	t_texture	*texture[TEXTURE_SIZE]; // NO SO WE EA C F
@@ -280,7 +275,7 @@ int			get_texture_x(t_ray *ray, t_wall *wall);
 void		draw_walls(t_game	*game);
 void		draw_solid_line(int x, int start, int end, int color);
 void		draw_text_line(t_game *game, t_wall *wall, t_image *data, int x);
-void		my_pixel_put(t_image *img, int x, int y, int colour);
+void		my_pixel_put(t_image *img, int x, int y, int colour, bool fade);
 
 /* malloc tools */
 void		*my_calloc(int num, int size);
@@ -338,7 +333,6 @@ void		door_switch(t_game *game);
 
 /* minimap */
 void		draw_minimap(int offset_x, int offset_y);
-void		draw_by_scale(int x, int y, int offset_x, int offset_y);
 
 /* texture_init.c */
 void		init_texture(t_game *game);

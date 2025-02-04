@@ -12,12 +12,16 @@
 
 #include "cub3d.h"
 
-void	my_pixel_put(t_image *img, int x, int y, int colour)
+void	my_pixel_put(t_image *img, int x, int y, int colour, bool fade)
 {
-	int	offset;
+	int		offset;
+	float	fading;
 
+	fading = 1;
+	if (fade)
+		fading = ft_game()->ctl.fade;
 	offset = (y * img->len_line) + (x * (img->bpp / 8));
-	*(unsigned int *)(img->addr + offset) = colour;
+	*(unsigned int *)(img->addr + offset) = colour * fading;
 }
 
 void	draw_solid_line(int x, int start, int end, int color)
@@ -29,7 +33,7 @@ void	draw_solid_line(int x, int start, int end, int color)
 	game = ft_game();
 	while (y < end)
 	{
-		my_pixel_put(&game->mlx->img, x, y, color);
+		my_pixel_put(&game->mlx->img, x, y, color, 1);
 		y++;
 	}
 }
@@ -78,7 +82,7 @@ void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 		tex_pos += step;
 		color = *(unsigned int *)(data->addr + tex_y * data->len_line
 				+ wall->tex_x * (data->bpp / 8));
-		my_pixel_put(&game->mlx->img, x, y, color);
+		my_pixel_put(&game->mlx->img, x, y, color, 1);
 		y++;
 	}
 }
@@ -103,7 +107,7 @@ void	draw_walls(t_game *game)
 		}
 		else
 		{
-			draw_solid_line(i, wall->top, wall->bottom, COLOR);
+			draw_solid_line(i, wall->top, wall->bottom, RED_COLOR);
 		}
 		draw_solid_line(i, wall->bottom, HEIGHT, ft_game()->texture[4]->colour);
 		i++;

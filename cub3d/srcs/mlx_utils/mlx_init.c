@@ -12,22 +12,6 @@
 
 #include "cub3d.h"
 
-// void	draw_minimap(int offset_x, int offset_y)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	x = -1;
-// 	while (++x < WIDTH)
-// 	{
-// 		y = -1;
-// 		while (++y < HEIGHT)
-// 			draw_by_scale(x, y, offset_x, offset_y);
-// 			//i can pass an structure of object to be drawn instead like
-// 			//with map dimentions, rescale, offset(pos) and image dimension
-// 	}
-// }
-
 void	draw_minimap(int offset_x, int offset_y)
 {
 	t_coord	player_pos;
@@ -55,45 +39,20 @@ void	draw_minimap(int offset_x, int offset_y)
 		{
 			player_pos.y = curr_pos.y - 5.0 + j * 10.0 / 160;
 			if (j == 0 || i == 0 || j == 160 || i == 160)
-				my_pixel_put(&ft_game()->mlx->img, i, j, BLACK_COLOR);
+				my_pixel_put(&ft_game()->mlx->img, i, j, BLACK_COLOR, 0);
 			else if (is_valid(player_pos.y, player_pos.x, "\n\0")) // out of map
-				my_pixel_put(&ft_game()->mlx->img, i, j, GREY_COLOR);
+				my_pixel_put(&ft_game()->mlx->img, i, j, GREY_COLOR, 0);
 			else if (is_valid(player_pos.y, player_pos.x, "1")) // wall
-				my_pixel_put(&ft_game()->mlx->img, i, j, BLUE_COLOR);
+				my_pixel_put(&ft_game()->mlx->img, i, j, BLUE_COLOR, 0);
 			else if (is_valid(player_pos.y, player_pos.x, "D")) // door
-				my_pixel_put(&ft_game()->mlx->img, i, j, BROWN_COLOR);
+				my_pixel_put(&ft_game()->mlx->img, i, j, BROWN_COLOR, 0);
 			else if (is_valid(player_pos.y, player_pos.x, "C")) // empty space
-				my_pixel_put(&ft_game()->mlx->img, i, j, CYAN_COLOR);
+				my_pixel_put(&ft_game()->mlx->img, i, j, CYAN_COLOR, 0);
 			else
-				my_pixel_put(&ft_game()->mlx->img, i, j, WHITE_COLOR);
+				my_pixel_put(&ft_game()->mlx->img, i, j, WHITE_COLOR, 0);
 		}
 	}
 	//draw pov left and right rays
 	// flood fill the map encapulated by the rays
 	
-}
-
-
-// jqueijo: Hardcoded MINIMAP_SCALE as function had too many parameters
-void	draw_by_scale(int x, int y, int offset_x, int offset_y)
-{
-	int	i;
-	int	j;
-	int	color;
-
-	i = x * MINIMAP_SCALE + offset_x;
-	while (i < (x + 1) * MINIMAP_SCALE + offset_x)
-	{
-		j = y * MINIMAP_SCALE + offset_y;
-		while (j < (y + 1) * MINIMAP_SCALE + offset_y)
-		{
-			if (ft_game()->map[y][x] == 1)
-				color = 0x00FF00;
-			else
-				color = 0x000000;
-			my_pixel_put(&ft_game()->mlx->img, i, j, color);
-			j++;
-		}
-		i++;
-	}
 }
