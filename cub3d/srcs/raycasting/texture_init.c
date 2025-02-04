@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 21:07:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/04 15:05:27 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:30:01 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void	init_texture(t_game *game)
 		i++;
 	}
 	game->door = (t_texture *)my_calloc(1, sizeof(t_texture));
-	game->door->image_path = "./includes/textures/wall_tiles.xpm";
-	game->door->image_name = "DOOR";
+	game->door->image_path = ft_strdup("./includes/textures/wall_tiles.xpm");
+	game->door->image_name = ft_strdup("DOOR");
 	game->door->image_data = xpm_to_binary(game->door->image_path);
 	if (game->door->image_data == NULL)
 	{

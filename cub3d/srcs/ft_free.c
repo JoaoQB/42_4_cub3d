@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:49:36 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/03 21:00:12 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:35:37 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	free_texture(t_texture *texture)
+{
+	if (!texture)
+		return ;
+	if (texture->image_name)
+		free(texture->image_name);
+	if (texture->image_path)
+		free(texture->image_path);
+	if (texture->image_data)
+	{
+		if (texture->image_data->img)
+		{
+			mlx_destroy_image(ft_game()->mlx->mlx, texture->image_data->img);
+			texture->image_data->img = NULL;
+		}
+		free(texture->image_data);
+		texture->image_data = NULL;
+	}
+	free(texture);
+}
 
 void	free_mlx(t_mlx **mlx_ptr)
 {
@@ -26,7 +47,8 @@ void	free_mlx(t_mlx **mlx_ptr)
 			mlx_destroy_window(mlx->mlx, mlx->win);
 		mlx->win = NULL;
 		if (mlx->mlx)
-			free(mlx->mlx);
+			mlx_destroy_display(mlx->mlx);
+		free(mlx->mlx);
 		mlx->mlx = NULL;
 		free(mlx);
 		*mlx_ptr = NULL;
@@ -76,6 +98,8 @@ void	free_map(char ***map_ptr)
 
 void	free_game(void)
 {
+	int	i;
+
 	t_game	*game_s;
 
 	game_s = ft_game();
@@ -83,6 +107,21 @@ void	free_game(void)
 	{
 		if (game_s->map)
 			free_map(&game_s->map);
+		if (game_s->door)
+		{
+			free_texture(game_s->door);
+			game_s->door = NULL;
+		}
+		i = 0;
+		while (i < TEXTURE_SIZE)
+		{
+			if (game_s->texture[i])
+			{
+				free_texture(game_s->texture[i]);
+				game_s->texture[i] = NULL;
+			}
+			i++;
+		}
 		if (game_s->mlx)
 			free_mlx(&game_s->mlx);
 	}
