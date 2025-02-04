@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/03 19:51:39 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:34:22 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,7 @@ void	cast_ray(t_game*game, t_ray *ray, char *str_block)
 			ray->grid_y += ray->step.y;
 			ray->side = 1;
 		}
-		if (ray->grid_y < 0 || ray->grid_y >= ray->cam.map_height
-			|| ray->grid_x < 0 || ray->grid_x >= ray->cam.map_width)
+		if (is_out_of_bounds(ray->grid_x, ray->grid_y))
 		{
 			// debug_cast(ray);
 			break ;

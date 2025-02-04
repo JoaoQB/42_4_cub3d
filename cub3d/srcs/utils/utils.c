@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 12:20:34 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/03 20:17:06 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:48:09 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	ft_print_error(char *str)
 	exit(1);
 }
 
-// void	print_map(char **double_array)
-// {
-// 	int	i;
+void	print_map(char **double_array)
+{
+	int	i;
 
-// 	i = -1;
-// 	while (double_array[++i])
-// 		ft_putstr_fd(double_array[i], 1);
-// 	ft_putstr_fd("\n", 1);
-// }
+	i = -1;
+	while (double_array[++i])
+		ft_putstr_fd(double_array[i], 1);
+	ft_putstr_fd("\n", 1);
+}

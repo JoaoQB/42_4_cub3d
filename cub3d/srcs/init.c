@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/03 20:57:15 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:30:49 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	init_parsing(char *file_path)
 	extract_textures(lines);
 	extract_map(ft_game(), lines);
 	free_frases(lines);
-
 	check_map(ft_game()->map);
 }
 
@@ -60,7 +59,7 @@ void	init_control(void)
 {
 	// t_control	ctl;
 
-	// ctl = 
+	// ctl =
 	// if (ft_game()->ctl.move_speed > 1)
 	ft_game()->ctl.mv_speed = (1.0 / UNIT_SIZE) * MOVE_SPEED;
 	ft_game()->ctl.rot_speed = ROTATION_SPEED;
@@ -77,5 +76,7 @@ void	init_game(char *file_path)
 	init_mlx();
 	init_texture(ft_game());
 	export_textures();
+	// print_all_textures(ft_game());
+	check_textures(ft_game());
 	init_ray(ft_game());
 }

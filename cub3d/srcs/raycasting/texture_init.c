@@ -6,11 +6,26 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 21:07:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 17:29:19 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:05:27 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_textures(t_game *game)
+{
+	int	y;
+
+	if (!game)
+		return ;
+	y = 0;
+	while (game->texture[y] != NULL && y < TEXTURE_SIZE)
+		y++;
+	if (y != TEXTURE_SIZE)
+		return (ft_print_error("File: Texture not loaded"));
+	if (!game->door || !game->door->image_data)
+		return (ft_print_error("File: Texture not loaded"));
+}
 
 static void	print_texture_info(t_texture *texture, int index)
 {
@@ -78,6 +93,5 @@ void	init_texture(t_game *game)
 		if (game->door->colour == -1)
 			ft_print_error("File: Failed to load image or colour\n");
 	}
-	// print_all_textures(game);
 	return ;
 }

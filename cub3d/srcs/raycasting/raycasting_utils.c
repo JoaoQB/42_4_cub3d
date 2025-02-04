@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:24:15 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 10:19:40 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:34:57 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+bool	is_out_of_bounds(int x, int y)
+{
+	t_game	*game;
+
+	game = ft_game();
+	if (x < 0 || y < 0 || x >= game->map_width || y >= game->map_height)
+		return (true);
+	return (false);
+}
 
 double	get_wall_distance(t_ray *ray)
 {

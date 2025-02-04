@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/03 20:56:28 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:04:35 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 // Control variables
 # define FADE_VALUE 0.5
 # define COLISION 0.2 //0-0.5
-# define MOVE_SPEED 0.33 //0-1
+# define MOVE_SPEED 0.10 //0-1
 # define ROTATION_SPEED 1 //~2
 # define SCALE 2
 # define MINIMAP_SCALE 0.2
@@ -255,7 +255,7 @@ double		get_sine(int ray_angle);
 double		get_cosine(int ray_angle);
 
 /* raycasting.c */
-void	cast_ray(t_game*game, t_ray *ray, char *str_block);
+void		cast_ray(t_game*game, t_ray *ray, char *str_block);
 void		raycasting(void);
 
 /* raycasting_debug.c */
@@ -266,6 +266,7 @@ void		debug_wall_info(t_ray *ray, t_wall *wall);
 void		debug_cast(t_ray *ray);
 
 /* raycasting_utils.c */
+bool		is_out_of_bounds(int x, int y);
 double		get_wall_distance(t_ray *ray);
 int			get_wall_direction(t_ray *ray);
 double		get_wall_x(t_ray *ray);
@@ -318,7 +319,8 @@ t_texture	*extract_info_process(char **words);
 void		ft_print_error(char *str);
 
 /* testing*/
-// void		print_map(char **double_array);
+void		print_map(char **double_array);
+void		print_all_textures(t_game *game);
 // void		init_test_player(void);
 // void		init_test_textures(t_game *game);
 
@@ -330,12 +332,14 @@ int			key_release(int key, void *param);
 int			mouse_moved(int x, int y, void *param);
 t_coord		get_coord(t_coord ref);
 void		door_switch(t_game *game);
+void		check_doors(t_game *game, char **map);
 
 /* minimap */
 void		draw_minimap(int offset_x, int offset_y);
 
 /* texture_init.c */
+void		check_textures(t_game *game);
 void		init_texture(t_game *game);
 void		export_textures(void);
-void	free_frases(char **array_ptr);
+void		free_frases(char **array_ptr);
 #endif

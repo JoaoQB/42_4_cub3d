@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/03 21:03:16 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:32:13 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,24 +115,19 @@ void	extract_map(t_game *game, char **lines)
 
 void	check_map(char **map)
 {
+	t_game	*game;
 	int		x;
 	int		y;
 
-	y = 0;
-	while (ft_game()->texture[y] != NULL && y < TEXTURE_SIZE)
-		y++;
-	if (y != TEXTURE_SIZE)
-		return (ft_print_error("File: Texture not loaded"));
-	if (ft_game()->map == NULL || ft_game()->map_height == 0)
+	game = ft_game();
+	if (map == NULL || game->map_height == 0)
 		return (ft_print_error("File: No map found"));
 	y = -1;
-	while (++y < ft_game()->map_height)
+	while (++y < game->map_height)
 	{
 		x = -1;
-		while (++x < ft_game()->map_width
-			&& map[y][x] != '\n' && map[y][x] != '\0')
+		while (++x < game->map_width && map[y][x] != '\n' && map[y][x] != '\0')
 		{
-			// BONUS CHANGE, ADDED D
 			if (!ft_strchr("1 0NWESDC", map[y][x]))
 				ft_print_error("Map: Invalid character in map");
 			if (!validate_position(y, x))
@@ -141,6 +136,7 @@ void	check_map(char **map)
 				ft_print_error("Map: Repeated player pos");
 		}
 	}
-	if (is_valid(ft_game()->ctl.pos.y, ft_game()->ctl.pos.x, ""))
+	if (is_valid(game->ctl.pos.y, game->ctl.pos.x, ""))
 		ft_print_error("Map: No player position found");
+	check_doors(game, map);
 }
