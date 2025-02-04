@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 12:20:34 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/04 14:48:09 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:33:06 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ int	ft_atoi(const char *nptr)
 		if (nptr[i++] == '-')
 			sign = -1;
 	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		res = (res * 10) + nptr[i] - '0';
-		i++;
-	}
+		res = (res * 10) + nptr[i++] - '0';
+	if (nptr[i] != '\0' && (nptr[i] < '0' || nptr[i] > '9'))
+		errno = EINVAL;
 	return (res * sign);
 }
 

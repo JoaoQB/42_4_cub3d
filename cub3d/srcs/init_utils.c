@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:02:56 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/03 21:03:32 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:37:58 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_texture	*extract_info_process(char **words)
 	while (words[++i])
 		;
 	if (i != 2)
-		ft_print_error("Error\nInvalid texture format");
+		ft_print_error("Textures: Invalid texture format");
 	texture = (t_texture *) my_calloc(1, sizeof(t_texture));
 	texture->image_name = str_trim_and_free(ft_strdup(words[0]));
 	texture->image_path = str_trim_and_free(ft_strdup(words[1]));
@@ -32,16 +32,25 @@ int	get_colour(const char *str)
 {
 	int		colour;
 	char	**rgb;
+	int 	i;
 
 	colour = 0;
 	while (*str && ft_isspaces(*str))
 		str++;
 	if (ft_wordcount((char *)str, ',') != 3)
-		ft_print_error("Invalid colour format");
+		ft_print_error("Colors: Invalid colour format");
 	rgb = ft_split((char *)str, ',');
-	colour = ft_atoi(rgb[0]) << 16;
-	colour |= ft_atoi(rgb[1]) << 8;
-	colour |= ft_atoi(rgb[2]); // TODO check if the values are between 0 and 255
+	i = -1;
+	colour = 0;
+	while (rgb[++i])
+	{
+		colour |= ft_atoi(rgb[i]) << 8 * (2 - i);
+		if (errno == EINVAL)
+		{
+			free_frases(rgb);
+			ft_print_error("Colors: Invalid colour format");
+		}
+	}
 	free_frases(rgb);
 	return (colour);
 }

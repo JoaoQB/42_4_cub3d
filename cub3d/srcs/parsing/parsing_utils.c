@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/02 18:26:15 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:49:44 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*file_to_str(char *file_name)
 // BONUS CHANGE ADDED D
 bool	validate_position(int y, int x)
 {
-	if (ft_strchr(" 1", ft_game()->map[y][x]))
+	if (ft_strchr("1", ft_game()->map[y][x]))
 		return (true);
 	if (is_valid(y - 1, x, "") || is_valid(y + 1, x, ""))
 		return (false);

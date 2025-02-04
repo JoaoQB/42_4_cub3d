@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:29:42 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/03 21:03:50 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:35:28 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ char	**ft_split(char *str, char c)
 			str++;
 		while (str[i] && str[i] != c)
 			i++;
-		if (str[i] && str[i] == c)
-			i++;
 		map[++j] = ft_strnjoin(NULL, str, i);
 		str += i;
+		if (*str && *str == c)
+			str++;
 	}
 	return (map);
 }

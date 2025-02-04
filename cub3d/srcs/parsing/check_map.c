@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/04 15:32:13 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:52:13 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	check_map(char **map)
 		x = -1;
 		while (++x < game->map_width && map[y][x] != '\n' && map[y][x] != '\0')
 		{
-			if (!ft_strchr("1 0NWESDC", map[y][x]))
+			if (!ft_strchr("10NWESDC", map[y][x]))
 				ft_print_error("Map: Invalid character in map");
 			if (!validate_position(y, x))
 				ft_print_error("Map: Of map encapsulation");
