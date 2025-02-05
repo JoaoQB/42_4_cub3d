@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:49:36 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/04 16:35:37 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:42:48 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,12 @@ void	free_game(void)
 			game_s->door = NULL;
 		}
 		i = 0;
-		while (i < TEXTURE_SIZE)
+		while (game_s->texture[i] != NULL && i < TEXTURE_SIZE)
 		{
 			if (game_s->texture[i])
 			{
+				// printf("%d\n", i);
+				// printf("Freeing texture pointer: %p\n", (void *)game_s->texture[i]);
 				free_texture(game_s->texture[i]);
 				game_s->texture[i] = NULL;
 			}

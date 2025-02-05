@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 21:07:42 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/04 16:30:01 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:39:12 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,24 @@ void	check_textures(t_game *game)
 
 	if (!game)
 		return ;
+	// print_all_textures(game);
 	y = 0;
-	while (game->texture[y] != NULL && y < TEXTURE_SIZE)
+	while (y < TEXTURE_SIZE && game->texture[y] != NULL)
+	{
+		// printf("%d\n", y);
+		// printf("Texture pointer: %p\n", (void *)game->texture[y]);
 		y++;
-	if (y != TEXTURE_SIZE)
-		return (ft_print_error("File: Texture not loaded"));
+	}
+	// printf("Final y value: %d\n", y);
+	if (y < 6)
+	{
+		// printf("Y: %d, TEXTURE_SIZE: %d\n", y, TEXTURE_SIZE);
+		return (ft_print_error("File: Textures not loaded"));
+	}
 	if (!game->door || !game->door->image_data)
-		return (ft_print_error("File: Texture not loaded"));
+	{
+		return (ft_print_error("File: Door texture not loaded"));
+	}
 }
 
 static void	print_texture_info(t_texture *texture, int index)

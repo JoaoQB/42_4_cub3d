@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+         #
+#    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2025/02/03 20:33:29 by fandre-b         ###   ########.fr        #
+#    Updated: 2025/02/05 10:20:59 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ clean:
 
 fclean:	clean
 	@echo "$(YELLOW)Cleaning executable...$(NC)"
-	-make -s -C $(MLX) fclean
+	-make -s -C $(MLX) clean
 	$(RM) $(NAME)
 
 
