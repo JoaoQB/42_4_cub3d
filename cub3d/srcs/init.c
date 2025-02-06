@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:52:10 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:24:53 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	init_ray(t_game *game)
 	ray->cam.dir.y = -get_sine(game->ctl.dir_angle);
 	ray->cam.width = WIDTH;
 	ray->cam.height = HEIGHT;
-	ray->cam.hwidth = ray->cam.width / 2;
+	// ray->cam.hwidth = ray->cam.width / 2;
 	ray->cam.h_height = ray->cam.height / 2;
-	ray->cam.map_width = game->map_width;
-	ray->cam.map_height = game->map_height;
+	// ray->cam.map_width = game->map_width;
+	// ray->cam.map_height = game->map_height;
 	// print_ray(ray);
 }
 
@@ -87,7 +87,6 @@ void	init_control(void)
 	// if (ft_game()->ctl.move_speed > 1)
 	ft_game()->ctl.mv_speed = (1.0 / UNIT_SIZE) * MOVE_SPEED;
 	ft_game()->ctl.rot_speed = ROTATION_SPEED;
-	ft_game()->ctl.fade = FADE_VALUE;
 	ft_game()->ctl.pos.y = -1;
 	ft_game()->ctl.pos.x = -1;
 	ft_game()->ctl.angle = UNKNOWN;

@@ -6,7 +6,6 @@ void	print_ray(t_ray *ray)
 		return ;
 	printf("!! Camera Width: %f\n", ray->cam.width);
 	printf("!! Camera Height: %f\n", ray->cam.height);
-	printf("!! Camera Half Width: %f\n", ray->cam.hwidth);
 	printf("!! Camera Half Height: %f\n", ray->cam.h_height);
 	printf("!! Camera FOV: %f\n", ray->cam.fov);
 	printf("!! Camera Half FOV: %f\n", ray->cam.hfov);
@@ -16,8 +15,6 @@ void	print_ray(t_ray *ray)
 		ray->cam.dir.x, ray->cam.dir.y);
 	printf("!! Camera Plane: plane_x = %f, plane_y = %f\n",
 		ray->cam.plane.x, ray->cam.plane.y);
-	printf("!! Map Width: %d\n", ray->cam.map_width);
-	printf("!! Map Height: %d\n", ray->cam.map_height);
 }
 
 void	debug_start(t_ray *ray)
