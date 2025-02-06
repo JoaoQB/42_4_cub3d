@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_ui.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 12:36:17 by fandre-b          #+#    #+#             */
+/*   Updated: 2025/02/06 12:36:17 by fandre-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	handle_close(void *param)
@@ -13,7 +25,6 @@ int	handle_mouse(int button, int x, int y, void *param)
 	(void) param;
 	(void) x;
 	(void) y;
-	// printf("Mouse button %d at %d %d\n", button, x, y);
 	if (button == 1)
 		door_switch(ft_game());
 	return (0);
@@ -28,9 +39,7 @@ int	key_press(int key, void *param)
 		mlx_mouse_show(ft_game()->mlx->mlx, ft_game()->mlx->win);
 	if (key == KEY_ESC)
 		handle_close(NULL);
-	// if (key == KEY_SHIFT)
-	// 	ft_game()->ctl.mv_speed *= 1.5;
-	if (key == KEY_W && ft_game()->ctl.move.x <= 0) // i can do move check
+	if (key == KEY_W && ft_game()->ctl.move.x <= 0)
 		ft_game()->ctl.move.x += ft_game()->ctl.mv_speed;
 	if (key == KEY_S && ft_game()->ctl.move.x >= 0)
 		ft_game()->ctl.move.x += -ft_game()->ctl.mv_speed;
@@ -49,9 +58,7 @@ int	key_press(int key, void *param)
 int	key_release(int key, void *param)
 {
 	(void) param;
-	// if (key == KEY_SHIFT)
-	// 	ft_game()->ctl.mv_speed /= 1.5;
-	if (key == KEY_W && ft_game()->ctl.move.x >= 0) // i can do move check
+	if (key == KEY_W && ft_game()->ctl.move.x >= 0)
 		ft_game()->ctl.move.x -= ft_game()->ctl.mv_speed;
 	if (key == KEY_S && ft_game()->ctl.move.x <= 0)
 		ft_game()->ctl.move.x -= -ft_game()->ctl.mv_speed;
@@ -62,4 +69,3 @@ int	key_release(int key, void *param)
 	ft_game()->update = 1;
 	return (0);
 }
-

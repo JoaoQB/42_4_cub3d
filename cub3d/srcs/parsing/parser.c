@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 12:42:35 by fandre-b          #+#    #+#             */
+/*   Updated: 2025/02/06 12:42:35 by fandre-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	extract_map(t_game *game, char **lines)
@@ -5,9 +17,6 @@ void	extract_map(t_game *game, char **lines)
 	int		i;
 	char	**map;
 
-	if (!game)
-		return ;
-	game->ctl.angle = UNKNOWN;
 	i = -1;
 	while (lines[++i] != NULL)
 	{
@@ -44,11 +53,11 @@ void	extract_textures(char **lines)
 		if (dir == TEXTURE_SIZE)
 			break ;
 		if (ft_game()->texture[dir] != NULL)
-			return (free_frases(lines), ft_print_error("Duplicated texture line"));
+			return (free_frases(lines), ft_print_error("Duplicated texture"));
 		if (dir != TEXTURE_SIZE)
 		{
 			if (ft_wordcount(lines[i], ' ') != 2)
-				return (free_frases(lines), ft_print_error("Invalid texture line"));
+				return (free_frases(lines), ft_print_error("Invalid texture"));
 			words = ft_split(lines[i], ' ');
 			ft_game()->texture[dir] = extract_info_process(words);
 			free_frases(words);
@@ -73,4 +82,3 @@ t_texture	*extract_info_process(char **words)
 	texture->image_path = str_trim_and_free(ft_strdup(words[1]));
 	return (texture);
 }
-

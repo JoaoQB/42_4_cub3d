@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-
 t_coord	get_coord(t_coord ref)
 {
 	t_coord		rounded;
@@ -57,20 +56,12 @@ void	player_walk(void)
 	ref.y = cam->dir.y * game->ctl.move.x + cam->dir.x * game->ctl.move.y;
 	collision.x = copysign(COLISION, ref.x);
 	collision.y = copysign(COLISION, ref.y);
-	// printf("collision set to %f %f\n", collision.x, collision.y);
 	cam->pos.y += ref.y;
 	if (is_valid(cam->pos.y + collision.y * (1.01), cam->pos.x, "1D \n\0"))
-	{
-		// printf("\033[34m !!!!!collision direction!!!!!\033[0m\n"); // Blue text
 		cam->pos.y = get_coord(ref).y - collision.y;
-	}
 	cam->pos.x += ref.x;
 	if (is_valid(cam->pos.y, cam->pos.x + collision.x * (1.01), "1D \n\0"))
-	{
-		// printf("\033[32m !!!!!collision direction!!!!!\033[0m\n"); // green text
 		cam->pos.x = get_coord(ref).x - collision.x;
-	}
-	// printf("player moves to %f %f\n", cam->pos.x, cam->pos.y);
 }
 
 int	render(void)
@@ -80,21 +71,13 @@ int	render(void)
 	cam = &ft_game()->ray.cam;
 	if (ft_game()->update == 0)
 		return (0);
-	// update direction angle
 	ft_game()->ctl.dir_angle += ft_game()->ctl.mv_angle;
-	// update direction vector
 	cam->dir.x = get_cosine(ft_game()->ctl.dir_angle);
 	cam->dir.y = -get_sine(ft_game()->ctl.dir_angle);
-	// Calculate new position
 	if (ft_game()->ctl.move.x != 0 || ft_game()->ctl.move.y != 0)
 		player_walk();
-	// reset values
 	ft_game()->ctl.mv_angle = 0;
-	// ft_game()->ctl.move.x = 0;
-	// ft_game()->ctl.move.y = 0;
-	// run raycasting
 	raycasting();
-	// ft_game()->update = 0;
 	draw_minimap(0, 0);
 	return (0);
 }

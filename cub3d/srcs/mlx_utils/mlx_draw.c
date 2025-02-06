@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_draw.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 12:38:48 by fandre-b          #+#    #+#             */
+/*   Updated: 2025/02/06 12:38:48 by fandre-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	draw_minimap(int offset_x, int offset_y)
 {
+	int		i;
+	int		j;
 	t_coord	player_pos;
 	t_coord	curr_pos;
-	int i;
-	int j;
 
 	(void)offset_x;
 	(void)offset_y;
@@ -42,9 +54,7 @@ void	draw_minimap(int offset_x, int offset_y)
 	}
 	//draw pov left and right rays
 	// flood fill the map encapulated by the rays
-	
 }
-
 
 void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 {
@@ -98,7 +108,6 @@ void	draw_walls(t_game *game)
 		i++;
 	}
 }
-
 
 void	draw_solid_line(int x, int start, int end, int color)
 {

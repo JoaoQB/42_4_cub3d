@@ -54,12 +54,11 @@ void	my_pixel_put(t_image *img, int x, int y, int colour)
 	*(unsigned int *)(img->addr + offset) = colour;
 }
 
-
 int	get_colour(const char *str)
 {
 	int		colour;
 	char	**rgb;
-	int 	i;
+	int		i;
 
 	colour = 0;
 	while (*str && ft_isspaces(*str))

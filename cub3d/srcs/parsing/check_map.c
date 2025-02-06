@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/04 18:52:13 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:55:35 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ bool	validate_position(int y, int x)
 	return (true);
 }
 
+//TODO rename
 bool	is_valid(int y, int x, char *valid_str)
-{ //TODO rename
+{
 	if (is_out_of_bounds(x, y))
 		return (true);
 	if (ft_game()->map[y][x] == '\0')
@@ -69,22 +70,11 @@ void	check_textures(t_game *game)
 
 	if (!game)
 		return ;
-	// print_all_textures(game);
 	y = 0;
 	while (y < TEXTURE_SIZE && game->texture[y] != NULL)
-	{
-		// printf("%d\n", y);
-		// printf("Texture pointer: %p\n", (void *)game->texture[y]);
 		y++;
-	}
-	// printf("Final y value: %d\n", y);
 	if (y < 6)
-	{
-		// printf("Y: %d, TEXTURE_SIZE: %d\n", y, TEXTURE_SIZE);
 		return (ft_print_error("File: Textures not loaded"));
-	}
 	if (!game->door || !game->door->image_data)
-	{
 		return (ft_print_error("File1: Door texture not loaded"));
-	}
 }

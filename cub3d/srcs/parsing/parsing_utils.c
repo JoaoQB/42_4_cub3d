@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/04 18:49:44 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:54:44 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ bool	get_player_direction(int y, int x)
 }
 
 void	export_textures(t_texture *texture)
-{ //TODO See if space in INIT
-	// texture = ft_game()->texture;
+{
 	if (texture)
 	{
 		texture->image_data = xpm_to_binary(texture->image_path);

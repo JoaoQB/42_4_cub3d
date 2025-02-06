@@ -17,7 +17,7 @@ bool	is_door_valid(char **map, int y, int x)
 	if (!map)
 		return (false);
 	if (is_out_of_bounds(x, y))
-			return (false);
+		return (false);
 	if (is_out_of_bounds(x - 1, y) || is_out_of_bounds(x + 1, y)
 		|| is_out_of_bounds(x, y - 1) || is_out_of_bounds(x, y + 1))
 		return (false);
@@ -57,7 +57,7 @@ void	door_switch(t_game *game)
 	toggle = !toggle;
 	if (!toggle)
 		return ;
-	game->ray.id = (WIDTH / 2) -1;
+	game->ray.id = (WIDTH / 2) - 1;
 	cast_ray(game, &game->ray, "DC1");
 	x = game->ray.grid_x;
 	y = game->ray.grid_y;

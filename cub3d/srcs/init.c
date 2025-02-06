@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/04 15:30:49 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:52:10 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	init_control(void)
 	ft_game()->ctl.fade = FADE_VALUE;
 	ft_game()->ctl.pos.y = -1;
 	ft_game()->ctl.pos.x = -1;
+	ft_game()->ctl.angle = UNKNOWN;
 	// ft_game()->ctl.dir_angle = ft_game()->ctl.angle;
 }
 
