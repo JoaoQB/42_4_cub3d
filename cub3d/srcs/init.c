@@ -55,6 +55,30 @@ void	init_parsing(char *file_path)
 	check_map(ft_game()->map);
 }
 
+void	init_ray(t_game *game)
+{
+	t_ray	*ray;
+
+	if (!game)
+		return ;
+	ray = &game->ray;
+	ray->cam.fov = FOV;
+	ray->cam.hfov = ray->cam.fov / 2;
+	ray->cam.width = WIDTH;
+	ray->cam.height = HEIGHT;
+	ray->cam.pos.x = game->ctl.pos.x;
+	ray->cam.pos.y = game->ctl.pos.y;
+	ray->cam.dir.x = get_cosine(game->ctl.dir_angle);
+	ray->cam.dir.y = -get_sine(game->ctl.dir_angle);
+	ray->cam.width = WIDTH;
+	ray->cam.height = HEIGHT;
+	ray->cam.hwidth = ray->cam.width / 2;
+	ray->cam.h_height = ray->cam.height / 2;
+	ray->cam.map_width = game->map_width;
+	ray->cam.map_height = game->map_height;
+	// print_ray(ray);
+}
+
 void	init_control(void)
 {
 	// t_control	ctl;
@@ -69,14 +93,30 @@ void	init_control(void)
 	// ft_game()->ctl.dir_angle = ft_game()->ctl.angle;
 }
 
-void	init_game(char *file_path)
+void	init_texture(t_game *game)
 {
-	init_control();
-	init_parsing(file_path);
-	init_mlx();
-	init_texture(ft_game());
-	export_textures();
+	int	i;
+
+	if (!game)
+		return ;
+	i = -1;
+	while (++i < WIDTH)
+		game->ray.walls[i].texture = NULL;
+	i = -1;
+	while (++i < TEXTURE_SIZE)
+		export_textures(ft_game()->texture[i]);
 	// print_all_textures(ft_game());
+	game->door = (t_texture *)my_calloc(1, sizeof(t_texture));
+	game->door->image_path = ft_strdup("./includes/textures/wall_tiles.xpm");
+	game->door->image_name = ft_strdup("DOOR");
+	export_textures(game->door);
+	// game->door->image_data = xpm_to_binary(game->door->image_path);
+	// if (game->door->image_data == NULL)
+	// {
+	// 	game->door->colour = get_colour(game->door->image_path);
+	// 	if (game->door->colour == -1)
+	// 		ft_print_error("File: Failed to load image or colour\n");
+	// }
 	check_textures(ft_game());
-	init_ray(ft_game());
+	return ;
 }

@@ -12,19 +12,6 @@
 
 #include "cub3d.h"
 
-int	mouse_moved(int x, int y, void *param)
-{
-	static int	last_x;
-	int			diff_x;
-
-	(void) param;
-	(void) y;
-	diff_x = x - last_x;
-	ft_game()->ctl.mv_angle -= diff_x;
-	last_x = x;
-	ft_game()->update = 1;
-	return (0);
-}
 
 t_coord	get_coord(t_coord ref)
 {
@@ -41,6 +28,20 @@ t_coord	get_coord(t_coord ref)
 	else
 		rounded.y = (int) round(cam->pos.y);
 	return (rounded);
+}
+
+int	mouse_moved(int x, int y, void *param)
+{
+	static int	last_x;
+	int			diff_x;
+
+	(void) param;
+	(void) y;
+	diff_x = x - last_x;
+	ft_game()->ctl.mv_angle -= diff_x;
+	last_x = x;
+	ft_game()->update = 1;
+	return (0);
 }
 
 void	player_walk(void)

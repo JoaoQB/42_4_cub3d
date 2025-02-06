@@ -38,27 +38,62 @@ char	*file_to_str(char *file_name)
 	return (file_str);
 }
 
-// BONUS CHANGE ADDED D
-bool	validate_position(int y, int x)
+t_direction	get_direction_struct(const char *str)
 {
-	if (ft_strchr("1", ft_game()->map[y][x]))
+	while (*str && ft_isspaces(*str))
+		str++;
+	if (ft_startswith(str, "NO") == 0)
+		return (NORTH);
+	if (ft_startswith(str, "SO") == 0)
+		return (SOUTH);
+	if (ft_startswith(str, "EA") == 0)
+		return (EAST);
+	if (ft_startswith(str, "WE") == 0)
+		return (WEST);
+	if (ft_startswith(str, "F") == 0)
+		return (FLOOR);
+	if (ft_startswith(str, "C") == 0)
+		return (CEIL);
+	return (UNKNOWN);
+}
+
+bool	get_player_direction(int y, int x)
+{
+	char	c;
+
+	c = ft_game()->map[y][x];
+	if (!ft_strchr("NWES", c))
 		return (true);
-	if (is_valid(y - 1, x, "") || is_valid(y + 1, x, ""))
+	if (ft_game()->ctl.angle != UNKNOWN)
 		return (false);
-	if (is_valid(y, x - 1, "") || is_valid(y, x + 1, ""))
-		return (false);
+	else if (c == 'N')
+		ft_game()->ctl.angle = NORTH;
+	else if (c == 'S')
+		ft_game()->ctl.angle = SOUTH;
+	else if (c == 'E')
+		ft_game()->ctl.angle = EAST;
+	else if (c == 'W')
+		ft_game()->ctl.angle = WEST;
+	else
+		ft_print_error("Invalid player direction");
+	ft_game()->ctl.pos.x = x + 0.5;
+	ft_game()->ctl.pos.y = y + 0.5;
 	return (true);
 }
 
-bool	is_valid(int y, int x, char *valid_str)
-{
-	if (x < 0 || x >= ft_game()->map_width)
-		return (true);
-	if (y < 0 || y >= ft_game()->map_height)
-		return (true);
-	if (ft_game()->map[y][x] == '\0')
-		return (true);
-	if (ft_strchr(valid_str, ft_game()->map[y][x]))
-		return (true);
-	return (false);
+void	export_textures(t_texture *texture)
+{ //TODO See if space in INIT
+	// texture = ft_game()->texture;
+	if (texture)
+	{
+		texture->image_data = xpm_to_binary(texture->image_path);
+		if (texture->image_data == NULL)
+		{
+			texture->colour = get_colour(texture->image_path);
+			if (texture->colour == -1)
+				ft_print_error("File: Failed to load image or colour\n");
+		}
+	}
+	else
+		ft_print_error("File: Failed to load image or colour\n");
 }

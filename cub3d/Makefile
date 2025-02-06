@@ -36,28 +36,25 @@ VALGRIND = --leak-chek=full --show-leak-kinds=all --track-origin=yes --track-fds
 MLX_LIB	= $(MLX)/libmlx_Linux.a
 MLX_LNK	= -L$(MLX) -lmlx -lXext -lX11 -lm -lz
 
-SRCS := main.c \
-		init.c \
-		init_utils.c \
-		ft_free.c \
-		mlx_utils/mlx_control.c \
-		mlx_utils/mlx_keys.c \
-		mlx_utils/mlx_init.c \
-		mlx_utils/mlx_utils.c \
-		mlx_utils/mlx_door.c \
-		parsing/check_map.c \
-		parsing/parsing_utils.c \
-		raycasting/draw_utils.c \
-		raycasting/raycasting.c \
-		raycasting/raycasting_debug.c \
-		raycasting/raycasting_init.c \
-		raycasting/raycasting_trign_utils.c \
+SRCS := init.c \
+		main.c \
 		raycasting/raycasting_utils.c \
-		raycasting/texture_init.c \
+		raycasting/raycasting.c \
+		parsing/parser.c \
+		parsing/parsing_utils.c \
+		parsing/check_map.c \
+		debug.c \
+		ft_free.c \
 		utils/utils.c \
-		utils/utils_str.c \
+		utils/raycasting_trign_utils.c \
 		utils/utils_str_2.c \
 		utils/utils_alloc.c \
+		utils/utils_str.c \
+		mlx_utils/mlx_door.c \
+		mlx_utils/mlx_utils.c \
+		mlx_utils/mlx_control.c \
+		mlx_utils/mlx_ui.c \
+		mlx_utils/mlx_draw.c \
 
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
 # OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c \=.o))

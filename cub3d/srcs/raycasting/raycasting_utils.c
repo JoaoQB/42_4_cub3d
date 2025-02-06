@@ -17,7 +17,9 @@ bool	is_out_of_bounds(int x, int y)
 	t_game	*game;
 
 	game = ft_game();
-	if (x < 0 || y < 0 || x >= game->map_width || y >= game->map_height)
+	if (x < 0 || x >= game->map_width)
+		return (true);
+	if (y < 0 || y >= game->map_height)
 		return (true);
 	return (false);
 }

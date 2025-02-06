@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static bool	is_door_valid(char **map, int y, int x)
+bool	is_door_valid(char **map, int y, int x)
 {
 	if (!map)
 		return (false);

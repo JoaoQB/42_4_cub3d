@@ -55,11 +55,6 @@ void	free_mlx(t_mlx **mlx_ptr)
 	}
 }
 
-// void	free_array(char **array_ptr)
-// {
-
-// }
-
 void	free_frases(char **array_ptr)
 {
 	int		i;

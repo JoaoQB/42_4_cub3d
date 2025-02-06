@@ -62,7 +62,7 @@ static void	aim_ray(t_ray *ray)
 	// debug_aim(ray);
 }
 
-static void	calculate_wall_info(t_game *game, t_ray *ray)
+void	calculate_wall_info(t_game *game, t_ray *ray)
 {
 	t_wall	*wall;
 
