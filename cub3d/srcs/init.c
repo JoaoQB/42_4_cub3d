@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 15:24:53 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:38:28 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,11 @@ void	init_mlx(void)
 	&mlx->img.len_line, &mlx->img.endian);
 	if (!mlx->img.img || !mlx->img.addr || !mlx->win)
 		ft_print_error("MLX: not properly initialized");
-	///// Triggered when the mouse is moved.
 	mlx_hook(ft_game()->mlx->win, 6, 1L << 6, mouse_moved, NULL);
-	///// Triggered cross exit is pressed
 	mlx_hook(ft_game()->mlx->win, 17, 0, handle_close, NULL);
-	///// Triggered when a key is pressed.
 	mlx_hook(ft_game()->mlx->win, 2, 1L << 0, key_press, NULL);
-	// Triggered when a key is released.
 	mlx_hook(ft_game()->mlx->win, 3, 1L << 1, key_release, NULL);
-	///// Triggered when a mouse button is pressed.
 	mlx_hook(ft_game()->mlx->win, 4, 1L << 2, handle_mouse, NULL);
-	// Triggered when a mouse button is released.
 	mlx_hook(ft_game()->mlx->win, 5, 1L << 3, handle_mouse, NULL);
 }
 
@@ -72,25 +66,16 @@ void	init_ray(t_game *game)
 	ray->cam.dir.y = -get_sine(game->ctl.dir_angle);
 	ray->cam.width = WIDTH;
 	ray->cam.height = HEIGHT;
-	// ray->cam.hwidth = ray->cam.width / 2;
 	ray->cam.h_height = ray->cam.height / 2;
-	// ray->cam.map_width = game->map_width;
-	// ray->cam.map_height = game->map_height;
-	// print_ray(ray);
 }
 
 void	init_control(void)
 {
-	// t_control	ctl;
-
-	// ctl =
-	// if (ft_game()->ctl.move_speed > 1)
 	ft_game()->ctl.mv_speed = (1.0 / UNIT_SIZE) * MOVE_SPEED;
 	ft_game()->ctl.rot_speed = ROTATION_SPEED;
 	ft_game()->ctl.pos.y = -1;
 	ft_game()->ctl.pos.x = -1;
 	ft_game()->ctl.angle = UNKNOWN;
-	// ft_game()->ctl.dir_angle = ft_game()->ctl.angle;
 }
 
 void	init_texture(t_game *game)
@@ -105,18 +90,10 @@ void	init_texture(t_game *game)
 	i = -1;
 	while (++i < TEXTURE_SIZE)
 		export_textures(ft_game()->texture[i]);
-	// print_all_textures(ft_game());
 	game->door = (t_texture *)my_calloc(1, sizeof(t_texture));
 	game->door->image_path = ft_strdup("./includes/textures/wall_tiles.xpm");
 	game->door->image_name = ft_strdup("DOOR");
 	export_textures(game->door);
-	// game->door->image_data = xpm_to_binary(game->door->image_path);
-	// if (game->door->image_data == NULL)
-	// {
-	// 	game->door->colour = get_colour(game->door->image_path);
-	// 	if (game->door->colour == -1)
-	// 		ft_print_error("File: Failed to load image or colour\n");
-	// }
 	check_textures(ft_game());
 	return ;
 }

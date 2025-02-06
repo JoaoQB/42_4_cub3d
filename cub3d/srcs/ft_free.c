@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:49:36 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/05 10:42:48 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:33:08 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ void	free_map(char ***map_ptr)
 
 void	free_game(void)
 {
-	int	i;
-
+	int		i;
 	t_game	*game_s;
 
 	game_s = ft_game();
@@ -107,17 +106,14 @@ void	free_game(void)
 			free_texture(game_s->door);
 			game_s->door = NULL;
 		}
-		i = 0;
-		while (game_s->texture[i] != NULL && i < TEXTURE_SIZE)
+		i = -1;
+		while (game_s->texture[++i] != NULL && i < TEXTURE_SIZE)
 		{
 			if (game_s->texture[i])
 			{
-				// printf("%d\n", i);
-				// printf("Freeing texture pointer: %p\n", (void *)game_s->texture[i]);
 				free_texture(game_s->texture[i]);
 				game_s->texture[i] = NULL;
 			}
-			i++;
 		}
 		if (game_s->mlx)
 			free_mlx(&game_s->mlx);

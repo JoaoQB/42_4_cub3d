@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:57:24 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:40:28 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-// Keeping debug logs for now
 static void	start_ray(t_ray *ray, int ray_id)
 {
 	if (!ray)
@@ -33,7 +32,6 @@ static void	start_ray(t_ray *ray, int ray_id)
 	else
 		ray->next.y = fabs(1 / ray->dir.y);
 }
-	// debug_start(ray);
 
 static void	aim_ray(t_ray *ray)
 {
@@ -60,7 +58,6 @@ static void	aim_ray(t_ray *ray)
 		ray->delta.y = (ray->grid_y + 1.0 - ray->cam.pos.y) * ray->next.y;
 	}
 }
-	// debug_aim(ray);
 
 void	calculate_wall_info(t_game *game, t_ray *ray)
 {
@@ -83,14 +80,12 @@ void	calculate_wall_info(t_game *game, t_ray *ray)
 	wall->bottom = game->ray.cam.h_height + wall->half_height;
 	if (wall->bottom >= HEIGHT)
 		wall->bottom = HEIGHT - 1;
-	// BONUS
 	if (game->map[(int)ray->grid_y][(int)ray->grid_x] == 'D')
 		wall->texture = game->door;
 	else
 		wall->texture = game->texture[wall->dir];
 	wall->tex_x = get_texture_x(ray, wall);
 }
-	// debug_wall_info(ray, wall);
 
 void	cast_ray(t_game*game, t_ray *ray, char *str_block)
 {
@@ -114,8 +109,6 @@ void	cast_ray(t_game*game, t_ray *ray, char *str_block)
 		}
 		if (is_out_of_bounds(ray->grid_x, ray->grid_y))
 			break ;
-		// if (game->map[(int)ray->grid_y][(int)ray->grid_x] == '1'
-			// || game->map[(int)ray->grid_y][(int)ray->grid_x] == 'D') // BONUS
 		if (is_valid(ray->grid_y, ray->grid_x, str_block))
 			ray->hit = 1;
 	}
