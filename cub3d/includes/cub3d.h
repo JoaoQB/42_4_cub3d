@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 16:00:46 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:07:08 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 # define CUB3D_H
 
 # include "minilibx-linux/mlx.h"
-# include <stdint.h> // Define integer types, limits, macros
 # include <stdlib.h> // Memory allocation
 # include <stdio.h> // Standard input and output, perror function / Debugging
 # include <math.h> // math functions, including fabs for modulus
-# include <unistd.h> // System calls
 # include <stdbool.h> // Booleans
-# include <string.h> //TODO make my own string functions
 # include <fcntl.h>
 # include <unistd.h> // For close function
-# include <linux/limits.h> //debug
-# include <time.h> //debug
 # include <errno.h> //debug
 
 //math const
