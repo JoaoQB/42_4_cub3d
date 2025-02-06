@@ -2,8 +2,8 @@ EA ./includes/textures/water_texture2.xpm
 NO ./includes/textures/water_texture.xpm
 WE ./includes/textures/wall_blackhole.xpm
 SO ./includes/textures/wall_gold_energy.xpm
-F 220,50,0
-C 0,0,250
+F 0,0,0
+C 173,216,230
 
 111111111111111
 100000000000001
