@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   utils_alloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:29:42 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/04 17:35:28 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:00:04 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		*((char *)s + i) = c;
+		i++;
+	}
+	return (s);
+}
 
 char	*ft_strdup(char *str)
 {
@@ -77,6 +90,6 @@ void	*my_calloc(int num, int size)
 	ptr = malloc(num * size);
 	if (!ptr)
 		return (NULL);
-	memset(ptr, 0, num * size);
+	ft_memset(ptr, 0, num * size);
 	return (ptr);
 }

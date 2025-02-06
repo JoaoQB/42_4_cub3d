@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 15:50:28 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:00:46 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,6 +301,7 @@ int			ft_startswith(const char *s1, const char *s2);
 
 //////// MEMORY ////////
 
+void		*ft_memset(void *s, int c, size_t n);
 void		*my_calloc(int num, int size);
 char		*ft_strdup(char *str);
 char		*ft_strnjoin(char *old_str, char *str_add, int size);

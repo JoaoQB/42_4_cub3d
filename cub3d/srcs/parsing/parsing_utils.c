@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:54:44 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:00:00 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*file_to_str(char *file_name)
 	file_str = NULL;
 	while (bytes > 0)
 	{
-		memset(read_str, 0, 100);
+		ft_memset(read_str, 0, 100);
 		bytes = read(fd, read_str, 99);
 		if (bytes == -1)
 			return (free(file_str), NULL);
