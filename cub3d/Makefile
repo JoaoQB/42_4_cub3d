@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2025/02/05 10:20:59 by jqueijo-         ###   ########.fr        #
+#    Updated: 2025/02/06 14:27:21 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,25 +36,25 @@ VALGRIND = --leak-chek=full --show-leak-kinds=all --track-origin=yes --track-fds
 MLX_LIB	= $(MLX)/libmlx_Linux.a
 MLX_LNK	= -L$(MLX) -lmlx -lXext -lX11 -lm -lz
 
-SRCS := init.c \
-		main.c \
-		raycasting/raycasting_utils.c \
-		raycasting/raycasting.c \
-		parsing/parser.c \
-		parsing/parsing_utils.c \
-		parsing/check_map.c \
-		debug.c \
+SRCS := main.c \
 		ft_free.c \
-		utils/utils.c \
-		utils/raycasting_trign_utils.c \
-		utils/utils_str_2.c \
-		utils/utils_alloc.c \
-		utils/utils_str.c \
+		init.c \
 		mlx_utils/mlx_door.c \
 		mlx_utils/mlx_utils.c \
 		mlx_utils/mlx_control.c \
 		mlx_utils/mlx_ui.c \
 		mlx_utils/mlx_draw.c \
+		parsing/check_map.c \
+		parsing/parser.c \
+		parsing/parsing_utils.c \
+		raycasting/raycasting_utils.c \
+		raycasting/raycasting.c \
+		utils/raycasting_trign_utils.c \
+		utils/utils_alloc.c \
+		utils/utils_str_2.c \
+		utils/utils_str.c \
+		utils/utils.c \
+		# debug.c \#
 
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
 # OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c \=.o))
