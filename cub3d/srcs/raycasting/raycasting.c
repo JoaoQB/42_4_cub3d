@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/04 14:34:22 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:57:24 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	start_ray(t_ray *ray, int ray_id)
 		ray->next.y = 1e30;
 	else
 		ray->next.y = fabs(1 / ray->dir.y);
-	// debug_start(ray);
 }
+	// debug_start(ray);
 
 static void	aim_ray(t_ray *ray)
 {
@@ -59,8 +59,8 @@ static void	aim_ray(t_ray *ray)
 		ray->step.y = 1;
 		ray->delta.y = (ray->grid_y + 1.0 - ray->cam.pos.y) * ray->next.y;
 	}
-	// debug_aim(ray);
 }
+	// debug_aim(ray);
 
 void	calculate_wall_info(t_game *game, t_ray *ray)
 {
@@ -89,8 +89,8 @@ void	calculate_wall_info(t_game *game, t_ray *ray)
 	else
 		wall->texture = game->texture[wall->dir];
 	wall->tex_x = get_texture_x(ray, wall);
-	// debug_wall_info(ray, wall);
 }
+	// debug_wall_info(ray, wall);
 
 void	cast_ray(t_game*game, t_ray *ray, char *str_block)
 {
@@ -113,17 +113,11 @@ void	cast_ray(t_game*game, t_ray *ray, char *str_block)
 			ray->side = 1;
 		}
 		if (is_out_of_bounds(ray->grid_x, ray->grid_y))
-		{
-			// debug_cast(ray);
 			break ;
-		}
 		// if (game->map[(int)ray->grid_y][(int)ray->grid_x] == '1'
 			// || game->map[(int)ray->grid_y][(int)ray->grid_x] == 'D') // BONUS
 		if (is_valid(ray->grid_y, ray->grid_x, str_block))
-		{
-			// debug_cast(ray);
 			ray->hit = 1;
-		}
 	}
 	calculate_wall_info(game, ray);
 }
