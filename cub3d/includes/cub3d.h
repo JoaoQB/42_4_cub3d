@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 15:29:46 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:50:28 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,10 +214,13 @@ t_image		*xpm_to_binary(char *image_path);
 
 ////// Drawing ////// DONE
 
-void		draw_minimap(int offset_x, int offset_y);
 void		draw_solid_line(int x, int start, int end, int color);
 void		draw_text_line(t_game *game, t_wall *wall, t_image *data, int x);
 void		draw_walls(t_game *game);
+
+////// Minimap ////// DONE
+
+void		draw_minimap(void);
 
 ///----------------------------------------------
 

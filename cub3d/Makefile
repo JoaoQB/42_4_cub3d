@@ -6,7 +6,7 @@
 #    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2025/02/06 14:27:21 by jqueijo-         ###   ########.fr        #
+#    Updated: 2025/02/06 15:51:18 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRCS := init.c \
 		mlx_utils/mlx_control.c \
 		mlx_utils/mlx_ui.c \
 		mlx_utils/mlx_draw.c \
+		mlx_utils/mlx_minimap.c
 
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
 # OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c \=.o))
