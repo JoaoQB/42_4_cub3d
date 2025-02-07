@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 16:07:08 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/07 19:44:59 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define FOV 60
 // Control variables
 # define COLISION 0.2 //0-0.5
-# define MOVE_SPEED 0.10 //0-1
+# define MOVE_SPEED 0.5 //0-1
 # define ROTATION_SPEED 1 //~2
 # define SCALE 2
 # define MINIMAP_SCALE 0.2
@@ -291,7 +291,7 @@ char		*ft_strcat(char *dest, const char *src);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 char		*ft_strchr(char *s, int c);
 int			ft_strcmp(const char *s1, const char *s2);
-char		*str_trim_and_free(char *str);
+char		*ft_strtrim(char *str, char *trim_str);
 int			ft_startswith(const char *s1, const char *s2);
 
 //////// MEMORY ////////
@@ -318,7 +318,7 @@ int			ft_wordcount(const char *str, char c);
 ////// Game UTILS //////
 
 void		ft_putstr_fd(char *str, int fd);
-void		ft_print_error(char *str);
+void		ft_print_err(char *str);
 bool		is_out_of_bounds(int x, int y);
 bool		is_valid(int y, int x, char *valid_str);
 
@@ -332,5 +332,9 @@ void		debug_cast(t_ray *ray);
 void		print_texture_info(t_texture *texture, int index);
 void		print_all_textures(t_game *game);
 void		print_map(char **double_array);
+
+char **ft_split(char *str, char c);
+bool	is_empty_line(char *line);
+
 
 #endif

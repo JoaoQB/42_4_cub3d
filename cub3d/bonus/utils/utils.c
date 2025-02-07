@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 12:20:34 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/06 16:52:24 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:12:06 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_atoi(const char *nptr)
 	return (res * sign);
 }
 
-void	ft_print_error(char *str)
+void	ft_print_err(char *str)
 {
 	ft_putstr_fd("\n\nError: ", 2);
 	ft_putstr_fd(str, 2);

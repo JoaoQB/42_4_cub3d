@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_door.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 15:05:53 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/04 15:26:29 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:12:06 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_doors(t_game *game, char **map)
 		{
 			if (map[y][x] == 'D' || map[y][x] == 'C')
 				if (!is_door_valid(map, y, x))
-					return (ft_print_error("Invalid door position"));
+					return (ft_print_err("Invalid door position"));
 		}
 	}
 }

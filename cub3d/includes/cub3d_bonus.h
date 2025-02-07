@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 16:52:46 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:12:06 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,7 @@ char		*ft_strcat(char *dest, const char *src);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 char		*ft_strchr(char *s, int c);
 int			ft_strcmp(const char *s1, const char *s2);
-char		*str_trim_and_free(char *str);
+char		*ft_strtrim(char *str);
 int			ft_startswith(const char *s1, const char *s2);
 
 //////// MEMORY ////////
@@ -318,7 +318,7 @@ int			ft_wordcount(const char *str, char c);
 ////// Game UTILS //////
 
 void		ft_putstr_fd(char *str, int fd);
-void		ft_print_error(char *str);
+void		ft_print_err(char *str);
 bool		is_out_of_bounds(int x, int y);
 bool		is_valid(int y, int x, char *valid_str);
 

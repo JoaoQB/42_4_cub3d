@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 15:38:28 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:39:33 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	init_mlx(void)
 	mlx = ft_game()->mlx;
 	mlx->mlx = mlx_init();
 	if (!mlx->mlx)
-		ft_print_error("MLX: not properly initialized");
+		ft_print_err("MLX: not properly initialized");
 	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "Cub3D");
 	mlx->img.img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bpp, \
 	&mlx->img.len_line, &mlx->img.endian);
 	if (!mlx->img.img || !mlx->img.addr || !mlx->win)
-		ft_print_error("MLX: not properly initialized");
+		ft_print_err("MLX: not properly initialized");
 	mlx_hook(ft_game()->mlx->win, 6, 1L << 6, mouse_moved, NULL);
 	mlx_hook(ft_game()->mlx->win, 17, 0, handle_close, NULL);
 	mlx_hook(ft_game()->mlx->win, 2, 1L << 0, key_press, NULL);

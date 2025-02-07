@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 16:52:03 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:12:06 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*file_to_str(char *file_name)
 
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		ft_print_error("Error opening file");
+		ft_print_err("Error opening file");
 	bytes = 1;
 	file_str = NULL;
 	while (bytes > 0)
@@ -75,7 +75,7 @@ bool	get_player_direction(int y, int x)
 	else if (c == 'W')
 		ft_game()->ctl.angle = WEST;
 	else
-		ft_print_error("Invalid player direction");
+		ft_print_err("Invalid player direction");
 	ft_game()->ctl.pos.x = x + 0.5;
 	ft_game()->ctl.pos.y = y + 0.5;
 	return (true);
@@ -90,9 +90,9 @@ void	export_textures(t_texture *texture)
 		{
 			texture->colour = get_colour(texture->image_path);
 			if (texture->colour == -1)
-				ft_print_error("File: Failed to load image or colour\n");
+				ft_print_err("File: Failed to load image or colour\n");
 		}
 	}
 	else
-		ft_print_error("File: Failed to load image or colour\n");
+		ft_print_err("File: Failed to load image or colour\n");
 }

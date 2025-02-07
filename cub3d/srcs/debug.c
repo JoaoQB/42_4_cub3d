@@ -137,7 +137,11 @@ void	print_map(char **double_array)
 	int	i;
 
 	i = -1;
+	ft_putstr_fd("\nDEBUG: Map Information\n", 1);
 	while (double_array[++i])
+	{
 		ft_putstr_fd(double_array[i], 1);
-	ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", 1);
+	}
+	ft_putstr_fd("------------------", 1);
 }

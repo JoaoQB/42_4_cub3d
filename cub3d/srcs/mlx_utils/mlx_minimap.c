@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_minimap.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:49:52 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 15:56:33 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:42:02 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	draw_minimap_pixel(int i, int j, t_coord player_pos)
 {
 	if (j == 0 || i == 0 || j == 160 || i == 160)
 		my_pixel_put(&ft_game()->mlx->img, i, j, BLACK_COLOR);
-	else if (is_valid(player_pos.y, player_pos.x, "\n\0"))
+	else if (is_valid(player_pos.y, player_pos.x, " \t\n\r\v\f\0"))
 		my_pixel_put(&ft_game()->mlx->img, i, j, GREY_COLOR);
 	else if (is_valid(player_pos.y, player_pos.x, "1"))
 		my_pixel_put(&ft_game()->mlx->img, i, j, BLUE_COLOR);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/06 16:51:54 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:13:33 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	check_map(char **map)
 
 	game = ft_game();
 	if (map == NULL || game->map_height == 0)
-		return (ft_print_error("File: No map found"));
+		return (ft_print_err("File: No map found"));
 	y = -1;
 	while (++y < game->map_height)
 	{
@@ -52,15 +52,15 @@ void	check_map(char **map)
 		while (++x < game->map_width && map[y][x] != '\n' && map[y][x] != '\0')
 		{
 			if (!ft_strchr("10NWESDC", map[y][x]))
-				ft_print_error("Map: Invalid character in map");
+				ft_print_err("Map: Invalid character in map");
 			if (!validate_position(y, x))
-				ft_print_error("Map: Of map encapsulation");
+				ft_print_err("Map: Of map encapsulation");
 			if (!get_player_direction(y, x))
-				ft_print_error("Map: Repeated player pos");
+				ft_print_err("Map: Repeated player pos");
 		}
 	}
 	if (is_valid(game->ctl.pos.y, game->ctl.pos.x, ""))
-		ft_print_error("Map: No player position found");
+		ft_print_err("Map: No player position found");
 	check_doors(game, map);
 }
 
@@ -74,7 +74,7 @@ void	check_textures(t_game *game)
 	while (y < TEXTURE_SIZE && game->texture[y] != NULL)
 		y++;
 	if (y < 6)
-		return (ft_print_error("File: Textures not loaded"));
+		return (ft_print_err("File: Textures not loaded"));
 	if (!game->door || !game->door->image_data)
-		return (ft_print_error("File1: Door texture not loaded"));
+		return (ft_print_err("File: Door texture not loaded"));
 }

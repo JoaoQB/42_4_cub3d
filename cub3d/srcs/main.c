@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:52 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 17:31:29 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:12:06 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int nft_wordcount(char *str, char c)
 {
 	int words;
 	
-	words = 0;
+	if (!str)
+		return (0);
+	words = 1;
 	while (*str)
 	{
 		// printf("words %s\n", str);
@@ -41,12 +43,16 @@ int nft_wordcount(char *str, char c)
 			str++;
 		while (*str && *str != c)
 			str++;
-		words++;
+		if (*str && *str == c)
+		{
+			words++;
+			str++;
+		}
 	}
 	return words;
 }
 
-char **ft_nsplit(char *str, char c)
+char **ft_split(char *str, char c)
 {
 	char	**map;
 	int		i;
@@ -65,7 +71,6 @@ char **ft_nsplit(char *str, char c)
 		str += i;
 		if (*str && *str == c)
 			str++;
-		printf("string: %s\n", map[j]);
 	}
 	return (map);
 }
@@ -73,7 +78,7 @@ char **ft_nsplit(char *str, char c)
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
-		ft_print_error("Please run ./cub3d <file_path.cub> ");
+		ft_print_err("Please run ./cub3d <file_path.cub> ");
 	init_game(argv[1]);
 	mlx_loop_hook(ft_game()->mlx->mlx, render, NULL);
 	mlx_loop(ft_game()->mlx->mlx);
