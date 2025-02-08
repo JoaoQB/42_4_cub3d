@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/08 11:18:11 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:25:26 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	check_map(char **map)
 
 	game = ft_game();
 	y = -1;
-	print_map(map);
 	while (++y < game->map_height)
 	{
 		if (y > 0 && is_empty_line(map[y]))

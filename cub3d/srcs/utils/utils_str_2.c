@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 20:45:22 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/08 11:18:32 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:25:06 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char	*ft_strtrim(char *str, char *trim_str)
 	while (end > start && (ft_strchr(trim_str, *end)))
 		end--;
 	len = end - start + 2;
-	printf("TRIMMING TO SIZED: %ld\n", len);
 	result = (char *)my_calloc(len + 1, sizeof(char));
 	if (!result)
 		return (free(str), NULL);

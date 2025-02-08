@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/08 13:14:38 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:45:40 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define MAX_ANGLE 360
 
 // Map Size
-# define WIDTH 800
+# define WIDTH 1280
 # define HEIGHT 800
 // Dimentions variables
 # define UNIT_SIZE 16

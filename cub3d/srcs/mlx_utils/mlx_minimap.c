@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:49:52 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/07 12:42:02 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:23:18 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ static void	draw_minimap_pixel(int i, int j, t_coord player_pos)
 		my_pixel_put(&ft_game()->mlx->img, i, j, WHITE_COLOR);
 }
 
-static void	draw_player(void)
-{
-	int	px;
-	int	py;
+// static void	draw_player(void)
+// {
+// 	int	px;
+// 	int	py;
 
-	px = 80;
-	py = 80;
-	my_pixel_put(&ft_game()->mlx->img, px, py, RED_COLOR);
-	my_pixel_put(&ft_game()->mlx->img, px + 1, py, RED_COLOR);
-	my_pixel_put(&ft_game()->mlx->img, px - 1, py, RED_COLOR);
-	my_pixel_put(&ft_game()->mlx->img, px, py + 1, RED_COLOR);
-	my_pixel_put(&ft_game()->mlx->img, px, py - 1, RED_COLOR);
-}
+// 	px = 80;
+// 	py = 80;
+// 	my_pixel_put(&ft_game()->mlx->img, px, py, RED_COLOR);
+// 	my_pixel_put(&ft_game()->mlx->img, px + 1, py, RED_COLOR);
+// 	my_pixel_put(&ft_game()->mlx->img, px - 1, py, RED_COLOR);
+// 	my_pixel_put(&ft_game()->mlx->img, px, py + 1, RED_COLOR);
+// 	my_pixel_put(&ft_game()->mlx->img, px, py - 1, RED_COLOR);
+// }
 
 void	draw_minimap(void)
 {
@@ -48,7 +48,7 @@ void	draw_minimap(void)
 	int		j;
 	t_coord	curr_pos;
 	t_coord	player_pos;
-
+	
 	curr_pos = ft_game()->ray.cam.pos;
 	i = -1;
 	while (++i <= 160)
@@ -58,8 +58,10 @@ void	draw_minimap(void)
 		while (++j <= 160)
 		{
 			player_pos.y = curr_pos.y - 5.0 + j * 10.0 / 160;
-			draw_minimap_pixel(i, j, player_pos);
+			if (i > 75 && i < 85 && j > 75 && j < 85)
+				my_pixel_put(&ft_game()->mlx->img, i, j, RED_COLOR);
+			else
+				draw_minimap_pixel(i, j, player_pos);
 		}
 	}
-	draw_player();
 }

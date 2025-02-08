@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/07 20:13:41 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:27:28 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	export_textures(t_texture *texture)
 		texture->image_data = xpm_to_binary(texture->image_path);
 		if (texture->image_data == NULL)
 		{
-			printf("texture->image_path = %s\n", texture->image_path);
 			texture->colour = get_colour(texture->image_path);
 			if (texture->colour == -1)
 				ft_print_err("File: Failed to load image or colour\n");
