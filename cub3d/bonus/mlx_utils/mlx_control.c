@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/06 16:51:33 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/08 12:52:15 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	render(void)
 	if (ft_game()->ctl.move.x != 0 || ft_game()->ctl.move.y != 0)
 		player_walk();
 	ft_game()->ctl.mv_angle = 0;
+	ft_game()->ctl.move.x += -ft_game()->ctl.move.x;
+	ft_game()->ctl.move.y += -ft_game()->ctl.move.y;
 	raycasting();
 	draw_minimap();
 	return (0);

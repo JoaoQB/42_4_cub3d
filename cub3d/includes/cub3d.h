@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/08 12:24:54 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/08 13:14:38 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef enum KEY
 	KEY_Q = 113,
 	KEY_E = 101,
 	KEY_ESC = 65307,
+	KEY_SHIFT = 65505,
 }	t_key;
 
 typedef struct s_coord

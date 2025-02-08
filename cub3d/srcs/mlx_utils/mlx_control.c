@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 14:32:07 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/06 15:51:36 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/08 13:43:11 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	player_walk(void)
 	cam = &ft_game()->ray.cam;
 	ref.x = cam->dir.x * game->ctl.move.x - cam->dir.y * game->ctl.move.y;
 	ref.y = cam->dir.y * game->ctl.move.x + cam->dir.x * game->ctl.move.y;
+	ref.x *= ft_game()->ctl.mv_speed;
+	ref.y *= ft_game()->ctl.mv_speed;
 	collision.x = copysign(COLISION, ref.x);
 	collision.y = copysign(COLISION, ref.y);
 	cam->pos.y += ref.y;
@@ -69,14 +71,14 @@ int	render(void)
 	t_cam	*cam;
 
 	cam = &ft_game()->ray.cam;
-	if (ft_game()->update == 0)
-		return (0);
 	ft_game()->ctl.dir_angle += ft_game()->ctl.mv_angle;
 	cam->dir.x = get_cosine(ft_game()->ctl.dir_angle);
 	cam->dir.y = -get_sine(ft_game()->ctl.dir_angle);
 	if (ft_game()->ctl.move.x != 0 || ft_game()->ctl.move.y != 0)
 		player_walk();
-	ft_game()->ctl.mv_angle = 0;
+	if (ft_game()->update == 1)
+		ft_game()->ctl.mv_angle -= ft_game()->ctl.mv_angle;
+	ft_game()->update = 0;
 	raycasting();
 	draw_minimap();
 	return (0);

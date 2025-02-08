@@ -51,7 +51,6 @@ int	key_press(int key, void *param)
 		ft_game()->ctl.mv_angle += ft_game()->ctl.rot_speed * 2;
 	if (key == KEY_RIGHT || key == KEY_E)
 		ft_game()->ctl.mv_angle += -ft_game()->ctl.rot_speed * 2;
-	ft_game()->update = 1;
 	return (0);
 }
 
@@ -66,6 +65,5 @@ int	key_release(int key, void *param)
 		ft_game()->ctl.move.y -= -ft_game()->ctl.mv_speed;
 	if (key == KEY_D && ft_game()->ctl.move.y >= 0)
 		ft_game()->ctl.move.y -= ft_game()->ctl.mv_speed;
-	ft_game()->update = 1;
 	return (0);
 }
