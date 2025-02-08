@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/07 19:44:59 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/08 12:24:54 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ void		draw_minimap(void);
 
 void		extract_map(t_game *game, char **lines);
 void		extract_textures(char **lines);
-t_texture	*extract_info_process(char **words);
+t_texture	*extract_info_process(char *line);
 
 ////// PARSING CHECKS ////// DONE
 

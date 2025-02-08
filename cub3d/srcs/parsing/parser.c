@@ -98,48 +98,40 @@ void	extract_textures(char **lines)
 {
     int			i;
     t_direction	dir;
-    char		**words;
 
     i = -1;
     while (lines[++i] != NULL)
     {
 		lines[i] = ft_strtrim(lines[i], "\n");
-		// if (is_empty_line(lines[i]))
-		// {
-		// 	free(lines[i]);
-		// 	lines[i] = ft_strdup("");
-		// 	continue ;
-		// }
+		if (is_empty_line(lines[i]))
+		{
+			lines[i] = ft_strtrim(lines[i], " \n\t\v\f\r");
+			continue ;
+		}
         dir = get_direction_struct(lines[i]) / 90;
 		if (dir == TEXTURE_SIZE)
 			break ;
-        else if (dir != TEXTURE_SIZE)
-        {
-            if (ft_game()->texture[dir] != NULL)
-                return (free_frases(lines), ft_print_err("Duplicated texture"));
-            if (ft_wordcount(lines[i], ' ') != 2)
-                return (free_frases(lines), ft_print_err("Invalid texture"));
-            words = ft_split(lines[i], ' ');
-            ft_game()->texture[dir] = extract_info_process(words);
-            free_frases(words);
-            free(lines[i]);
-            lines[i] = ft_strdup("");
-        }
+		else if (ft_game()->texture[dir] != NULL)
+			return (free_frases(lines), ft_print_err("Duplicated texture"));
+		ft_game()->texture[dir] = extract_info_process(lines[i]);
+		if (!ft_game()->texture[dir])
+			return (free_frases(lines), ft_print_err("Invalid texture"));
+		free(lines[i]);
+		lines[i] = ft_strdup("");
     }
 }
 
-t_texture	*extract_info_process(char **words)
+t_texture	*extract_info_process(char *line)
 {
 	t_texture	*texture;
-	int			i;
+	char		**words;
 
-	i = -1;
-	while (words[++i])
-		;
-	if (i != 2)
-		ft_print_err("Textures: Invalid texture format");
+	if (ft_wordcount(line, ' ') != 2)
+		return (NULL);
+	words = ft_split(line, ' ');
 	texture = (t_texture *) my_calloc(1, sizeof(t_texture));
 	texture->image_name = ft_strtrim(ft_strdup(words[0]), " \n\t\v\f\r");
 	texture->image_path = ft_strtrim(ft_strdup(words[1]), " \n\t\v\f\r");
+	free_frases(words);
 	return (texture);
 }

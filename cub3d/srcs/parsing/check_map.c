@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/07 20:16:09 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/08 11:18:11 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,8 @@ void	check_map(char **map)
 		if (y > 0 && is_empty_line(map[y]))
 			ft_print_err("Map: Empty line in map");
 		x = -1;
-		printf("map[%d] = %s\n", y, map[y]);
 		while (++x < game->map_width && map[y][x] != '\n' && map[y][x] != '\0')
 		{
-			printf("map[%d][%d] = %c is %d\n", y, x, map[y][x], map[y][x]);
 			if (!ft_strchr("10NWESDC ", map[y][x]))
 				ft_print_err("Map: Invalid character in map");
 			if (!validate_position(y, x))
