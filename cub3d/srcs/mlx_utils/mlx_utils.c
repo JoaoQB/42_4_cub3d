@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 20:20:21 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/09 12:01:07 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:55:37 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	my_pixel_put_faded(t_image *img, int x, int y, int colour, double distance)
     int		fog[3];
 	int		final[3];
 
-    // fading = 1 / (1 + pow(distance, 2) * ft_game()->ctl.fade); // Adjust the exponent as needed
-    fading = exp(-distance * ft_game()->ctl.fade); // Adjust the exponent base as needed
+    fading = exp(-distance * ft_game()->ctl.fade);
     rgb[0] = (colour >> 16) & 0xFF;
 	rgb[1] = (colour >> 8) & 0xFF;
 	rgb[2] = colour & 0xFF;

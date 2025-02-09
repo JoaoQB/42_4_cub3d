@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:29:42 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/07 10:20:39 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:15:18 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,28 @@ char	*ft_strnjoin(char *old_str, char *str_add, int size)
 	return (new_str);
 }
 
-// char	**ft_split(char *str, char c)
-// {
-// 	char	**map;
-// 	int		i;
-// 	int		j;
+char **ft_split(char *str, char c)
+{
+	char	**map;
+	int		i;
+	int		j;
 
-// 	map = (char **) my_calloc(ft_wordcount(str, c) + 1, sizeof(char *));
-// 	j = -1;
-// 	while (*str)
-// 	{
-// 		i = 0;
-// 		while (*str && ft_isspaces(*str))
-// 			str++;
-// 		while (str[i] && str[i] != c)
-// 			i++;
-// 		map[++j] = ft_strnjoin(NULL, str, i);
-// 		str += i;
-// 		if (*str && *str == c)
-// 			str++;
-// 	}
-// 	return (map);
-// }
-
+	map = (char **) my_calloc(ft_wordcount(str, c) + 1, sizeof(char *));
+	j = -1;
+	while (*str)
+	{
+		i = 0;
+		while (str[i] && str[i] == c)
+			i++;
+		while (str[i] && str[i] != c)
+			i++;
+		map[++j] = ft_strnjoin(NULL, str, i);
+		str += i;
+		if (*str && *str == c)
+			str++;
+	}
+	return (map);
+}
 void	*my_calloc(int num, int size)
 {
 	void	*ptr;

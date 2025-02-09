@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:27:11 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/01/02 20:45:07 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:55:51 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,27 @@ void	ft_putstr_fd(char *str, int fd)
 	(void)ret;
 }
 
-int	ft_wordcount(const char *str, char c)
+int ft_wordcount(char *str, char c)
 {
-	size_t	i;
-	size_t	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
+	int words;
+	
+	if (!str)
+		return (0);
+	words = 1;
+	while (*str)
 	{
-		while (str[i] && c == str[i])
-			i++;
-		if (str[i] && str[i] != c)
+		// printf("words %s\n", str);
+		while (*str && *str == c)
+			str++;
+		while (*str && *str != c)
+			str++;
+		if (*str && *str == c)
 		{
-			count++;
-			while (str[i] && str[i] != c)
-				i++;
+			words++;
+			str++;
 		}
 	}
-	return (count);
+	return words;
 }
 
 int	ft_strlen(const char *str)

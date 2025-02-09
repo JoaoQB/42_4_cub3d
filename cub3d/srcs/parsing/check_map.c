@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/08 18:25:26 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:04:24 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,24 @@ bool	validate_position(int y, int x)
 	return (true);
 }
 
-//TODO rename
-bool	is_valid(int y, int x, char *valid_str)
+void	check_doors(t_game *game, char **map)
 {
-	if (is_out_of_bounds(x, y))
-		return (true);
-	if (ft_game()->map[y][x] == '\0')
-		return (true);
-	if (ft_strchr(valid_str, ft_game()->map[y][x]))
-		return (true);
-	return (false);
-}
+	int	x;
+	int	y;
 
-bool	is_empty_line(char *line)
-{
-	int i;
-
-	if (!line)
-		return (true);
-	i = 0;
-	while (line[i] && ft_strchr(" \t\r\v\f", line[i]))
-		i++;
-	if (line[i] == '\0' || line[i] == '\n')
-		return (true);
-	return (false);
+	if (!game || !map)
+		return ;
+	y = -1;
+	while (++y < game->map_height)
+	{
+		x = -1;
+		while (++x < game->map_width && map[y][x] != '\n' && map[y][x] != '\0')
+		{
+			if (map[y][x] == 'D' || map[y][x] == 'C')
+				if (!is_door_valid(map, y, x))
+					return (ft_print_err("Invalid door position"));
+		}
+	}
 }
 
 void	check_map(char **map)

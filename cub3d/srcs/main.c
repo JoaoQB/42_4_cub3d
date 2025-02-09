@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:52 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/07 11:12:06 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:08:00 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,56 +23,10 @@ void	init_game(char *file_path)
 {
 	init_control();
 	init_parsing(file_path);
-	init_mlx();
 	init_texture(ft_game());
+	init_mlx();
 	init_ray(ft_game());
 	render();
-}
-
-int nft_wordcount(char *str, char c)
-{
-	int words;
-	
-	if (!str)
-		return (0);
-	words = 1;
-	while (*str)
-	{
-		// printf("words %s\n", str);
-		while (*str && *str == c)
-			str++;
-		while (*str && *str != c)
-			str++;
-		if (*str && *str == c)
-		{
-			words++;
-			str++;
-		}
-	}
-	return words;
-}
-
-char **ft_split(char *str, char c)
-{
-	char	**map;
-	int		i;
-	int		j;
-
-	map = (char **) my_calloc(nft_wordcount(str, c) + 1, sizeof(char *));
-	j = -1;
-	while (*str)
-	{
-		i = 0;
-		while (str[i] && str[i] == c)
-			i++;
-		while (str[i] && str[i] != c)
-			i++;
-		map[++j] = ft_strnjoin(NULL, str, i);
-		str += i;
-		if (*str && *str == c)
-			str++;
-	}
-	return (map);
 }
 
 int	main(int argc, char **argv)

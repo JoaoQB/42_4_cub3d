@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/08 12:41:16 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:55:57 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,7 +313,7 @@ double		get_tangent(int ray_angle);
 int			ft_atoi(const char *nptr);
 
 bool		ft_isspaces(char c);
-int			ft_wordcount(const char *str, char c);
+int			ft_wordcount(char *str, char c);
 
 ////// Game UTILS //////
 

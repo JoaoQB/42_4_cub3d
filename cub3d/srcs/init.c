@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/09 10:32:43 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:10:10 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ void	init_mlx(void)
 {
 	t_mlx	*mlx;
 
-	ft_game()->mlx = my_calloc(1, sizeof(t_mlx));
 	mlx = ft_game()->mlx;
-	mlx->mlx = mlx_init();
-	if (!mlx->mlx)
-		ft_print_err("MLX: not properly initialized");
 	mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "Cub3D");
 	mlx->img.img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bpp, \
@@ -85,6 +81,10 @@ void	init_texture(t_game *game)
 
 	if (!game)
 		return ;
+	game->mlx = my_calloc(1, sizeof(t_mlx));
+	game->mlx->mlx = mlx_init();
+	if (!game->mlx->mlx)
+		ft_print_err("MLX: not properly initialized");
 	i = -1;
 	while (++i < WIDTH)
 		game->ray.walls[i].texture = NULL;

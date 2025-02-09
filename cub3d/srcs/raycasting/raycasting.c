@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 15:40:28 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:06:01 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
+
+void	calculate_wall_info(t_game *game, t_ray *ray)
+{
+	t_wall	*wall;
+
+	if (!game || !ray)
+		return ;
+	wall = &ray->walls[ray->id];
+	wall->ray_dist = get_wall_distance(ray);
+	wall->dir = get_wall_direction(ray);
+	wall->wall_x = get_wall_x(ray);
+	if (wall->ray_dist == -1)
+		wall->height = 0;
+	else
+		wall->height = (int)(ray->cam.height / wall->ray_dist) / SCALE;
+	wall->half_height = wall->height / 2;
+	wall->top = game->ray.cam.h_height - wall->half_height;
+	if (wall->top < 0)
+		wall->top = 0;
+	wall->bottom = game->ray.cam.h_height + wall->half_height;
+	if (wall->bottom >= HEIGHT)
+		wall->bottom = HEIGHT - 1;
+	if (game->map[(int)ray->grid_y][(int)ray->grid_x] == 'D')
+		wall->texture = game->door;
+	else
+		wall->texture = game->texture[wall->dir];
+	wall->tex_x = get_texture_x(ray, wall);
+}
 
 static void	start_ray(t_ray *ray, int ray_id)
 {
@@ -57,34 +85,6 @@ static void	aim_ray(t_ray *ray)
 		ray->step.y = 1;
 		ray->delta.y = (ray->grid_y + 1.0 - ray->cam.pos.y) * ray->next.y;
 	}
-}
-
-void	calculate_wall_info(t_game *game, t_ray *ray)
-{
-	t_wall	*wall;
-
-	if (!game || !ray)
-		return ;
-	wall = &ray->walls[ray->id];
-	wall->ray_dist = get_wall_distance(ray);
-	wall->dir = get_wall_direction(ray);
-	wall->wall_x = get_wall_x(ray);
-	if (wall->ray_dist == -1)
-		wall->height = 0;
-	else
-		wall->height = (int)(ray->cam.height / wall->ray_dist) / SCALE;
-	wall->half_height = wall->height / 2;
-	wall->top = game->ray.cam.h_height - wall->half_height;
-	if (wall->top < 0)
-		wall->top = 0;
-	wall->bottom = game->ray.cam.h_height + wall->half_height;
-	if (wall->bottom >= HEIGHT)
-		wall->bottom = HEIGHT - 1;
-	if (game->map[(int)ray->grid_y][(int)ray->grid_x] == 'D')
-		wall->texture = game->door;
-	else
-		wall->texture = game->texture[wall->dir];
-	wall->tex_x = get_texture_x(ray, wall);
 }
 
 void	cast_ray(t_game*game, t_ray *ray, char *str_block)

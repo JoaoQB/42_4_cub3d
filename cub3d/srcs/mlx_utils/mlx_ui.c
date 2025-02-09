@@ -32,7 +32,7 @@ void toggle_mouse(void)
 	}
 	else
 	{
-		result = mlx_mouse_hide(game->mlx->mlx, game->mlx->win);
+		mlx_mouse_hide(game->mlx->mlx, game->mlx->win);
 	}
 }
 

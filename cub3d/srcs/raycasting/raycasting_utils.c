@@ -6,23 +6,11 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:24:15 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:56:24 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:06:48 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool	is_out_of_bounds(int x, int y)
-{
-	t_game	*game;
-
-	game = ft_game();
-	if (x < 0 || x >= game->map_width)
-		return (true);
-	if (y < 0 || y >= game->map_height)
-		return (true);
-	return (false);
-}
 
 double	get_wall_distance(t_ray *ray)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
+#    By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2025/02/06 15:51:18 by jqueijo-         ###   ########.fr        #
+#    Updated: 2025/02/09 16:43:39 by fandre-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,26 +36,27 @@ VALGRIND = --leak-chek=full --show-leak-kinds=all --track-origin=yes --track-fds
 MLX_LIB	= $(MLX)/libmlx_Linux.a
 MLX_LNK	= -L$(MLX) -lmlx -lXext -lX11 -lm -lz
 
-SRCS := init.c \
-		main.c \
-		raycasting/raycasting_utils.c \
-		raycasting/raycasting.c \
-		parsing/parser.c \
-		parsing/parsing_utils.c \
-		parsing/check_map.c \
-		debug.c \
-		ft_free.c \
-		utils/utils.c \
-		utils/raycasting_trign_utils.c \
-		utils/utils_str_2.c \
-		utils/utils_alloc.c \
-		utils/utils_str.c \
-		mlx_utils/mlx_door.c \
-		mlx_utils/mlx_utils.c \
-		mlx_utils/mlx_control.c \
-		mlx_utils/mlx_ui.c \
-		mlx_utils/mlx_draw.c \
-		mlx_utils/mlx_minimap.c
+SRCS := ./init.c \
+		./main.c \
+		./raycasting/raycasting_utils.c \
+		./raycasting/raycasting.c \
+		./parsing/parser.c \
+		./parsing/parsing_utils.c \
+		./parsing/check_map.c \
+		./debug.c \
+		./ft_free.c \
+		./utils/utils.c \
+		./utils/raycasting_trign_utils.c \
+		./utils/utils_str_2.c \
+		./utils/utils_alloc.c \
+		./utils/utils_str.c \
+		./utils/game_utils.c \
+		./mlx_utils/mlx_door.c \
+		./mlx_utils/mlx_utils.c \
+		./mlx_utils/mlx_minimap.c \
+		./mlx_utils/mlx_control.c \
+		./mlx_utils/mlx_ui.c \
+		./mlx_utils/mlx_draw.c \
 
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
 # OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c \=.o))

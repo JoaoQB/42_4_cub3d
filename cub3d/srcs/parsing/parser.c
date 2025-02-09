@@ -26,21 +26,6 @@ void	get_map_dimensions(char **lines)
 	}
 }
 
-// void	trim_map(char **map)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	*line;
-
-// 	i = -1;
-// 	while (map[++i] != NULL)
-// 	{
-// 		//i want to trim parts at the start and end of the file that
-// 		//are empty lines
-
-// 	}
-// }
-
 void	extract_map(t_game *game, char **lines)
 {
 	int		i;
@@ -64,35 +49,20 @@ void	extract_map(t_game *game, char **lines)
 	game->map = map;
 }
 
+t_texture	*extract_info_process(char *line)
+{
+	t_texture	*texture;
+	char		**words;
 
-
-// void	extract_textures(char **lines)
-// {
-// 	int			i;
-// 	t_direction	dir;
-// 	char		**words;
-
-// 	i = -1;
-// 	while (lines[++i] != NULL)
-// 	{
-// 		dir = get_direction_struct(lines[i]) / 90;
-// 		lines[i] = ft_strtrim(lines[i], "\n");
-// 		if (dir == TEXTURE_SIZE)
-// 			break ;
-// 		if (ft_game()->texture[dir] != NULL)
-// 			return (free_frases(lines), ft_print_err("Duplicated texture"));
-// 		if (dir != TEXTURE_SIZE)
-// 		{
-// 			if (ft_wordcount(lines[i], ' ') != 2)
-// 				return (free_frases(lines), ft_print_err("Invalid texture"));
-// 			words = ft_split(lines[i], ' ');
-// 			ft_game()->texture[dir] = extract_info_process(words);
-// 			free_frases(words);
-// 			free(lines[i]);
-// 			lines[i] = ft_strdup("");
-// 		}
-// 	}
-// }
+	if (ft_wordcount(line, ' ') != 2)
+		return (NULL);
+	words = ft_split(line, ' ');
+	texture = (t_texture *) my_calloc(1, sizeof(t_texture));
+	texture->image_name = ft_strtrim(ft_strdup(words[0]), " \n\t\v\f\r");
+	texture->image_path = ft_strtrim(ft_strdup(words[1]), " \n\t\v\f\r");
+	free_frases(words);
+	return (texture);
+}
 
 void	extract_textures(char **lines)
 {
@@ -119,19 +89,4 @@ void	extract_textures(char **lines)
 		free(lines[i]);
 		lines[i] = ft_strdup("");
     }
-}
-
-t_texture	*extract_info_process(char *line)
-{
-	t_texture	*texture;
-	char		**words;
-
-	if (ft_wordcount(line, ' ') != 2)
-		return (NULL);
-	words = ft_split(line, ' ');
-	texture = (t_texture *) my_calloc(1, sizeof(t_texture));
-	texture->image_name = ft_strtrim(ft_strdup(words[0]), " \n\t\v\f\r");
-	texture->image_path = ft_strtrim(ft_strdup(words[1]), " \n\t\v\f\r");
-	free_frases(words);
-	return (texture);
 }
