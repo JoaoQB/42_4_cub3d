@@ -1,52 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_str_2.c                                      :+:      :+:    :+:   */
+/*   utils_str_mod.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 20:45:22 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/08 18:25:06 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:25:55 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*ft_strchr(char *s, int c)
+int	ft_atoi(const char *nptr)
 {
-	while (*s)
-	{
-		if (*s == c)
-			return (s);
-		s++;
-	}
-	return (NULL);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	while ((*s1 && *s2) && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
-}
-
-int	ft_startswith(const char *s1, const char *s2)
-{
+	int	res;
+	int	sign;
 	int	i;
 
+	res = 0;
 	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			break ;
+	sign = 1;
+	while (ft_isspaces(nptr[i]))
 		i++;
-	}
-	if (s2[i] == '\0')
-		return (0);
-	return (1);
+	if (nptr[i] == '-' || nptr[i] == '+')
+		if (nptr[i++] == '-')
+			sign = -1;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+		res = (res * 10) + nptr[i++] - '0';
+	if (nptr[i] != '\0' && (nptr[i] < '0' || nptr[i] > '9'))
+		errno = EINVAL;
+	return (res * sign);
 }
 
 char	*ft_strtrim(char *str, char *trim_str)
@@ -70,6 +54,54 @@ char	*ft_strtrim(char *str, char *trim_str)
 		return (free(str), NULL);
 	ft_strlcpy(result, start, len);
 	return (free(str), result);
+}
+
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+{
+	size_t	count;
+
+	if (!dest || !src)
+		return (0);
+	if (size == 0)
+		return (ft_strlen(src));
+	count = 0;
+	while (src[count] != '\0' && count < (size - 1))
+	{
+		dest[count] = src[count];
+		count++;
+	}
+	dest[count] = '\0';
+	return (ft_strlen(src));
+}
+
+char	*ft_strcat(char *dest, const char *src)
+{
+	char	*dest_end;
+
+	dest_end = dest;
+	while (*dest_end != '\0')
+		dest_end++;
+	while (*src != '\0')
+	{
+		*dest_end = *src;
+		dest_end++;
+		src++;
+	}
+	*dest_end = '\0';
+	return (dest);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		*((char *)s + i) = c;
+		i++;
+	}
+	return (s);
 }
 
 // char *ft_strtrim(char *str, char *set)

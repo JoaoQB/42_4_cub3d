@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/09 16:56:02 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:40:12 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,6 @@ typedef struct s_coord
 	double	y;
 }	t_coord;
 
-typedef struct s_cam
-{
-	double	fov;
-	double	hfov;
-	double	width;
-	double	height;
-	double	h_height;
-	t_coord	pos;
-	t_coord	dir;
-	t_coord	plane;
-}	t_cam;
-
 typedef struct s_image
 {
 	void	*img;
@@ -119,11 +107,6 @@ typedef struct s_image
 	int		height;
 }	t_image;
 
-/*
-** image_name: NO SO WE EA C F
-** image_data: if path, extract to this format
-** colour:	   if no path, try fill with colour
-*/
 typedef struct s_texture
 {
 	char	*image_name;
@@ -131,13 +114,6 @@ typedef struct s_texture
 	t_image	*image_data;
 	int		colour;
 }	t_texture;
-
-typedef struct s_mlx
-{
-	void	*mlx;
-	void	*win;
-	t_image	img;
-}	t_mlx;
 
 typedef struct s_wall
 {
@@ -151,6 +127,18 @@ typedef struct s_wall
 	int			tex_x;
 	t_texture	*texture;
 }	t_wall;
+
+typedef struct s_cam
+{
+	double	fov;
+	double	hfov;
+	double	width;
+	double	height;
+	double	h_height;
+	t_coord	pos;
+	t_coord	dir;
+	t_coord	plane;
+}	t_cam;
 
 typedef struct s_ray
 {
@@ -181,12 +169,19 @@ typedef struct s_control
 	double		fade;
 }	t_control;
 
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	t_image	img;
+}	t_mlx;
+
 typedef struct s_game
 {
 	t_mlx		*mlx;
 	t_control	ctl;
 	t_ray		ray;
-	t_texture	*texture[TEXTURE_SIZE]; // NO SO WE EA C F
+	t_texture	*texture[TEXTURE_SIZE];
 	t_texture	*door;
 	char		**map;
 	int			map_width;
@@ -227,15 +222,18 @@ void		free_game(void);
 ////// MLX = USER Interface //////	mlx_ui.c
 
 int			handle_close(void *param);
-void		toggle_fade(void);
-void		toggle_mouse(void);
 int			handle_mouse(int button, int x, int y, void *param);
 int			key_press(int key, void *param);
 int			key_release(int key, void *param);
 
+////// TOGGLE CONTROLS //////		mlx_control_toggle.c
+
+void		toggle_fade(void);
+void		toggle_mouse(void);
+void		door_switch(t_game *game);
+
 ////// GAME CONTROLS //////			mlx_control.c
 
-void		door_switch(t_game *game);
 int			mouse_moved(int x, int y, void *param);
 t_coord		get_coord(t_coord ref);
 void		player_walk(void);
@@ -243,7 +241,7 @@ int			render(void);
 
 ////// MLX UTILS ////// 			mlx_utils.c
 
-void		my_pixel_put_faded(t_image *img, int x, int y, int colour, double distance);
+void	my_pixel_put_faded(int x, int y, int colour, double dist);
 void		my_pixel_put(t_image *img, int x, int y, int colour);
 int			get_colour(const char *str);
 t_image		*xpm_to_binary(char *image_path);
@@ -302,32 +300,7 @@ int			get_wall_direction(t_ray *ray);
 double		get_wall_x(t_ray *ray);
 int			get_texture_x(t_ray *ray, t_wall *wall);
 
-// ********************************
-// ************** UTILS ***********
-// ********************************
-
-////// UTILS //////
-
-int			ft_strlen(const char *str);
-bool		is_empty_line(char *line);
-
-char		*ft_strchr(char *s, int c);
-int			ft_strcmp(const char *s1, const char *s2);
-int			ft_startswith(const char *s1, const char *s2);
-
-char		*ft_strtrim(char *str, char *trim_str);
-size_t		ft_strlcpy(char *dest, const char *src, size_t size);
-char		*ft_strcat(char *dest, const char *src);
-
-//////// MEMORY ////////
-
-void		*ft_memset(void *s, int c, size_t n);
-void		*my_calloc(int num, int size);
-char		*ft_strdup(char *str);
-char		*ft_strnjoin(char *old_str, char *str_add, int size);
-char		**ft_split(char *str, char c);
-
-//////// MATH ////////
+//////// TRIGNOMETRY ////////		trigonometry.c
 
 int			normalize_angle(int angle);
 double		get_radiant(int ray_angle);
@@ -335,11 +308,39 @@ double		get_cosine(int ray_angle);
 double		get_sine(int ray_angle);
 double		get_tangent(int ray_angle);
 
-int			ft_atoi(const char *nptr);
+// ********************************
+// ************** UTILS ***********
+// ********************************
+
+////// STRING UTILS //////			utils_str.c
+
+int			ft_strlen(const char *str);
+bool		is_empty_line(char *line);
 bool		ft_isspaces(char c);
 int			ft_wordcount(char *str, char c);
 
-////// Game UTILS //////
+////// STRING SEARCH //////			utils_str_search.c
+
+char		*ft_strchr(char *s, int c);
+int			ft_strcmp(const char *s1, const char *s2);
+int			ft_startswith(const char *s1, const char *s2);
+
+////// STRING MOD //////			utils_str_mod.c
+
+int			ft_atoi(const char *nptr);
+char		*ft_strtrim(char *str, char *trim_str);
+size_t		ft_strlcpy(char *dest, const char *src, size_t size);
+char		*ft_strcat(char *dest, const char *src);
+void		*ft_memset(void *s, int c, size_t n);
+
+//////// MEMORY ////////			utils_alloc.c
+
+void		*my_calloc(int num, int size);
+char		*ft_strdup(char *str);
+char		*ft_strnjoin(char *old_str, char *str_add, int size);
+char		**ft_split(char *str, char c);
+
+////// Game UTILS //////			utils_game.c
 
 void		ft_putstr_fd(char *str, int fd);
 void		ft_print_err(char *str);

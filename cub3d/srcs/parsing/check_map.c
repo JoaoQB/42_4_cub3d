@@ -6,18 +6,16 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/09 16:04:24 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:40:36 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// BONUS CHANGE ADDED D
 bool	validate_position(int y, int x)
 {
 	if (ft_strchr("1 ", ft_game()->map[y][x]))
 		return (true);
-	// tem de validar
 	if (is_valid(y - 1, x, " ") || is_valid(y + 1, x, " "))
 		return (false);
 	if (is_valid(y, x - 1, " ") || is_valid(y, x + 1, " "))

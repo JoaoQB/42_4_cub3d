@@ -6,21 +6,21 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 20:20:21 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/09 15:55:37 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:41:21 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	my_pixel_put_faded(t_image *img, int x, int y, int colour, double distance)
+void	my_pixel_put_faded(int x, int y, int colour, double dist)
 {
-    double	fading;
-    int		rgb[3];
-    int		fog[3];
+	double	fading;
+	int		rgb[3];
+	int		fog[3];
 	int		final[3];
 
-    fading = exp(-distance * ft_game()->ctl.fade);
-    rgb[0] = (colour >> 16) & 0xFF;
+	fading = exp(-dist * ft_game()->ctl.fade);
+	rgb[0] = (colour >> 16) & 0xFF;
 	rgb[1] = (colour >> 8) & 0xFF;
 	rgb[2] = colour & 0xFF;
 	fog[0] = (BLACK_COLOR >> 16) & 0xFF;
@@ -30,7 +30,7 @@ void	my_pixel_put_faded(t_image *img, int x, int y, int colour, double distance)
 	final[1] = (int)(rgb[1] * fading + fog[1] * (1 - fading));
 	final[2] = (int)(rgb[2] * fading + fog[2] * (1 - fading));
 	fading = (final[0] << 16) | (final[1] << 8) | final[2];
-	my_pixel_put(img, x, y, fading);    
+	my_pixel_put(&ft_game()->mlx->img, x, y, fading);
 }
 
 void	my_pixel_put(t_image *img, int x, int y, int colour)

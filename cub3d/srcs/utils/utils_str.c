@@ -6,44 +6,11 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:27:11 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/09 16:55:51 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:25:11 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_putstr_fd(char *str, int fd)
-{
-	int	ret;
-
-	if (!str)
-		return ;
-	ret = write(fd, str, ft_strlen(str));
-	(void)ret;
-}
-
-int ft_wordcount(char *str, char c)
-{
-	int words;
-	
-	if (!str)
-		return (0);
-	words = 1;
-	while (*str)
-	{
-		// printf("words %s\n", str);
-		while (*str && *str == c)
-			str++;
-		while (*str && *str != c)
-			str++;
-		if (*str && *str == c)
-		{
-			words++;
-			str++;
-		}
-	}
-	return words;
-}
 
 int	ft_strlen(const char *str)
 {
@@ -57,37 +24,46 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strcat(char *dest, const char *src)
+bool	is_empty_line(char *line)
 {
-	char	*dest_end;
+	int	i;
 
-	dest_end = dest;
-	while (*dest_end != '\0')
-		dest_end++;
-	while (*src != '\0')
-	{
-		*dest_end = *src;
-		dest_end++;
-		src++;
-	}
-	*dest_end = '\0';
-	return (dest);
+	if (!line)
+		return (true);
+	i = 0;
+	while (line[i] && ft_strchr(" \t\r\v\f", line[i]))
+		i++;
+	if (line[i] == '\0' || line[i] == '\n')
+		return (true);
+	return (false);
 }
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+int	ft_wordcount(char *str, char c)
 {
-	size_t	count;
+	int	words;
 
-	if (!dest || !src)
+	if (!str)
 		return (0);
-	if (size == 0)
-		return (ft_strlen(src));
-	count = 0;
-	while (src[count] != '\0' && count < (size - 1))
+	words = 1;
+	while (*str)
 	{
-		dest[count] = src[count];
-		count++;
+		while (*str && *str == c)
+			str++;
+		while (*str && *str != c)
+			str++;
+		if (*str && *str == c)
+		{
+			words++;
+			str++;
+		}
 	}
-	dest[count] = '\0';
-	return (ft_strlen(src));
+	return (words);
+}
+
+bool	ft_isspaces(char c)
+{
+	if (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\f'
+		|| c == '\r')
+		return (true);
+	return (false);
 }

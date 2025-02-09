@@ -12,19 +12,23 @@
 
 #include "cub3d.h"
 
-bool	is_door_valid(char **map, int y, int x)
+void	ft_putstr_fd(char *str, int fd)
 {
-	if (!map)
-		return (false);
-	if (is_out_of_bounds(x, y))
-		return (false);
-	if (is_out_of_bounds(x - 1, y) || is_out_of_bounds(x + 1, y)
-		|| is_out_of_bounds(x, y - 1) || is_out_of_bounds(x, y + 1))
-		return (false);
-	if ((map[y][x - 1] == '1' && map[y][x + 1] == '1')
-		|| (map[y - 1][x] == '1' && map[y + 1][x] == '1'))
-		return (true);
-	return (false);
+	int	ret;
+
+	if (!str)
+		return ;
+	ret = write(fd, str, ft_strlen(str));
+	(void)ret;
+}
+
+void	ft_print_err(char *str)
+{
+	ft_putstr_fd("\n\nError: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
+	free_game();
+	exit(1);
 }
 
 bool	is_valid(int y, int x, char *valid_str)
@@ -38,16 +42,17 @@ bool	is_valid(int y, int x, char *valid_str)
 	return (false);
 }
 
-bool	is_empty_line(char *line)
+bool	is_door_valid(char **map, int y, int x)
 {
-	int i;
-
-	if (!line)
-		return (true);
-	i = 0;
-	while (line[i] && ft_strchr(" \t\r\v\f", line[i]))
-		i++;
-	if (line[i] == '\0' || line[i] == '\n')
+	if (!map)
+		return (false);
+	if (is_out_of_bounds(x, y))
+		return (false);
+	if (is_out_of_bounds(x - 1, y) || is_out_of_bounds(x + 1, y)
+		|| is_out_of_bounds(x, y - 1) || is_out_of_bounds(x, y + 1))
+		return (false);
+	if ((map[y][x - 1] == '1' && map[y][x + 1] == '1')
+		|| (map[y - 1][x] == '1' && map[y + 1][x] == '1'))
 		return (true);
 	return (false);
 }

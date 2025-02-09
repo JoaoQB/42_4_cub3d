@@ -66,19 +66,19 @@ t_texture	*extract_info_process(char *line)
 
 void	extract_textures(char **lines)
 {
-    int			i;
-    t_direction	dir;
+	t_direction	dir;
+	int			i;
 
-    i = -1;
-    while (lines[++i] != NULL)
-    {
+	i = -1;
+	while (lines[++i] != NULL)
+	{
 		lines[i] = ft_strtrim(lines[i], "\n");
 		if (is_empty_line(lines[i]))
 		{
 			lines[i] = ft_strtrim(lines[i], " \n\t\v\f\r");
 			continue ;
 		}
-        dir = get_direction_struct(lines[i]) / 90;
+		dir = get_direction_struct(lines[i]) / 90;
 		if (dir == TEXTURE_SIZE)
 			break ;
 		else if (ft_game()->texture[dir] != NULL)
@@ -88,5 +88,5 @@ void	extract_textures(char **lines)
 			return (free_frases(lines), ft_print_err("Invalid texture"));
 		free(lines[i]);
 		lines[i] = ft_strdup("");
-    }
+	}
 }

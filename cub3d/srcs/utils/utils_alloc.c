@@ -6,23 +6,21 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:29:42 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/09 15:15:18 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:23:50 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+void	*my_calloc(int num, int size)
 {
-	size_t	i;
+	void	*ptr;
 
-	i = 0;
-	while (i < n)
-	{
-		*((char *)s + i) = c;
-		i++;
-	}
-	return (s);
+	ptr = malloc(num * size);
+	if (!ptr)
+		return (NULL);
+	ft_memset(ptr, 0, num * size);
+	return (ptr);
 }
 
 char	*ft_strdup(char *str)
@@ -60,7 +58,7 @@ char	*ft_strnjoin(char *old_str, char *str_add, int size)
 	return (new_str);
 }
 
-char **ft_split(char *str, char c)
+char	**ft_split(char *str, char c)
 {
 	char	**map;
 	int		i;
@@ -81,14 +79,4 @@ char **ft_split(char *str, char c)
 			str++;
 	}
 	return (map);
-}
-void	*my_calloc(int num, int size)
-{
-	void	*ptr;
-
-	ptr = malloc(num * size);
-	if (!ptr)
-		return (NULL);
-	ft_memset(ptr, 0, num * size);
-	return (ptr);
 }

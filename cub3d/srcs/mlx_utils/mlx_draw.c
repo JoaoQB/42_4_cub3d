@@ -34,7 +34,7 @@ void	draw_minimap(void)
 	int		j;
 	t_coord	curr_pos;
 	t_coord	player_pos;
-	
+
 	curr_pos = ft_game()->ray.cam.pos;
 	i = -1;
 	while (++i <= 160)
@@ -74,7 +74,7 @@ void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 		color = *(unsigned int *)(data->addr + tex_y * data->len_line
 				+ wall->tex_x * (data->bpp / 8));
 		if (ft_game()->ctl.fade)
-			my_pixel_put_faded(&game->mlx->img, x, y, color, wall->ray_dist);
+			my_pixel_put_faded(x, y, color, wall->ray_dist);
 		else
 			my_pixel_put(&game->mlx->img, x, y, color);
 		y++;
