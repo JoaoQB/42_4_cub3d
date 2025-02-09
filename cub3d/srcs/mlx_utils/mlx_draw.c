@@ -33,7 +33,10 @@ void	draw_text_line(t_game *game, t_wall *wall, t_image *data, int x)
 		tex_pos += step;
 		color = *(unsigned int *)(data->addr + tex_y * data->len_line
 				+ wall->tex_x * (data->bpp / 8));
-		my_pixel_put(&game->mlx->img, x, y, color);
+		if (ft_game()->ctl.fade)
+			my_pixel_put_faded(&game->mlx->img, x, y, color, wall->ray_dist);
+		else
+			my_pixel_put(&game->mlx->img, x, y, color);
 		y++;
 	}
 }
@@ -57,9 +60,7 @@ void	draw_walls(t_game *game)
 			draw_text_line(game, wall, image_data, i);
 		}
 		else
-		{
-			draw_solid_line(i, wall->top, wall->bottom, RED_COLOR);
-		}
+			draw_solid_line(i, wall->top, wall->bottom, wall->texture->colour);
 		draw_solid_line(i, wall->bottom, HEIGHT, ft_game()->texture[4]->colour);
 		i++;
 	}

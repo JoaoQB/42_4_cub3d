@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/08 18:45:40 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:02:02 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define ROTATION_SPEED 1 //~2
 # define SCALE 2
 # define MINIMAP_SCALE 0.2
+# define FADE 0.5
 
 // Minimap Colors
 # define RED_COLOR 0xFF0000 // Red color
@@ -49,6 +50,7 @@
 # define CYAN_COLOR 0x00FFFF // Cyan color
 # define BROWN_COLOR 0xA52A2A // Brown color
 # define GREY_COLOR 0x808080 // Grey color
+# define GREEN_COLOR 0x00FF00 // Green color
 
 typedef enum WALL_TEXTURE
 {
@@ -84,6 +86,8 @@ typedef enum KEY
 	KEY_E = 101,
 	KEY_ESC = 65307,
 	KEY_SHIFT = 65505,
+	KEY_F = 102,
+	KEY_M = 109
 }	t_key;
 
 typedef struct s_coord
@@ -174,6 +178,7 @@ typedef struct s_control
 	double		mv_speed;
 	double		rot_speed;
 	double		map_scale;
+	double		fade;
 }	t_control;
 
 typedef struct s_game
@@ -335,7 +340,7 @@ void		print_all_textures(t_game *game);
 void		print_map(char **double_array);
 
 char **ft_split(char *str, char c);
+void	my_pixel_put_faded(t_image *img, int x, int y, int colour, double distance);
 bool	is_empty_line(char *line);
-
 
 #endif

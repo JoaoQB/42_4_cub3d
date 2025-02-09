@@ -20,6 +20,35 @@ int	handle_close(void *param)
 	return (0);
 }
 
+void toggle_mouse(void)
+{
+	t_game	*game;
+	static bool	hidden;
+
+	game = ft_game();
+	if (hidden)
+	{
+		mlx_mouse_show(game->mlx->mlx, game->mlx->win);
+	}
+	else
+	{
+		result = mlx_mouse_hide(game->mlx->mlx, game->mlx->win);
+	}
+}
+
+void toggle_fade(void)
+{
+	t_game	*game;
+	static bool	fading;
+
+	game = ft_game();
+	if (fading)
+		game->ctl.fade = 0;
+	else
+		game->ctl.fade = FADE;
+	fading = !fading;
+}
+
 int	handle_mouse(int button, int x, int y, void *param)
 {
 	(void) param;
@@ -33,10 +62,10 @@ int	handle_mouse(int button, int x, int y, void *param)
 int	key_press(int key, void *param)
 {
 	(void) param;
-	if (key == 104)
-		mlx_mouse_hide(ft_game()->mlx->mlx, ft_game()->mlx->win);
-	if (key == 106)
-		mlx_mouse_show(ft_game()->mlx->mlx, ft_game()->mlx->win);
+	if (key == KEY_M)
+		toggle_mouse();
+	if (key == KEY_F)
+		toggle_fade();
 	if (key == KEY_ESC)
 		handle_close(NULL);
 	if (key == KEY_W && ft_game()->ctl.move.x <= 0)

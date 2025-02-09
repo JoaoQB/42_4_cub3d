@@ -6,45 +6,33 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 20:20:21 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/07 12:39:37 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:01:07 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// void	my_pixel_put(t_image *img, int x, int y, int colour, double distance)
-// {
-//     int		offset;
-//     double	fading;
-//     int		r, g, b;
-//     int		fog_r, fog_g, fog_b;
-//     int		final_r, final_g, final_b;
-//     int		fog_colour = 0xAAAAAA; // Light gray fog color, adjust as needed
+void	my_pixel_put_faded(t_image *img, int x, int y, int colour, double distance)
+{
+    double	fading;
+    int		rgb[3];
+    int		fog[3];
+	int		final[3];
 
-//     // Calculate fading factor based on distance
-//     fading = 1 / (1 + distance * 0.1); // Adjust the multiplier as needed
-
-//     // Extract RGB components from the original color
-//     r = (colour >> 16) & 0xFF;
-//     g = (colour >> 8) & 0xFF;
-//     b = colour & 0xFF;
-
-//     // Extract RGB components from the fog color
-//     fog_r = (fog_colour >> 16) & 0xFF;
-//     fog_g = (fog_colour >> 8) & 0xFF;
-//     fog_b = fog_colour & 0xFF;
-
-//     // Blend the original color with the fog color based on the fading factor
-//     final_r = (int)(r * fading + fog_r * (1 - fading));
-//     final_g = (int)(g * fading + fog_g * (1 - fading));
-//     final_b = (int)(b * fading + fog_b * (1 - fading));
-
-//     // Combine the components back into a single color
-//     colour = (final_r << 16) | (final_g << 8) | final_b;
-
-//     offset = (y * img->len_line) + (x * (img->bpp / 8));
-//     *(unsigned int *)(img->addr + offset) = colour;
-// }
+    // fading = 1 / (1 + pow(distance, 2) * ft_game()->ctl.fade); // Adjust the exponent as needed
+    fading = exp(-distance * ft_game()->ctl.fade); // Adjust the exponent base as needed
+    rgb[0] = (colour >> 16) & 0xFF;
+	rgb[1] = (colour >> 8) & 0xFF;
+	rgb[2] = colour & 0xFF;
+	fog[0] = (BLACK_COLOR >> 16) & 0xFF;
+	fog[1] = (BLACK_COLOR >> 8) & 0xFF;
+	fog[2] = BLACK_COLOR & 0xFF;
+	final[0] = (int)(rgb[0] * fading + fog[0] * (1 - fading));
+	final[1] = (int)(rgb[1] * fading + fog[1] * (1 - fading));
+	final[2] = (int)(rgb[2] * fading + fog[2] * (1 - fading));
+	fading = (final[0] << 16) | (final[1] << 8) | final[2];
+	my_pixel_put(img, x, y, fading);    
+}
 
 void	my_pixel_put(t_image *img, int x, int y, int colour)
 {

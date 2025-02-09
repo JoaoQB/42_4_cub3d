@@ -6,7 +6,7 @@
 /*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/07 12:39:33 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/09 10:32:43 by fandre-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	init_control(void)
 	ft_game()->ctl.rot_speed = ROTATION_SPEED;
 	ft_game()->ctl.pos.y = -1;
 	ft_game()->ctl.pos.x = -1;
+	ft_game()->ctl.fade = 0;
 	ft_game()->ctl.angle = UNKNOWN;
 }
 
