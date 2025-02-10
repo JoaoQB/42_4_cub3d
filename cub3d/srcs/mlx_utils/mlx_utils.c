@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 20:20:21 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/09 18:41:21 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:11:47 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	get_colour(const char *str)
 	colour = 0;
 	while (*str && ft_isspaces(*str))
 		str++;
-	rgb = ft_split((char *)str, ',');
 	if (ft_wordcount((char *)str, ',') != 3)
 		return (-1);
+	rgb = ft_split((char *)str, ',');
 	i = -1;
 	colour = 0;
 	while (rgb[++i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/08 18:27:28 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:12:00 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	export_textures(t_texture *texture)
 		{
 			texture->colour = get_colour(texture->image_path);
 			if (texture->colour == -1)
-				ft_print_err("File: Failed to load image or colour\n");
+				ft_print_err("File1: Failed to load image or colour\n");
 		}
 	}
 	else
