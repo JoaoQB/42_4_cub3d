@@ -6,12 +6,13 @@
 #    By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2025/02/09 18:44:03 by fandre-b         ###   ########.fr        #
+#    Updated: 2025/02/10 14:40:20 by fandre-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # TODO extract minilibx-linux to includes?
 NAME = cub3d
+BONUS_NAME = bonus_cub3d
 
 # Colors
 GREEN = \033[0;32m
@@ -64,6 +65,8 @@ OBJS = $(SRCS_PATH:%.c=$(OBJ_DIR)/%.o)
 
 all:	$(NAME)
 
+bonus:	$(BONUS_NAME)
+
 $(MLX_LIB):
 	-make -s -C $(MLX)
 
@@ -75,6 +78,11 @@ $(OBJ_DIR)/%.o: %.c
 $(NAME):	$(OBJS) $(MLX_LIB) $(INCLUDES_DIR)/cub3d.h
 	@echo "$(YELLOW)Building program...$(NC)"
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_LNK)
+	@echo "$(GREEN)Build successful!$(NC)"
+
+$(BONUS_NAME):	$(OBJS) $(MLX_LIB) $(INCLUDES_DIR)/cub3d.h
+	@echo "$(YELLOW)Building program...$(NC)"
+	$(CC) $(CFLAGS) $(OBJS) -o $(BONUS_NAME) $(MLX_LNK)
 	@echo "$(GREEN)Build successful!$(NC)"
 
 valgrind: CFLAGS += -g
@@ -94,6 +102,7 @@ fclean:	clean
 	@echo "$(YELLOW)Cleaning executable...$(NC)"
 	-make -s -C $(MLX) clean
 	$(RM) $(NAME)
+	$(RM) $(BONUS_NAME)
 
 
 re:	fclean all
