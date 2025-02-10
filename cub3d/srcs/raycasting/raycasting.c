@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:46 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/09 16:06:01 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:46:50 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ void	cast_ray(t_game*game, t_ray *ray, char *str_block)
 
 void	raycasting(void)
 {
+	int		i;
 	t_game	*game;
 	t_ray	*ray;
-	int		i;
 
 	game = ft_game();
 	if (!game)

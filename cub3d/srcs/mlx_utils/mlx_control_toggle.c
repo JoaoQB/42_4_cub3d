@@ -26,6 +26,7 @@ void	toggle_mouse(void)
 	{
 		mlx_mouse_hide(game->mlx->mlx, game->mlx->win);
 	}
+	hidden = !hidden;
 }
 
 void	toggle_fade(void)
