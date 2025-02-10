@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/10 15:12:00 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:55:05 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ char	*file_to_str(char *file_name)
 	int		bytes;
 	int		fd;
 
+	file_str = file_name + ft_strlen(file_name) - 4;
+	if (ft_strcmp(file_str, ".cub"))
+		ft_print_err("File: does not finishes with .cub");
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		ft_print_err("Error opening file");
@@ -78,6 +81,7 @@ bool	get_player_direction(int y, int x)
 		ft_print_err("Invalid player direction");
 	ft_game()->ctl.pos.x = x + 0.5;
 	ft_game()->ctl.pos.y = y + 0.5;
+	ft_game()->ctl.dir_angle = ft_game()->ctl.angle;
 	return (true);
 }
 
