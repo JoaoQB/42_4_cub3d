@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/09 17:10:10 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:06:34 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	init_parsing(char *file_path)
 	char	*file_str;
 
 	file_str = file_to_str(file_path);
+	if (!file_str)
+		ft_print_err("Parsing: Failed to read map file");
 	lines = ft_split(file_str, '\n');
 	free(file_str);
 	extract_textures(lines);

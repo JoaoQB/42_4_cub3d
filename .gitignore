@@ -3,3 +3,5 @@ debug*
 /cub3d/cub3d
 *.o
 /cub3d/obj
+cub3d
+bonus_cub3d
