@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:27:11 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/09 18:25:11 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:04:43 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ bool	is_empty_line(char *line)
 	if (!line)
 		return (true);
 	i = 0;
-	while (line[i] && ft_strchr(" \t\r\v\f", line[i]))
+	while (line[i] && ft_strchr(" \t\r\v\f\n", line[i]))
 		i++;
-	if (line[i] == '\0' || line[i] == '\n')
+	if (line[i] == '\0')
 		return (true);
 	return (false);
 }
