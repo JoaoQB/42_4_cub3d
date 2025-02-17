@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/10 15:06:34 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:13:46 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	init_parsing(char *file_path)
 	char	**lines;
 	char	*file_str;
 
+	if (!is_cub_file(file_path))
+		ft_print_err("Parsing: File is not .cub");
 	file_str = file_to_str(file_path);
 	if (!file_str)
 		ft_print_err("Parsing: Failed to read map file");

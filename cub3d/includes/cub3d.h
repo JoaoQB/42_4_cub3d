@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/09 18:40:12 by fandre-b         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:13:36 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,7 @@ t_texture	*extract_info_process(char *line);
 
 ////// PARSING UTILS //////			parsing_utils.c
 
+bool		is_cub_file(char *file_path);
 char		*file_to_str(char *file_name);
 t_direction	get_direction_struct(const char *str);
 bool		get_player_direction(int y, int x);

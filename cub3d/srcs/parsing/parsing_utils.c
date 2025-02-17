@@ -6,11 +6,30 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/10 16:55:05 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:17:01 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+bool	is_cub_file(char *file_path)
+{
+	int	size;
+	int	i;
+
+	if (!file_path)
+		return (false);
+	size = ft_strlen(file_path);
+	printf("%d\n", size);
+	// .cub doesn't count. should it?
+	// should i check after last slash?
+	if (size <= 4)
+		return (false);
+	i = size - 4;
+	if (ft_strcmp(&file_path[i], ".cub"))
+		return (false);
+	return (true);
+}
 
 char	*file_to_str(char *file_name)
 {
