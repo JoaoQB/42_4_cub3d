@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/17 12:13:36 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:55:37 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ typedef struct s_control
 {
 	t_coord		pos;
 	double		dir_angle;
-	t_direction	angle;
 	t_coord		move;
 	int			mv_angle;
 	double		mv_speed;
@@ -229,7 +228,7 @@ int			key_release(int key, void *param);
 ////// TOGGLE CONTROLS //////		mlx_control_toggle.c
 
 void		toggle_fade(void);
-void		toggle_mouse(void);
+// void		toggle_mouse(void);
 void		door_switch(t_game *game);
 
 ////// GAME CONTROLS //////			mlx_control.c

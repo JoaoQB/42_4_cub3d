@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/17 12:17:01 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:54:03 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_cub_file(char *file_path)
 	if (!file_path)
 		return (false);
 	size = ft_strlen(file_path);
-	printf("%d\n", size);
+	// printf("%d\n", size);
 	// .cub doesn't count. should it?
 	// should i check after last slash?
 	if (size <= 4)
@@ -86,21 +86,20 @@ bool	get_player_direction(int y, int x)
 	c = ft_game()->map[y][x];
 	if (!ft_strchr("NWES", c))
 		return (true);
-	if (ft_game()->ctl.angle != UNKNOWN)
+	if (ft_game()->ctl.dir_angle != UNKNOWN)
 		return (false);
 	else if (c == 'N')
-		ft_game()->ctl.angle = NORTH;
+		ft_game()->ctl.dir_angle = NORTH;
 	else if (c == 'S')
-		ft_game()->ctl.angle = SOUTH;
+		ft_game()->ctl.dir_angle = SOUTH;
 	else if (c == 'E')
-		ft_game()->ctl.angle = EAST;
+		ft_game()->ctl.dir_angle = EAST;
 	else if (c == 'W')
-		ft_game()->ctl.angle = WEST;
+		ft_game()->ctl.dir_angle = WEST;
 	else
 		ft_print_err("Invalid player direction");
 	ft_game()->ctl.pos.x = x + 0.5;
 	ft_game()->ctl.pos.y = y + 0.5;
-	ft_game()->ctl.dir_angle = ft_game()->ctl.angle;
 	return (true);
 }
 

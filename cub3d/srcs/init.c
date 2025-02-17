@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/17 12:13:46 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:46:40 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	init_control(void)
 	ft_game()->ctl.pos.y = -1;
 	ft_game()->ctl.pos.x = -1;
 	ft_game()->ctl.fade = 0;
-	ft_game()->ctl.angle = UNKNOWN;
+	ft_game()->ctl.dir_angle = UNKNOWN;
 }
 
 void	init_texture(t_game *game)

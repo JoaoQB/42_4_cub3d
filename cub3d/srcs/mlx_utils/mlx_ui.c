@@ -33,8 +33,8 @@ int	handle_mouse(int button, int x, int y, void *param)
 int	key_press(int key, void *param)
 {
 	(void) param;
-	if (key == KEY_M)
-		toggle_mouse();
+	// if (key == KEY_M)
+	// 	toggle_mouse();
 	if (key == KEY_F)
 		toggle_fade();
 	if (key == KEY_ESC)
