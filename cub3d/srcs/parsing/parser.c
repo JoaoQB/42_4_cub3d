@@ -26,11 +26,31 @@ void	get_map_dimensions(char **lines)
 	}
 }
 
+void	clear_empty_lines_end(char **lines)
+{
+	int		i;
+
+	i = 0;
+	while (lines[i] != NULL)
+		i++;
+	while (--i >= 0)
+	{
+		printf("line: %s\n", lines[i]);
+		printf("empty: %d\n", is_empty_line(lines[i]));
+		if (is_empty_line(lines[i]) == 1)
+			free(lines[i]);
+		else
+			break;
+		lines[i] = NULL;
+	}
+}
+
 void	extract_map(t_game *game, char **lines)
 {
 	int		i;
 	char	**map;
 
+	clear_empty_lines_end(lines);
 	get_map_dimensions(lines);
 	map = (char **) my_calloc(game->map_height + 1, sizeof(char *));
 	i = -1;
