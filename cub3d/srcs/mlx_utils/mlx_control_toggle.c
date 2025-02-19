@@ -12,23 +12,6 @@
 
 #include "cub3d.h"
 
-// void	toggle_mouse(void)
-// {
-// 	t_game		*game;
-// 	static bool	hidden;
-
-// 	game = ft_game();
-// 	if (hidden)
-// 	{
-// 		mlx_mouse_show(game->mlx->mlx, game->mlx->win);
-// 	}
-// 	else
-// 	{
-// 		mlx_mouse_hide(game->mlx->mlx, game->mlx->win);
-// 	}
-// 	hidden = !hidden;
-// }
-
 void	toggle_fade(void)
 {
 	t_game		*game;

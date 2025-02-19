@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/19 13:44:46 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:50:43 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ bool	validate_position(int y, int x)
 
 void	check_doors(t_game *game, char **map)
 {
-	if (!ft_game()->bonus)
-		return ;
 	int	x;
 	int	y;
 
+	if (!ft_game()->bonus)
+		return ;
 	if (!game || !map)
 		return ;
 	y = -1;

@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/19 13:16:27 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:49:16 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,6 @@ int			key_release(int key, void *param);
 ////// TOGGLE CONTROLS //////		mlx_control_toggle.c
 
 void		toggle_fade(void);
-// void		toggle_mouse(void);
 void		door_switch(t_game *game);
 
 ////// GAME CONTROLS //////			mlx_control.c
@@ -241,7 +240,7 @@ int			render(void);
 
 ////// MLX UTILS ////// 			mlx_utils.c
 
-void	my_pixel_put_faded(int x, int y, int colour, double dist);
+void		my_pixel_put_faded(int x, int y, int colour, double dist);
 void		my_pixel_put(t_image *img, int x, int y, int colour);
 int			get_colour(const char *str);
 t_image		*xpm_to_binary(char *image_path);

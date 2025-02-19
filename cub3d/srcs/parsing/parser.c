@@ -40,7 +40,7 @@ void	clear_empty_lines_end(char **lines)
 		if (is_empty_line(lines[i]) == 1)
 			free(lines[i]);
 		else
-			break;
+			break ;
 		lines[i] = NULL;
 	}
 }

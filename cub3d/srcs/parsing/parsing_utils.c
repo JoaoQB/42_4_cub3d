@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:29:54 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/17 13:54:03 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:50:09 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ bool	is_cub_file(char *file_path)
 	if (!file_path)
 		return (false);
 	size = ft_strlen(file_path);
-	// printf("%d\n", size);
-	// .cub doesn't count. should it?
-	// should i check after last slash?
 	if (size <= 4)
 		return (false);
 	i = size - 4;
