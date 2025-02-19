@@ -1,7 +1,7 @@
-EA ./includes/textures/water_texture2.xpm
+EA ./includes/textures/smoke.xpm
 NO ./includes/textures/water_texture.xpm
 WE ./includes/textures/wall_blackhole.xpm
-SO ./includes/textures/wall_gold_energy.xpm
+SO ./includes/textures/wall_snow1.xpm
 F 100,100,100
 C 135,206,235
 
@@ -21,5 +21,4 @@ C 135,206,235
 111111111111111111111111111111
 11110111111101011101111010001
 11111111111111111111111111111
-
 
