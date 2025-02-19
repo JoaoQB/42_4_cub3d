@@ -6,11 +6,28 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:52:20 by fandre-b          #+#    #+#             */
-/*   Updated: 2025/02/17 17:13:10 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:44:46 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static bool	check_map_chars(int y, int x, char **map)
+{
+	if (!map)
+		return (false);
+	if (ft_game()->bonus)
+	{
+		if (!ft_strchr("10NWESDC ", map[y][x]))
+			return (false);
+	}
+	else
+	{
+		if (!ft_strchr("10NWES ", map[y][x]))
+			return (false);
+	}
+	return (true);
+}
 
 bool	validate_position(int y, int x)
 {
@@ -25,6 +42,8 @@ bool	validate_position(int y, int x)
 
 void	check_doors(t_game *game, char **map)
 {
+	if (!ft_game()->bonus)
+		return ;
 	int	x;
 	int	y;
 
@@ -59,7 +78,7 @@ void	check_map(char **map)
 		x = -1;
 		while (++x < game->map_width && map[y][x] != '\0')
 		{
-			if (!ft_strchr("10NWESDC ", map[y][x]))
+			if (!check_map_chars(y, x, map))
 				ft_print_err("Map: Invalid character in map");
 			if (!validate_position(y, x))
 				ft_print_err("Map: Of map encapsulation");

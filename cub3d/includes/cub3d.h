@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:58 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/17 13:55:37 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:16:27 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ typedef struct s_game
 	int			map_width;
 	int			map_height;
 	int			update;
+	int			bonus;
 }	t_game;
 
 // ********************************

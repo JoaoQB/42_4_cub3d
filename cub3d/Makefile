@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fandre-b <fandre-b@student.42.fr>          +#+  +:+       +#+         #
+#    By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 15:39:00 by jqueijo-          #+#    #+#              #
-#    Updated: 2025/02/10 14:40:20 by fandre-b         ###   ########.fr        #
+#    Updated: 2025/02/19 13:40:37 by jqueijo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,8 @@ MLX := ./includes/minilibx-linux
 
 # Compile flags
 RM := -@rm -rf
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -O3 #-Ofast #-g3
+CCXX = cc
+CXXFLAGS = -Wall -Werror -Wextra -O3 #-Ofast #-g3
 SANITIZE = -g -fsanitize=address
 VALGRIND = --leak-chek=full --show-leak-kinds=all --track-origin=yes --track-fds=yes
 
@@ -59,12 +59,11 @@ SRCS := ./main.c \
 		./mlx_utils/mlx_draw.c \
 
 SRCS_PATH := $(addprefix $(SRC_PATH)/, $(SRCS))
-# OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS_PATH:.c \=.o))
 OBJS = $(SRCS_PATH:%.c=$(OBJ_DIR)/%.o)
-
 
 all:	$(NAME)
 
+bonus:	fclean
 bonus:	$(BONUS_NAME)
 
 $(MLX_LIB):
@@ -73,19 +72,19 @@ $(MLX_LIB):
 $(OBJ_DIR)/%.o: %.c
 	mkdir -p $(dir $@)
 	@echo "$(RED)Compiling object file $<...$(NC)"
-	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -I$(MLX) -c $< -o $@
+	$(CCXX) $(CXXFLAGS) -I$(INCLUDES_DIR) -I$(MLX) -c $< -o $@
 
 $(NAME):	$(OBJS) $(MLX_LIB) $(INCLUDES_DIR)/cub3d.h
 	@echo "$(YELLOW)Building program...$(NC)"
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_LNK)
+	$(CCXX) $(CXXFLAGS) $(OBJS) -o $(NAME) $(MLX_LNK)
 	@echo "$(GREEN)Build successful!$(NC)"
 
 $(BONUS_NAME):	$(OBJS) $(MLX_LIB) $(INCLUDES_DIR)/cub3d.h
 	@echo "$(YELLOW)Building program...$(NC)"
-	$(CC) $(CFLAGS) $(OBJS) -o $(BONUS_NAME) $(MLX_LNK)
+	$(CCXX) $(CXXFLAGS) $(OBJS) -o $(BONUS_NAME) $(MLX_LNK)
 	@echo "$(GREEN)Build successful!$(NC)"
 
-valgrind: CFLAGS += -g
+valgrind: CXXFLAGS += -g
 valgrind: re
 	@echo "$(YELLOW)Running Valgrind...$(NC)"
 	valgrind $(VALGRIND) ./$(NAME)
@@ -107,9 +106,7 @@ fclean:	clean
 
 re:	fclean all
 
-debug: CFLAGS += $(SANITIZE)
+debug: CXXFLAGS += $(SANITIZE)
 debug: re
 
 .PHONY: all clean fclean re debug valgrind
-
-

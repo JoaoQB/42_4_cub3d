@@ -6,7 +6,7 @@
 /*   By: jqueijo- <jqueijo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:18:50 by jqueijo-          #+#    #+#             */
-/*   Updated: 2025/02/17 13:46:40 by jqueijo-         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:27:10 by jqueijo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	init_mlx(void)
 	&mlx->img.len_line, &mlx->img.endian);
 	if (!mlx->img.img || !mlx->img.addr || !mlx->win)
 		ft_print_err("MLX: not properly initialized");
-	mlx_hook(ft_game()->mlx->win, 6, 1L << 6, mouse_moved, NULL);
+	if (ft_game()->bonus)
+		mlx_hook(ft_game()->mlx->win, 6, 1L << 6, mouse_moved, NULL);
 	mlx_hook(ft_game()->mlx->win, 17, 0, handle_close, NULL);
 	mlx_hook(ft_game()->mlx->win, 2, 1L << 0, key_press, NULL);
 	mlx_hook(ft_game()->mlx->win, 3, 1L << 1, key_release, NULL);
